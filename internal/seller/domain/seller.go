@@ -1,11 +1,13 @@
 package domain
 
+import "github.com/google/uuid"
+
 type Seller struct {
-	ID           int
+	ID           uuid.UUID
 	BusinessName string
 	Email        string
 }
 
-func NewSeller(id int, businessName string, email string) *Seller {
+func NewSeller(id uuid.UUID, businessName string, email string) *Seller {
 	return &Seller{ID: id, BusinessName: businessName, Email: email}
 }
