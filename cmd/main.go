@@ -1,42 +1,45 @@
 package main
 
 import (
-	"context"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/joho/godotenv"
 	"log"
-	"os"
-
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"meliarqsoft2/config/factory"
+	"meliarqsoft2/internal/product/infrastructure/handler"
 )
 
 func main() {
-	// Configurar la conexión a MongoDB
-	clientOptions := options.Client().ApplyURI(os.Getenv("MONGODB_URI"))
-	client, err := mongo.Connect(context.Background(), clientOptions)
+	err := godotenv.Load()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Error loading .env file")
 	}
 
-	// Comprobar la conexión a la base de datos
-	err = client.Ping(context.Background(), nil)
-	if err != nil {
-		log.Fatal(err)
-	}
+	newFactory := factory.NewFactory()
 
-	fmt.Println("Conexión exitosa a MongoDB")
+	newFactory.InitMongoDB()
+
+	productHandler := newFactory.BuildProductHandler()
 
 	r := gin.Default()
+	basePath := r.Group("/api/v1")
+	productRoute := basePath.Group("/product")
+
+	configProductRoutes(productRoute, productHandler)
 	r.GET("/ping", func(c *gin.Context) {
 		newUUID, _ := uuid.NewUUID()
 		c.JSON(200, gin.H{
 			"uuid": newUUID,
 		})
 	})
+
 	otherErr := r.Run()
 	if otherErr != nil {
 		return
 	}
+}
+
+func configProductRoutes(route *gin.RouterGroup, ginHandler *handler.ProductGinHandler) {
+	route.POST("", ginHandler.Create)
+	route.GET("", ginHandler.Find)
 }

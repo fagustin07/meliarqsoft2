@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-const MongoClientTimeout = 5
+const MongoClientTimeout = 10
 
 type Factory struct {
 	dbClient *mongo.Client
@@ -43,8 +43,8 @@ func (factory *Factory) InitMongoDB() *mongo.Client {
 	return client
 }
 
-func (f *Factory) BuildProductHandler() *handler.ProductGinHandler {
-	repo := repository.NewProductMongoDBRepository(f.dbClient)
+func (factory *Factory) BuildProductHandler() *handler.ProductGinHandler {
+	repo := repository.NewProductMongoDBRepository(factory.dbClient)
 	app := application.NewProductApplication(repo)
 	return handler.NewProductGinHandler(app)
 }

@@ -9,9 +9,9 @@ type Product struct {
 	Category    string
 	Price       float32
 	Stock       int
-	IDSeller    int
+	IDSeller    uuid.UUID
 }
 
-func NewProduct(id uuid.UUID, name string, description string, category string, price float32, stock int, IDSeller int) *Product {
+func NewProduct(id uuid.UUID, name string, description string, category string, price float32, stock int, IDSeller uuid.UUID) *Product {
 	return &Product{ID: id, Name: name, Description: description, Category: category, Price: price, Stock: stock, IDSeller: IDSeller}
 }

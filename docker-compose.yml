@@ -1,18 +1,18 @@
 version: '3'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    environment:
-      MONGODB_URI: mongodb://db:27017/meli
-    ports:
-        - "8080:8080"
-    depends_on:
-        - db
-    links:
-      - db
+#  app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    environment:
+#      MONGODB_URI: mongodb://meli:meli@db:27017/meli?ssl=false&authSource=admin
+#    ports:
+#        - "8080:8080"
+#    depends_on:
+#        - db
+#    links:
+#      - db
   db:
     image: mongo
     ports:
@@ -20,16 +20,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: meli
       MONGO_INITDB_ROOT_PASSWORD: meli
-      MONGO_INITDB_DATABASE: meli # Nombre de la base de datos
+      MONGO_INITDB_DATABASE: meli
 #    volumes:
 #      - ./data:/data/db
-  # Configuración del servicio de la aplicación de Golang con Gin
-#  golang_app:
-#    build: .
-#    restart: always
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - mongodb
-#    environment:
-#      MONGODB_URI: mongodb://mongodb:27017/meli

@@ -5,8 +5,8 @@ import (
 	"meliarqsoft2/internal/product/domain"
 )
 
-type IProductService interface {
-	Create(name string, description string, price float32, stock int, idSeller int) (*domain.Product, error)
+type IProductApplication interface {
+	Create(name string, description string, category string, price float32, stock int, idSeller uuid.UUID) (*domain.Product, error)
 	Update(ID uuid.UUID, name string, description string, price float32, stock int, idSeller int) (*domain.Product, error)
 	Delete(ID uuid.UUID) error
 	Find(name string, category string) ([]*domain.Product, error)

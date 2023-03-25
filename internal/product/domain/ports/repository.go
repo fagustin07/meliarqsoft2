@@ -6,7 +6,7 @@ import (
 )
 
 type IProductRepository interface {
-	Create(ID uuid.UUID, name string, description string, price float32, stock int, idSeller int) (*domain.Product, error)
+	Create(product *domain.Product) (*domain.Product, error)
 	Update(ID uuid.UUID, name string, description string, price float32, stock int, idSeller int) (*domain.Product, error)
 	Delete(ID uuid.UUID) error
 	Find(name string, category string) ([]*domain.Product, error)

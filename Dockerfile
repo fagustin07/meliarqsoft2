@@ -5,8 +5,12 @@ FROM golang:1.17
 WORKDIR /app
 
 # copiar archivos necesarios
+COPY ./cmd ./cmd
+COPY ./internal ./internal
+COPY ./config ./config
 COPY go.mod ./
 COPY go.sum ./
+
 RUN go mod download
 
 # copiar código fuente
