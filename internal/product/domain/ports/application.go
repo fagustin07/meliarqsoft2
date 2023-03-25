@@ -1,4 +1,4 @@
-package application
+package ports
 
 import (
 	"github.com/google/uuid"
