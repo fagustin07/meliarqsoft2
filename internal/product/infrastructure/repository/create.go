@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"github.com/google/uuid"
 	"log"
 	"meliarqsoft2/internal/product/domain"
 	"time"
@@ -17,26 +16,6 @@ func (repo ProductMongoDBRepository) Create(product *domain.Product) (*domain.Pr
 	}
 
 	return mapProductToDomainModel(dbProduct), err
-}
-
-func (repo ProductMongoDBRepository) Update(ID uuid.UUID, name string, description string, price float32, stock int, idSeller int) (*domain.Product, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (repo ProductMongoDBRepository) Delete(ID uuid.UUID) error {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (repo ProductMongoDBRepository) Find(name string, category string) ([]*domain.Product, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (repo ProductMongoDBRepository) Filter(minPrice float32, maxPrice float32) ([]*domain.Product, error) {
-	//TODO implement me
-	panic("implement me")
 }
 
 func mapProductToMongoModel(product *domain.Product) *ProductModel {
