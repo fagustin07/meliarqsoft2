@@ -2,10 +2,12 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"github.com/joho/godotenv"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
 	"meliarqsoft2/config/factory"
+	"meliarqsoft2/docs"
 	"meliarqsoft2/internal/product/infrastructure/handler"
 )
 
@@ -22,17 +24,17 @@ func main() {
 	productHandler := newFactory.BuildProductHandler()
 
 	r := gin.Default()
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	basePath := r.Group("/api/v1")
-	productRoute := basePath.Group("/product")
+	productRoute := basePath.Group("/products")
 
 	configProductRoutes(productRoute, productHandler)
-	r.GET("/ping", func(c *gin.Context) {
-		newUUID, _ := uuid.NewUUID()
-		c.JSON(200, gin.H{
-			"uuid": newUUID,
-		})
-	})
 
+	docs.SwaggerInfo.Title = "MELI - Arquitectura Hexagonal"
+	docs.SwaggerInfo.Description = "Proyecto de Arquitectura de Software 2, UNQ 2023s1"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = "localhost:8080"
+	docs.SwaggerInfo.BasePath = "/api/v1"
 	otherErr := r.Run()
 	if otherErr != nil {
 		return
@@ -42,4 +44,5 @@ func main() {
 func configProductRoutes(route *gin.RouterGroup, ginHandler *handler.ProductGinHandler) {
 	route.POST("", ginHandler.Create)
 	route.GET("", ginHandler.Find)
+	route.GET("/price", ginHandler.Filter)
 }

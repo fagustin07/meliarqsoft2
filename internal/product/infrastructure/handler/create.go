@@ -7,6 +7,17 @@ import (
 	"net/http"
 )
 
+// Create
+// @Summary Create a product
+// @Description Create product from a seller
+// @Accept json
+// @Produce json
+// @Tags Products
+// @Param Body body dto.CreateProductRequest true "Register"
+// @Success 200 {object} dto.ProductDTO
+// @Failure 400
+// @Failure 500
+// @Router /products [post]
 func (p ProductGinHandler) Create(c *gin.Context) {
 	var productDTO dto.CreateProductRequest
 	if err := c.BindJSON(&productDTO); err != nil {
@@ -14,13 +25,11 @@ func (p ProductGinHandler) Create(c *gin.Context) {
 		return
 	}
 
-	log.Println("HERE", productDTO.Name, productDTO.IDSeller)
-
 	createdProduct, err := p.app.Create(productDTO.Name, productDTO.Description, productDTO.Category, productDTO.Price, productDTO.Stock, productDTO.IDSeller)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
-		log.Fatalln(err)
+		log.Print(err)
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{"product": dto.MapCreatedProductProductToJSON(createdProduct)})
+	c.JSON(http.StatusCreated, gin.H{"product": createdProduct.ID})
 }

@@ -14,7 +14,7 @@ type CreateProductRequest struct {
 	IDSeller    uuid.UUID `json:"id_seller" bson:"id_seller"`
 }
 
-type CreateProductResponse struct {
+type ProductDTO struct {
 	ID          uuid.UUID `json:"id,string,omitempty" bson:"id,string,omitempty"`
 	Name        string    `json:"name" bson:"name"`
 	Description string    `json:"description" bson:"description"`
@@ -24,7 +24,7 @@ type CreateProductResponse struct {
 	IDSeller    uuid.UUID `json:"id_seller" bson:"id_seller"`
 }
 
-func MapCreatedProductProductToJSON(product *domain.Product) CreateProductResponse {
-	return CreateProductResponse{product.ID, product.Name, product.Description,
+func MapProductProductToJSON(product *domain.Product) ProductDTO {
+	return ProductDTO{product.ID, product.Name, product.Description,
 		product.Category, product.Price, product.Stock, product.IDSeller}
 }
