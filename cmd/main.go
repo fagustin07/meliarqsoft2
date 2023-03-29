@@ -43,6 +43,8 @@ func main() {
 
 func configProductRoutes(route *gin.RouterGroup, ginHandler *handler.ProductGinHandler) {
 	route.POST("", ginHandler.Create)
+	route.PUT("/:id", ginHandler.Update)
+	route.DELETE("/:id", ginHandler.Delete)
 	route.GET("", ginHandler.Find)
-	route.GET("/price", ginHandler.Filter)
+	route.GET("/prices", ginHandler.Filter)
 }

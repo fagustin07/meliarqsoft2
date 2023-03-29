@@ -31,5 +31,5 @@ func (p ProductGinHandler) Create(c *gin.Context) {
 		log.Print(err)
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{"product": createdProduct.ID})
+	c.JSON(http.StatusCreated, dto.ProductID{ID: createdProduct.ID})
 }

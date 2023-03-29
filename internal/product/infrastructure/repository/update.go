@@ -25,8 +25,9 @@ func (repo ProductMongoDBRepository) Update(ID uuid.UUID, name string, descripti
 		},
 	)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
+		return nil, err
 	}
 
-	return nil, err
+	return nil, nil
 }

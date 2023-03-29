@@ -1,13 +1,13 @@
 package application
 
 import (
-	"math"
+	"errors"
 	"meliarqsoft2/internal/product/domain"
 )
 
 func (service *ProductApplication) Filter(minPrice float32, maxPrice float32) ([]*domain.Product, error) {
-	if maxPrice == 0 {
-		maxPrice = math.MaxFloat32
+	if maxPrice < minPrice {
+		return nil, errors.New("min_price cannot be gt max_price")
 	}
 	return service.repo.Filter(minPrice, maxPrice)
 }

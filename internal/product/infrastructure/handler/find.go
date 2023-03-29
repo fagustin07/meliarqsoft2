@@ -20,6 +20,7 @@ import (
 // @Failure 500
 // @Router /products [get]
 func (p ProductGinHandler) Find(c *gin.Context) {
+	log.Print("LLEGUE HANDLER")
 	name := c.Query("name")
 	category := c.Query("category")
 

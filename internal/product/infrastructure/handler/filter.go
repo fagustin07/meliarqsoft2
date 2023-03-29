@@ -19,7 +19,7 @@ import (
 // @Success 200 {object} []dto.ProductDTO
 // @Failure 400
 // @Failure 500
-// @Router /products/price [GET]
+// @Router /products/prices [GET]
 func (p ProductGinHandler) Filter(c *gin.Context) {
 	var (
 		min, max float32
