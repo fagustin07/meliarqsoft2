@@ -14,6 +14,13 @@ definitions:
       stock:
         type: integer
     type: object
+  dto.CreateSellerRequest:
+    properties:
+      business_name:
+        type: string
+      email:
+        type: string
+    type: object
   dto.ProductDTO:
     properties:
       category:
@@ -32,6 +39,25 @@ definitions:
       stock:
         type: integer
     type: object
+  dto.ProductID:
+    properties:
+      product_id:
+        type: string
+    type: object
+  dto.SellerDTO:
+    properties:
+      businessName:
+        type: string
+      email:
+        type: string
+      seller_id:
+        type: string
+    type: object
+  dto.SellerID:
+    properties:
+      seller_id:
+        type: string
+    type: object
   dto.UpdateProductRequest:
     properties:
       category:
@@ -44,6 +70,13 @@ definitions:
         type: number
       stock:
         type: integer
+    type: object
+  dto.UpdateSellerRequest:
+    properties:
+      business_name:
+        type: string
+      email:
+        type: string
     type: object
 info:
   contact: {}
@@ -95,7 +128,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dto.ProductDTO'
+            $ref: '#/definitions/dto.ProductID'
         "400":
           description: Bad Request
         "500":
@@ -182,4 +215,104 @@ paths:
       summary: Filter products
       tags:
       - Products
+  /sellers:
+    get:
+      consumes:
+      - application/json
+      description: Find sellers that contains given business name
+      parameters:
+      - description: find name
+        in: query
+        name: business_name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.SellerDTO'
+            type: array
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Find sellers
+      tags:
+      - Sellers
+    post:
+      consumes:
+      - application/json
+      description: Create seller
+      parameters:
+      - description: Register
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateSellerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SellerID'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create a seller
+      tags:
+      - Sellers
+  /sellers/{id}:
+    delete:
+      description: Delete seller from a seller
+      parameters:
+      - description: ID from seller to delete
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Delete a seller
+      tags:
+      - Sellers
+    put:
+      consumes:
+      - application/json
+      description: Update seller from a seller
+      parameters:
+      - description: Register
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateSellerRequest'
+      - description: ID from seller to update
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Update a seller
+      tags:
+      - Sellers
 swagger: "2.0"

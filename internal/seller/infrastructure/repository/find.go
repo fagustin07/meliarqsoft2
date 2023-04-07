@@ -6,21 +6,16 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
-	"meliarqsoft2/internal/product/domain"
+	"meliarqsoft2/internal/seller/domain"
 )
 
-func (repo ProductMongoDBRepository) Find(name string, category string) ([]*domain.Product, error) {
+func (repo SellerMongoDBRepository) Find(businessName string) ([]*domain.Seller, error) {
 	var filter = bson.D{
 		{"$and",
 			bson.A{
 				bson.D{{
-					Key: "name", Value: primitive.Regex{
-						Pattern: ".*" + name + ".*",
-						Options: "i",
-					}}},
-				bson.D{{
-					Key: "category", Value: primitive.Regex{
-						Pattern: ".*" + category + ".*",
+					Key: "business_name", Value: primitive.Regex{
+						Pattern: ".*" + businessName + ".*",
 						Options: "i",
 					}}},
 			}},
@@ -32,18 +27,25 @@ func (repo ProductMongoDBRepository) Find(name string, category string) ([]*doma
 			return nil, err
 		}
 		log.Print(err)
+		return nil, nil
 	}
 
-	var dbResult []*ProductModel
+	var dbResult []*SellerModel
 	if err = cursor.All(context.TODO(), &dbResult); err != nil {
 		log.Print(err)
 		return nil, err
 	}
 
-	var res []*domain.Product
+	var res []*domain.Seller
 	for _, elem := range dbResult {
 		res = append(res, mapProductToDomainModel(elem))
 	}
 
-	return res, err
+	return res, nil
+}
+
+func mapProductToDomainModel(elem *SellerModel) *domain.Seller {
+	return &domain.Seller{
+		ID: elem.ID, BusinessName: elem.BusinessName, Email: elem.Email,
+	}
 }

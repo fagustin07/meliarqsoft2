@@ -9,6 +9,9 @@ import (
 	"meliarqsoft2/internal/product/application"
 	"meliarqsoft2/internal/product/infrastructure/handler"
 	"meliarqsoft2/internal/product/infrastructure/repository"
+	application2 "meliarqsoft2/internal/seller/application"
+	handler2 "meliarqsoft2/internal/seller/infrastructure/handler"
+	repository2 "meliarqsoft2/internal/seller/infrastructure/repository"
 	"os"
 	"time"
 )
@@ -47,4 +50,10 @@ func (factory *Factory) BuildProductHandler() *handler.ProductGinHandler {
 	repo := repository.NewProductMongoDBRepository(factory.dbClient)
 	app := application.NewProductApplication(repo)
 	return handler.NewProductGinHandler(app)
+}
+
+func (factory *Factory) BuildSellerHandler() *handler2.SellerGinHandler {
+	repo := repository2.NewSellerMongoDBRepository(factory.dbClient)
+	manager := application2.NewSellerManager(repo)
+	return handler2.NewSellerGinHandler(manager)
 }

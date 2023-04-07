@@ -7,11 +7,12 @@ import (
 	"log"
 )
 
-func (repo ProductMongoDBRepository) Delete(ID uuid.UUID) error {
+func (repo SellerMongoDBRepository) Delete(ID uuid.UUID) error {
 	_, err := repo.collection.DeleteOne(context.Background(), bson.M{"_id": ID})
 	if err != nil {
 		log.Print(err)
+		return err
 	}
 
-	return err
+	return nil
 }

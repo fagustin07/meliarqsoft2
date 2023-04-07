@@ -9,6 +9,7 @@ import (
 	"meliarqsoft2/config/factory"
 	"meliarqsoft2/docs"
 	"meliarqsoft2/internal/product/infrastructure/handler"
+	handler2 "meliarqsoft2/internal/seller/infrastructure/handler"
 )
 
 func main() {
@@ -22,12 +23,16 @@ func main() {
 	newFactory.InitMongoDB()
 
 	productHandler := newFactory.BuildProductHandler()
+	sellerHandler := newFactory.BuildSellerHandler()
 
 	r := gin.Default()
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	basePath := r.Group("/api/v1")
-	productRoute := basePath.Group("/products")
 
+	sellerRoute := basePath.Group("/sellers")
+	configSellerRoutes(sellerRoute, sellerHandler)
+
+	productRoute := basePath.Group("/products")
 	configProductRoutes(productRoute, productHandler)
 
 	docs.SwaggerInfo.Title = "MELI - Arquitectura Hexagonal"
@@ -47,4 +52,11 @@ func configProductRoutes(route *gin.RouterGroup, ginHandler *handler.ProductGinH
 	route.DELETE("/:id", ginHandler.Delete)
 	route.GET("", ginHandler.Find)
 	route.GET("/prices", ginHandler.Filter)
+}
+
+func configSellerRoutes(route *gin.RouterGroup, ginHandler *handler2.SellerGinHandler) {
+	route.POST("", ginHandler.Create)
+	route.PUT("/:id", ginHandler.Update)
+	route.DELETE("/:id", ginHandler.Delete)
+	route.GET("", ginHandler.Find)
 }

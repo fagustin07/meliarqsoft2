@@ -24,12 +24,12 @@ func (repo ProductMongoDBRepository) Filter(minPrice float32, maxPrice float32) 
 		if err == mongo.ErrNoDocuments {
 			return nil, err
 		}
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	var dbResult []*ProductModel
 	if err = cursor.All(context.TODO(), &dbResult); err != nil {
-		log.Fatal(err)
+		log.Print(err)
 		return nil, err
 	}
 

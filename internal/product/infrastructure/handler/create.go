@@ -14,7 +14,7 @@ import (
 // @Produce json
 // @Tags Products
 // @Param Body body dto.CreateProductRequest true "Register"
-// @Success 200 {object} dto.ProductDTO
+// @Success 200 {object} dto.ProductID
 // @Failure 400
 // @Failure 500
 // @Router /products [post]

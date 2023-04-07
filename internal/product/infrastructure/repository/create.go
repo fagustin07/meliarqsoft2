@@ -11,7 +11,7 @@ func (repo ProductMongoDBRepository) Create(product *domain.Product) (*domain.Pr
 	dbProduct := mapProductToMongoModel(product)
 	_, err := repo.collection.InsertOne(context.Background(), dbProduct)
 	if err != nil {
-		log.Fatal("Error saving product", err)
+		log.Println("Error saving product", err)
 		return &domain.Product{}, err
 	}
 
