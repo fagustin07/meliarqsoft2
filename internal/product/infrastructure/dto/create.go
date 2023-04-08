@@ -9,8 +9,8 @@ type CreateProductRequest struct {
 	Name        string    `json:"name" bson:"name" binding:"required"`
 	Description string    `json:"description" bson:"description" binding:"required"`
 	Category    string    `json:"category" bson:"category" binding:"required"`
-	Price       float32   `json:"price" bson:"price" binding:"required,gte=0"`
-	Stock       int       `json:"stock" bson:"stock" binding:"required,gte=0"`
+	Price       float32   `json:"price" bson:"price" binding:"required,gt=0"`
+	Stock       int       `json:"stock" bson:"stock" binding:"required,gt=0"`
 	IDSeller    uuid.UUID `json:"id_seller" bson:"id_seller" binding:"required"`
 }
 

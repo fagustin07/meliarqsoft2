@@ -24,9 +24,9 @@ func main() {
 
 	newFactory.InitMongoDB()
 
-	prodManager, productHandler := newFactory.BuildProductHandler()
-	_, sellerHandler := newFactory.BuildSellerHandler()
+	sellerManager, sellerHandler := newFactory.BuildSellerHandler()
 	userManager, userHandler := newFactory.BuildUserHandler()
+	prodManager, productHandler := newFactory.BuildProductHandler(sellerManager)
 	purchaseHandler := newFactory.BuildPurchaseHandler(prodManager, userManager)
 
 	r := gin.Default()

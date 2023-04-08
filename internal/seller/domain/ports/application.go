@@ -10,4 +10,5 @@ type ISellerManager interface {
 	Update(id uuid.UUID, businessName string, email string) error
 	Delete(ID uuid.UUID) error
 	Find(name string) ([]*domain.Seller, error)
+	Exist(seller uuid.UUID) error
 }

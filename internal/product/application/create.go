@@ -6,6 +6,11 @@ import (
 )
 
 func (service *ProductApplication) Create(name string, description string, category string, price float32, stock int, idSeller uuid.UUID) (*domain.Product, error) {
+	err := service.sellerManager.Exist(idSeller)
+	if err != nil {
+		return nil, err
+	}
+
 	newUUID, err := uuid.NewUUID()
 	if err != nil {
 		return &domain.Product{}, err

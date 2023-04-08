@@ -52,9 +52,9 @@ func (factory *Factory) InitMongoDB() *mongo.Client {
 	return client
 }
 
-func (factory *Factory) BuildProductHandler() (*application.ProductApplication, *handler.ProductGinHandler) {
+func (factory *Factory) BuildProductHandler(sellManager *application2.SellerManager) (*application.ProductApplication, *handler.ProductGinHandler) {
 	repo := repository.NewProductMongoDBRepository(factory.dbClient)
-	app := application.NewProductApplication(repo)
+	app := application.NewProductApplication(repo, sellManager)
 	return app, handler.NewProductGinHandler(app)
 }
 
