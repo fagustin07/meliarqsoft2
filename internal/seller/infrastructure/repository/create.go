@@ -16,7 +16,3 @@ func (repo SellerMongoDBRepository) Create(seller *domain.Seller) error {
 
 	return nil
 }
-
-func mapSellerToMongoModel(seller *domain.Seller) *SellerModel {
-	return &SellerModel{ID: seller.ID, BusinessName: seller.BusinessName, Email: seller.BusinessName}
-}
