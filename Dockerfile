@@ -8,6 +8,7 @@ WORKDIR /app
 COPY ./cmd ./cmd
 COPY ./internal ./internal
 COPY ./config ./config
+COPY ./docs ./docs
 COPY go.mod ./
 COPY go.sum ./
 
@@ -23,6 +24,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app ./cmd/
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
+COPY .env .
 COPY --from=0 /app/app .
 
 # exponer el puerto 8080
