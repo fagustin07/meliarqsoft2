@@ -21,6 +21,12 @@ func (prod Product) CanConsume(units int) bool {
 }
 
 func (prod Product) TakeUnits(units int) (float32, int) {
+	var unitsAbs float32
 	prod.Stock = prod.Stock + units
-	return prod.Price * float32(units), prod.Stock
+	if units < 0 {
+		unitsAbs = float32(units * -1)
+	} else {
+		unitsAbs = float32(units)
+	}
+	return prod.Price * unitsAbs, prod.Stock
 }

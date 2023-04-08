@@ -6,9 +6,9 @@ import (
 )
 
 type CreatePurchaseRequest struct {
-	IDProduct uuid.UUID `json:"id_product" bson:"id_product,omitempty"`
-	IDUser    uuid.UUID `json:"id_user" bson:"id_user,omitempty"`
-	Units     int       `json:"units" bson:"units"`
+	IDProduct uuid.UUID `json:"id_product" bson:"id_product,omitempty" binding:"required"`
+	IDUser    uuid.UUID `json:"id_user" bson:"id_user,omitempty" binding:"required"`
+	Units     int       `json:"units" bson:"units" binding:"required,gt=0"`
 }
 
 type FindPurchaseRequest struct {

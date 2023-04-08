@@ -1,10 +1,10 @@
 package application
 
 import (
+	"github.com/google/uuid"
 	"meliarqsoft2/internal/purchase/domain"
-	"time"
 )
 
-func (manager PurchaseManager) Find(start time.Time, limit time.Time) ([]*domain.Purchase, error) {
-	return manager.repository.Find(start, limit)
+func (manager PurchaseManager) Find(productID uuid.UUID) ([]*domain.Purchase, error) {
+	return manager.repository.Find(productID)
 }

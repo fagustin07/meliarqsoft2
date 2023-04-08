@@ -40,10 +40,7 @@ func main() {
 	configSellerRoutes(sellerRoute, sellerHandler)
 
 	productRoute := basePath.Group("/products")
-	configProductRoutes(productRoute, productHandler)
-
-	purchaseRoute := productRoute.Group("/purchases")
-	configPurchaseRoutes(purchaseRoute, purchaseHandler)
+	configProductRoutes(productRoute, productHandler, purchaseHandler)
 
 	docs.SwaggerInfo.Title = "MELI - Arquitectura Hexagonal"
 	docs.SwaggerInfo.Description = "Proyecto de Arquitectura de Software 2, UNQ 2023s1"
@@ -56,12 +53,15 @@ func main() {
 	}
 }
 
-func configProductRoutes(route *gin.RouterGroup, ginHandler *handler.ProductGinHandler) {
-	route.POST("", ginHandler.Create)
-	route.PUT("/:id", ginHandler.Update)
-	route.DELETE("/:id", ginHandler.Delete)
-	route.GET("", ginHandler.Find)
-	route.GET("/prices", ginHandler.Filter)
+func configProductRoutes(route *gin.RouterGroup, prodHandler *handler.ProductGinHandler, purchaseHandler *handler4.PurchaseGinHandler) {
+	route.POST("", prodHandler.Create)
+	route.PUT("/:id", prodHandler.Update)
+	route.DELETE("/:id", prodHandler.Delete)
+	route.GET("", prodHandler.Find)
+	route.GET("/prices", prodHandler.Filter)
+
+	route.POST("/purchases", purchaseHandler.Create)
+	route.GET("/:id/purchases", purchaseHandler.Find)
 }
 
 func configUserRoutes(route *gin.RouterGroup, ginHandler *handler3.UserGinHandler) {
@@ -76,9 +76,4 @@ func configSellerRoutes(route *gin.RouterGroup, ginHandler *handler2.SellerGinHa
 	route.PUT("/:id", ginHandler.Update)
 	route.DELETE("/:id", ginHandler.Delete)
 	route.GET("", ginHandler.Find)
-}
-
-func configPurchaseRoutes(route *gin.RouterGroup, ginHandler *handler4.PurchaseGinHandler) {
-	route.POST("", ginHandler.Create)
-	route.GET("/prices", ginHandler.Find)
 }

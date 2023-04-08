@@ -30,11 +30,12 @@ func (repo ProductMongoDBRepository) Update(ID uuid.UUID, name string, descripti
 		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "stock", Value: stock})
 	}
 
-	_, err := repo.collection.UpdateOne(
+	x, err := repo.collection.UpdateOne(
 		context.Background(),
 		bson.M{"_id": ID},
 		bson.D{{"$set", fieldsToUpdate}},
 	)
+	log.Println(x)
 
 	if err != nil {
 		log.Print(err)

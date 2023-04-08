@@ -14,8 +14,8 @@ import (
 // @Accept json
 // @Produce json
 // @Tags Products
-// @Param min_price query string  false "starting price"
-// @Param max_price query string  false "limit price"
+// @Param min_price query string  true "starting price"
+// @Param max_price query string  true "limit price"
 // @Success 200 {object} []dto.ProductDTO
 // @Failure 400
 // @Failure 500

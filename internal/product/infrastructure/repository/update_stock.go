@@ -8,15 +8,15 @@ import (
 )
 
 func (repo ProductMongoDBRepository) UpdateStock(ID uuid.UUID, stock int) error {
-	_, err := repo.collection.UpdateOne(
+	x, err := repo.collection.UpdateOne(
 		context.Background(),
 		bson.M{"_id": ID},
-		bson.D{{"$set", bson.E{Key: "stock", Value: stock}}},
+		bson.D{{"$set", bson.D{bson.E{Key: "stock", Value: stock}}}},
 	)
 	if err != nil {
 		log.Print(err)
 		return err
 	}
-
+	log.Println(x.UpsertedID)
 	return nil
 }

@@ -118,13 +118,15 @@ const docTemplate = `{
                         "type": "string",
                         "description": "starting price",
                         "name": "min_price",
-                        "in": "query"
+                        "in": "query",
+                        "required": true
                     },
                     {
                         "type": "string",
                         "description": "limit price",
                         "name": "max_price",
-                        "in": "query"
+                        "in": "query",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -167,52 +169,6 @@ const docTemplate = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/dto.CreatePurchaseRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/dto.PurchaseDTO"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    },
-                    "500": {
-                        "description": "Internal Server Error"
-                    }
-                }
-            }
-        },
-        "/products/purchases/prices": {
-            "post": {
-                "description": "Find purchase in a range of dates.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Purchases"
-                ],
-                "summary": "Find purchases.",
-                "parameters": [
-                    {
-                        "description": "Register",
-                        "name": "Body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.FindPurchaseRequest"
                         }
                     }
                 ],
@@ -302,6 +258,38 @@ const docTemplate = `{
                 "responses": {
                     "204": {
                         "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/products/{id}/purchases": {
+            "get": {
+                "description": "Find purchases from product",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Purchases"
+                ],
+                "summary": "Find purchases from product.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID from product",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
                     },
                     "400": {
                         "description": "Bad Request"
@@ -618,6 +606,14 @@ const docTemplate = `{
     "definitions": {
         "dto.CreateProductRequest": {
             "type": "object",
+            "required": [
+                "category",
+                "description",
+                "id_seller",
+                "name",
+                "price",
+                "stock"
+            ],
             "properties": {
                 "category": {
                     "type": "string"
@@ -632,15 +628,22 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "price": {
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "stock": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 }
             }
         },
         "dto.CreatePurchaseRequest": {
             "type": "object",
+            "required": [
+                "id_product",
+                "id_user",
+                "units"
+            ],
             "properties": {
                 "id_product": {
                     "type": "string"
@@ -655,6 +658,10 @@ const docTemplate = `{
         },
         "dto.CreateSellerRequest": {
             "type": "object",
+            "required": [
+                "business_name",
+                "email"
+            ],
             "properties": {
                 "business_name": {
                     "type": "string"
@@ -666,6 +673,11 @@ const docTemplate = `{
         },
         "dto.CreateUserRequest": {
             "type": "object",
+            "required": [
+                "email",
+                "name",
+                "surname"
+            ],
             "properties": {
                 "email": {
                     "type": "string"
@@ -674,17 +686,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "surname": {
-                    "type": "string"
-                }
-            }
-        },
-        "dto.FindPurchaseRequest": {
-            "type": "object",
-            "properties": {
-                "limit": {
-                    "type": "string"
-                },
-                "start": {
                     "type": "string"
                 }
             }
@@ -768,6 +769,9 @@ const docTemplate = `{
         },
         "dto.UpdateProductRequest": {
             "type": "object",
+            "required": [
+                "stock"
+            ],
             "properties": {
                 "category": {
                     "type": "string"
@@ -779,15 +783,21 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "price": {
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 0
                 },
                 "stock": {
-                    "type": "integer"
+                    "type": "integer",
+                    "minimum": 0
                 }
             }
         },
         "dto.UpdateSellerRequest": {
             "type": "object",
+            "required": [
+                "business_name",
+                "email"
+            ],
             "properties": {
                 "business_name": {
                     "type": "string"
@@ -799,6 +809,11 @@ const docTemplate = `{
         },
         "dto.UpdateUserRequest": {
             "type": "object",
+            "required": [
+                "email",
+                "name",
+                "surname"
+            ],
             "properties": {
                 "email": {
                     "type": "string"

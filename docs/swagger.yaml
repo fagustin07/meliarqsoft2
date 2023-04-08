@@ -10,9 +10,18 @@ definitions:
       name:
         type: string
       price:
+        minimum: 0
         type: number
       stock:
+        minimum: 0
         type: integer
+    required:
+    - category
+    - description
+    - id_seller
+    - name
+    - price
+    - stock
     type: object
   dto.CreatePurchaseRequest:
     properties:
@@ -22,6 +31,10 @@ definitions:
         type: string
       units:
         type: integer
+    required:
+    - id_product
+    - id_user
+    - units
     type: object
   dto.CreateSellerRequest:
     properties:
@@ -29,6 +42,9 @@ definitions:
         type: string
       email:
         type: string
+    required:
+    - business_name
+    - email
     type: object
   dto.CreateUserRequest:
     properties:
@@ -38,13 +54,10 @@ definitions:
         type: string
       surname:
         type: string
-    type: object
-  dto.FindPurchaseRequest:
-    properties:
-      limit:
-        type: string
-      start:
-        type: string
+    required:
+    - email
+    - name
+    - surname
     type: object
   dto.ProductDTO:
     properties:
@@ -105,9 +118,13 @@ definitions:
       name:
         type: string
       price:
+        minimum: 0
         type: number
       stock:
+        minimum: 0
         type: integer
+    required:
+    - stock
     type: object
   dto.UpdateSellerRequest:
     properties:
@@ -115,6 +132,9 @@ definitions:
         type: string
       email:
         type: string
+    required:
+    - business_name
+    - email
     type: object
   dto.UpdateUserRequest:
     properties:
@@ -124,6 +144,10 @@ definitions:
         type: string
       surname:
         type: string
+    required:
+    - email
+    - name
+    - surname
     type: object
   dto.UserDTO:
     properties:
@@ -248,6 +272,27 @@ paths:
       summary: Update a product
       tags:
       - Products
+  /products/{id}/purchases:
+    get:
+      description: Find purchases from product
+      parameters:
+      - description: ID from product
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Find purchases from product.
+      tags:
+      - Purchases
   /products/prices:
     get:
       consumes:
@@ -257,10 +302,12 @@ paths:
       - description: starting price
         in: query
         name: min_price
+        required: true
         type: string
       - description: limit price
         in: query
         name: max_price
+        required: true
         type: string
       produces:
       - application/json
@@ -306,36 +353,6 @@ paths:
         "500":
           description: Internal Server Error
       summary: Make a purchase.
-      tags:
-      - Purchases
-  /products/purchases/prices:
-    post:
-      consumes:
-      - application/json
-      description: Find purchase in a range of dates.
-      parameters:
-      - description: Register
-        in: body
-        name: Body
-        required: true
-        schema:
-          $ref: '#/definitions/dto.FindPurchaseRequest'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            items:
-              $ref: '#/definitions/dto.PurchaseDTO'
-            type: array
-        "400":
-          description: Bad Request
-        "404":
-          description: Not Found
-        "500":
-          description: Internal Server Error
-      summary: Find purchases.
       tags:
       - Purchases
   /sellers:
