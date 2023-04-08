@@ -14,11 +14,36 @@ definitions:
       stock:
         type: integer
     type: object
+  dto.CreatePurchaseRequest:
+    properties:
+      id_product:
+        type: string
+      id_user:
+        type: string
+      units:
+        type: integer
+    type: object
   dto.CreateSellerRequest:
     properties:
       business_name:
         type: string
       email:
+        type: string
+    type: object
+  dto.CreateUserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      surname:
+        type: string
+    type: object
+  dto.FindPurchaseRequest:
+    properties:
+      limit:
+        type: string
+      start:
         type: string
     type: object
   dto.ProductDTO:
@@ -43,6 +68,19 @@ definitions:
     properties:
       product_id:
         type: string
+    type: object
+  dto.PurchaseDTO:
+    properties:
+      date:
+        type: string
+      id_product:
+        type: string
+      id_user:
+        type: string
+      total:
+        type: number
+      units:
+        type: integer
     type: object
   dto.SellerDTO:
     properties:
@@ -76,6 +114,31 @@ definitions:
       business_name:
         type: string
       email:
+        type: string
+    type: object
+  dto.UpdateUserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      surname:
+        type: string
+    type: object
+  dto.UserDTO:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      surname:
+        type: string
+      user_id:
+        type: string
+    type: object
+  dto.UserID:
+    properties:
+      user_id:
         type: string
     type: object
 info:
@@ -215,6 +278,66 @@ paths:
       summary: Filter products
       tags:
       - Products
+  /products/purchases:
+    post:
+      consumes:
+      - application/json
+      description: Make User buy Product by ids.
+      parameters:
+      - description: Register
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreatePurchaseRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/dto.PurchaseDTO'
+            type: array
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Make a purchase.
+      tags:
+      - Purchases
+  /products/purchases/prices:
+    post:
+      consumes:
+      - application/json
+      description: Find purchase in a range of dates.
+      parameters:
+      - description: Register
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.FindPurchaseRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/dto.PurchaseDTO'
+            type: array
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Find purchases.
+      tags:
+      - Purchases
   /sellers:
     get:
       consumes:
@@ -255,8 +378,8 @@ paths:
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
             $ref: '#/definitions/dto.SellerID'
         "400":
@@ -315,4 +438,103 @@ paths:
       summary: Update a seller
       tags:
       - Sellers
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: Create user
+      parameters:
+      - description: Register
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.UserID'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create a user
+      tags:
+      - Users
+  /users/{id}:
+    delete:
+      description: Delete user from a user
+      parameters:
+      - description: ID from user to delete
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Delete a user
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: Find user with given id
+      parameters:
+      - description: ID from user to get
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserDTO'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Find user
+      tags:
+      - Users
+    put:
+      description: Update user from a user
+      parameters:
+      - description: Register
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateUserRequest'
+      - description: ID from user to update
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Update a user
+      tags:
+      - Users
 swagger: "2.0"

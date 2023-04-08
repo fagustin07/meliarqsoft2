@@ -14,7 +14,7 @@ import (
 // @Produce json
 // @Tags Sellers
 // @Param Body body dto.CreateSellerRequest true "Register"
-// @Success 200 {object} dto.SellerID
+// @Success 201 {object} dto.SellerID
 // @Failure 400
 // @Failure 500
 // @Router /sellers [POST]

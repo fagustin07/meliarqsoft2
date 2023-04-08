@@ -9,21 +9,33 @@ import (
 )
 
 func (repo ProductMongoDBRepository) Update(ID uuid.UUID, name string, description string, category string, price float32, stock int) (*domain.Product, error) {
+	var fieldsToUpdate bson.D
+	if name != "" {
+		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "name", Value: name})
+	}
+
+	if description != "" {
+		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "description", Value: description})
+	}
+
+	if category != "" {
+		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "category", Value: category})
+	}
+
+	if price > 0 {
+		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "price", Value: price})
+	}
+
+	if stock >= 0 {
+		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "stock", Value: stock})
+	}
+
 	_, err := repo.collection.UpdateOne(
 		context.Background(),
 		bson.M{"_id": ID},
-		bson.D{
-			{"$set",
-				bson.D{
-					{"name", name},
-					{"description", description},
-					{"category", category},
-					{"price", price},
-					{"stock", stock},
-				},
-			},
-		},
+		bson.D{{"$set", fieldsToUpdate}},
 	)
+
 	if err != nil {
 		log.Print(err)
 		return nil, err

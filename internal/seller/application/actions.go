@@ -13,6 +13,9 @@ func (manager SellerManager) Create(businessName string, email string) (uuid.UUI
 
 	newSeller := domain.NewSeller(newUUID, businessName, email)
 	err = manager.repo.Create(newSeller)
+	if err != nil {
+		return newUUID, err
+	}
 
 	return newUUID, nil
 }

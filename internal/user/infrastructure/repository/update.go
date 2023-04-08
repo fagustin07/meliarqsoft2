@@ -7,11 +7,16 @@ import (
 	"log"
 )
 
-func (repo SellerMongoDBRepository) Update(ID uuid.UUID, businessName string, email string) error {
+func (repo UserMongoDBRepository) Update(ID uuid.UUID, name string, surname string, email string) error {
 	var fieldsToUpdate bson.D
-	if businessName != "" {
-		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "business_name", Value: businessName})
+	if name != "" {
+		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "name", Value: name})
 	}
+
+	if surname != "" {
+		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "surname", Value: surname})
+	}
+
 	if email != "" {
 		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "email", Value: email})
 	}
