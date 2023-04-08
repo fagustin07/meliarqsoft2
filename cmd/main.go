@@ -66,9 +66,9 @@ func configProductRoutes(route *gin.RouterGroup, prodHandler *handler.ProductGin
 
 func configUserRoutes(route *gin.RouterGroup, ginHandler *handler3.UserGinHandler) {
 	route.POST("", ginHandler.Create)
+	route.GET("", ginHandler.Find)
 	route.PUT("/:id", ginHandler.Update)
 	route.DELETE("/:id", ginHandler.Delete)
-	route.GET("/:id", ginHandler.Find)
 }
 
 func configSellerRoutes(route *gin.RouterGroup, ginHandler *handler2.SellerGinHandler) {

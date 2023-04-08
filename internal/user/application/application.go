@@ -13,6 +13,7 @@ type UserManager struct {
 func NewUserManager(repo ports.IUserRepository) *UserManager {
 	return &UserManager{repository: repo}
 }
+
 func (manager UserManager) Create(name string, surname string, email string) (uuid.UUID, error) {
 	newUUID, err := uuid.NewUUID()
 	if err != nil {
@@ -37,6 +38,10 @@ func (manager UserManager) Delete(ID uuid.UUID) error {
 	return manager.repository.Delete(ID)
 }
 
-func (manager UserManager) Find(ID uuid.UUID) (*domain.User, error) {
-	return manager.repository.Find(ID)
+func (manager UserManager) Find(emailPattern string) ([]*domain.User, error) {
+	return manager.repository.Find(emailPattern)
+}
+
+func (manager UserManager) Exist(idUser uuid.UUID) error {
+	return manager.repository.Exist(idUser)
 }

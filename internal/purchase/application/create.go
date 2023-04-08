@@ -11,7 +11,7 @@ func (manager PurchaseManager) Create(IDProduct uuid.UUID, IDUser uuid.UUID, uni
 	if units == 0 {
 		return &domain.Purchase{}, errors.New("cannot buy zero units")
 	}
-	_, err := manager.userManager.Find(IDUser)
+	err := manager.userManager.Exist(IDUser)
 	if err != nil {
 		return &domain.Purchase{}, err
 	}

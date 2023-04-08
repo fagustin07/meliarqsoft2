@@ -16,7 +16,7 @@ func MapUserToMongoModel(user *domain.User) UserModel {
 	return UserModel{ID: user.ID, Name: user.Name, Surname: user.Surname, Email: user.Email}
 }
 
-func MapToUserDomain(userModel UserModel) *domain.User {
+func MapToUserDomain(userModel *UserModel) *domain.User {
 	return &domain.User{
 		ID:      userModel.ID,
 		Name:    userModel.Name,
