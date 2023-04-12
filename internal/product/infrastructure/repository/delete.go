@@ -13,5 +13,5 @@ func (repo ProductMongoDBRepository) Delete(ID uuid.UUID) error {
 		log.Print(err)
 	}
 
-	return err
+	return nil
 }

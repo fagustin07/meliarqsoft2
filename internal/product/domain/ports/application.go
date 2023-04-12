@@ -12,4 +12,5 @@ type IProductApplication interface {
 	Find(name string, category string) ([]*domain.Product, error)
 	Filter(minPrice float32, maxPrice float32) ([]*domain.Product, error)
 	ManipulateStock(idProduct uuid.UUID, units int) (float32, error)
+	DeleteMany(sellerId uuid.UUID) error
 }

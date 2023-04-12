@@ -14,8 +14,12 @@ func (service *ProductApplication) ManipulateStock(idProduct uuid.UUID, units in
 	if !prod.CanConsume(units) {
 		return 0, errors.New("cannot buy more units than are in stock")
 	} else {
-		totalPrice, currentStock := prod.TakeUnits(units)
-		err := service.repo.UpdateStock(idProduct, currentStock)
+		totalPrice, currentStock, err := prod.TakeUnits(units)
+		if err != nil {
+			return 0, err
+		}
+
+		err = service.repo.UpdateStock(idProduct, currentStock)
 		if err != nil {
 			return 0, err
 		}

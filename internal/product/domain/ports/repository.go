@@ -13,4 +13,6 @@ type IProductRepository interface {
 	Filter(minPrice float32, maxPrice float32) ([]*domain.Product, error)
 	GetProduct(ID uuid.UUID) (*domain.Product, error)
 	UpdateStock(ID uuid.UUID, stock int) error
+	DeleteMany(sellerId uuid.UUID) error
+	GetFrom(sellerId uuid.UUID) ([]*domain.Product, error)
 }

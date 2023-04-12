@@ -5,6 +5,6 @@ import (
 	"meliarqsoft2/internal/purchase/domain"
 )
 
-func (manager PurchaseManager) Find(productID uuid.UUID) ([]*domain.Purchase, error) {
+func (manager PurchaseService) Find(productID uuid.UUID) ([]*domain.Purchase, error) {
 	return manager.repository.Find(productID)
 }

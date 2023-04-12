@@ -35,7 +35,11 @@ func (repo ProductMongoDBRepository) Filter(minPrice float32, maxPrice float32) 
 
 	var res []*domain.Product
 	for _, elem := range dbResult {
-		res = append(res, mapProductToDomainModel(elem))
+		prod, err := mapProductToDomainModel(elem)
+		if err != nil {
+			return nil, err
+		}
+		res = append(res, prod)
 	}
 
 	return res, err

@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func (manager PurchaseManager) Create(IDProduct uuid.UUID, IDUser uuid.UUID, units int) (*domain.Purchase, error) {
+func (manager PurchaseService) Create(IDProduct uuid.UUID, IDUser uuid.UUID, units int) (*domain.Purchase, error) {
 	if units == 0 {
 		return &domain.Purchase{}, errors.New("cannot buy zero units")
 	}

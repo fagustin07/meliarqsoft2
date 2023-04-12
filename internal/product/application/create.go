@@ -6,7 +6,7 @@ import (
 )
 
 func (service *ProductApplication) Create(name string, description string, category string, price float32, stock int, idSeller uuid.UUID) (*domain.Product, error) {
-	err := service.sellerManager.Exist(idSeller)
+	err := service.sellerService.Exist(idSeller)
 	if err != nil {
 		return nil, err
 	}
@@ -15,7 +15,12 @@ func (service *ProductApplication) Create(name string, description string, categ
 	if err != nil {
 		return &domain.Product{}, err
 	}
-	newProduct := domain.NewProduct(newUUID, name, description, category, price, stock, idSeller)
+
+	newProduct, err := domain.NewProduct(newUUID, name, description, category, price, stock, idSeller)
+	if err != nil {
+		return &domain.Product{}, err
+	}
+
 	_, err = service.repo.Create(newProduct)
 
 	return newProduct, err

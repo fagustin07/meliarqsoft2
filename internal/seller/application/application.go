@@ -2,17 +2,19 @@ package application
 
 import (
 	"github.com/google/uuid"
+	"meliarqsoft2/internal/product/application"
 	"meliarqsoft2/internal/seller/domain/ports"
 )
 
-type SellerManager struct {
-	repo ports.ISellerRepository
+type SellerService struct {
+	repo           ports.ISellerRepository
+	productService *application.ProductApplication
 }
 
-func (manager SellerManager) Exist(seller uuid.UUID) error {
-	return manager.repo.Exist(seller)
+func (service SellerService) Exist(seller uuid.UUID) error {
+	return service.repo.Exist(seller)
 }
 
-func NewSellerManager(repo ports.ISellerRepository) *SellerManager {
-	return &SellerManager{repo: repo}
+func NewSellerManager(repo ports.ISellerRepository, productService *application.ProductApplication) *SellerService {
+	return &SellerService{repo: repo, productService: productService}
 }

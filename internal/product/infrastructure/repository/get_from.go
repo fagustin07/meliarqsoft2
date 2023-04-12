@@ -2,36 +2,19 @@ package repository
 
 import (
 	"context"
+	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"meliarqsoft2/internal/product/domain"
 )
 
-func (repo ProductMongoDBRepository) Find(name string, category string) ([]*domain.Product, error) {
-	var filter = bson.D{
-		{"$and",
-			bson.A{
-				bson.D{{
-					Key: "name", Value: primitive.Regex{
-						Pattern: ".*" + name + ".*",
-						Options: "i",
-					}}},
-				bson.D{{
-					Key: "category", Value: primitive.Regex{
-						Pattern: ".*" + category + ".*",
-						Options: "i",
-					}}},
-			}},
-	}
+func (repo ProductMongoDBRepository) GetFrom(sellerId uuid.UUID) ([]*domain.Product, error) {
+	var filter = bson.M{"id_seller": sellerId}
 
 	cursor, err := repo.collection.Find(context.Background(), filter)
 	if err != nil {
 		log.Print(err)
-		if err == mongo.ErrNoDocuments {
-			return nil, err
-		}
+		return nil, err
 	}
 
 	var dbResult []*ProductModel

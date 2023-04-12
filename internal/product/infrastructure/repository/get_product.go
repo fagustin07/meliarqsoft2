@@ -16,5 +16,5 @@ func (repo ProductMongoDBRepository) GetProduct(ID uuid.UUID) (*domain.Product, 
 		return nil, err
 	}
 
-	return mapProductToDomainModel(productDb), nil
+	return mapProductToDomainModel(productDb)
 }

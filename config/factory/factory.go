@@ -52,13 +52,13 @@ func (factory *Factory) InitMongoDB() *mongo.Client {
 	return client
 }
 
-func (factory *Factory) BuildProductHandler(sellManager *application2.SellerManager) (*application.ProductApplication, *handler.ProductGinHandler) {
+func (factory *Factory) BuildProductHandler(sellManager *application2.SellerService) (*application.ProductApplication, *handler.ProductGinHandler) {
 	repo := repository.NewProductMongoDBRepository(factory.dbClient)
 	app := application.NewProductApplication(repo, sellManager)
 	return app, handler.NewProductGinHandler(app)
 }
 
-func (factory *Factory) BuildSellerHandler() (*application2.SellerManager, *handler2.SellerGinHandler) {
+func (factory *Factory) BuildSellerHandler() (*application2.SellerService, *handler2.SellerGinHandler) {
 	repo := repository2.NewSellerMongoDBRepository(factory.dbClient)
 	manager := application2.NewSellerManager(repo)
 	return manager, handler2.NewSellerGinHandler(manager)
