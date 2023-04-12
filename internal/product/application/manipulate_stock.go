@@ -5,7 +5,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (service *ProductApplication) ManipulateStock(idProduct uuid.UUID, units int) (float32, error) {
+func (service *ProductService) ManipulateStock(idProduct uuid.UUID, units int) (float32, error) {
 	prod, err := service.repo.GetProduct(idProduct)
 	if err != nil {
 		return 0, err

@@ -24,10 +24,10 @@ func main() {
 
 	newFactory.InitMongoDB()
 
-	sellerManager, sellerHandler := newFactory.BuildSellerHandler()
-	userManager, userHandler := newFactory.BuildUserHandler()
-	prodManager, productHandler := newFactory.BuildProductHandler(sellerManager)
-	purchaseHandler := newFactory.BuildPurchaseHandler(prodManager, userManager)
+	_, sellerHandler := newFactory.BuildSellerHandler()
+	_, userHandler := newFactory.BuildUserHandler()
+	_, productHandler := newFactory.BuildProductHandler()
+	_, purchaseHandler := newFactory.BuildPurchaseHandler()
 
 	r := gin.Default()
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

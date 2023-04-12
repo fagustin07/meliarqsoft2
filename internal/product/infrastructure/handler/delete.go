@@ -26,7 +26,7 @@ func (p ProductGinHandler) Delete(c *gin.Context) {
 		return
 	}
 
-	err = p.app.Delete(id)
+	err = p.productService.Delete(id)
 
 	if err != nil {
 		c.Status(http.StatusNotFound)

@@ -5,9 +5,9 @@ import (
 )
 
 type SellerGinHandler struct {
-	manager ports.ISellerManager
+	service ports.ISellerService
 }
 
-func NewSellerGinHandler(manager ports.ISellerManager) *SellerGinHandler {
-	return &SellerGinHandler{manager: manager}
+func NewSellerGinHandler(service ports.ISellerService) *SellerGinHandler {
+	return &SellerGinHandler{service: service}
 }

@@ -6,13 +6,13 @@ import (
 	"meliarqsoft2/internal/seller/application"
 )
 
-type ProductApplication struct {
+type ProductService struct {
 	repo            ports.IProductRepository
 	sellerService   *application.SellerService
 	purchaseService *application2.PurchaseService
 }
 
-func NewProductApplication(repo ports.IProductRepository, sellerService *application.SellerService,
-	purchaseService *application2.PurchaseService) *ProductApplication {
-	return &ProductApplication{repo: repo, sellerService: sellerService, purchaseService: purchaseService}
+func NewProductService(repo ports.IProductRepository, sellerService *application.SellerService,
+	purchaseService *application2.PurchaseService) *ProductService {
+	return &ProductService{repo: repo, sellerService: sellerService, purchaseService: purchaseService}
 }

@@ -5,9 +5,9 @@ import (
 )
 
 type ProductGinHandler struct {
-	app ports.IProductApplication
+	productService ports.IProductService
 }
 
-func NewProductGinHandler(app ports.IProductApplication) *ProductGinHandler {
-	return &ProductGinHandler{app: app}
+func NewProductGinHandler(service ports.IProductService) *ProductGinHandler {
+	return &ProductGinHandler{productService: service}
 }

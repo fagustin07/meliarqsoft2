@@ -25,7 +25,7 @@ func (handler SellerGinHandler) Create(c *gin.Context) {
 		return
 	}
 
-	id, err := handler.manager.Create(sellerDTO.BusinessName, sellerDTO.Email)
+	id, err := handler.service.Create(sellerDTO.BusinessName, sellerDTO.Email)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

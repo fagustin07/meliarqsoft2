@@ -40,7 +40,10 @@ func (repo SellerMongoDBRepository) Find(businessName string) ([]*domain.Seller,
 }
 
 func mapProductToDomainModel(elem *SellerModel) *domain.Seller {
-	return &domain.Seller{
-		ID: elem.ID, BusinessName: elem.BusinessName, Email: elem.Email,
+	seller, err := domain.NewSeller(elem.ID, elem.BusinessName, elem.Email)
+	if err != nil {
+		return nil
 	}
+
+	return seller
 }

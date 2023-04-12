@@ -34,7 +34,7 @@ func (handler SellerGinHandler) Update(c *gin.Context) {
 		return
 	}
 
-	err = handler.manager.Update(id, dataToUpdate.BusinessName, dataToUpdate.Email)
+	err = handler.service.Update(id, dataToUpdate.BusinessName, dataToUpdate.Email)
 
 	if err != nil {
 		c.Status(http.StatusBadRequest)

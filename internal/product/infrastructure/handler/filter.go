@@ -36,7 +36,7 @@ func (p ProductGinHandler) Filter(c *gin.Context) {
 		log.Print(err)
 		return
 	}
-	resp, err := p.app.Filter(min, max)
+	resp, err := p.productService.Filter(min, max)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

@@ -5,7 +5,7 @@ import (
 	"meliarqsoft2/internal/product/domain"
 )
 
-func (service *ProductApplication) Filter(minPrice float32, maxPrice float32) ([]*domain.Product, error) {
+func (service *ProductService) Filter(minPrice float32, maxPrice float32) ([]*domain.Product, error) {
 	if maxPrice < minPrice {
 		return nil, errors.New("min_price cannot be gt max_price")
 	}

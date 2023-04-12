@@ -17,5 +17,5 @@ type UserDTO struct {
 }
 
 func MapUserToJSON(user *domain.User) UserDTO {
-	return UserDTO{user.ID, user.Name, user.Surname, user.Email}
+	return UserDTO{user.ID, user.Name, user.Surname, user.Email.Address}
 }

@@ -21,7 +21,7 @@ import (
 func (handler SellerGinHandler) Find(c *gin.Context) {
 	name := c.Query("business_name")
 
-	resp, err := handler.manager.Find(name)
+	resp, err := handler.service.Find(name)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

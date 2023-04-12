@@ -26,7 +26,7 @@ func (handler SellerGinHandler) Delete(c *gin.Context) {
 		return
 	}
 
-	err = handler.manager.Delete(id)
+	err = handler.service.Delete(id)
 
 	if err != nil {
 		c.Status(http.StatusNotFound)

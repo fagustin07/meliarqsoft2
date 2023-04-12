@@ -33,7 +33,7 @@ func (handler UserGinHandler) Update(c *gin.Context) {
 		return
 	}
 
-	err = handler.manager.Update(id, dataToUpdate.Name, dataToUpdate.Surname, dataToUpdate.Email)
+	err = handler.service.Update(id, dataToUpdate.Name, dataToUpdate.Surname, dataToUpdate.Email)
 
 	if err != nil {
 		c.Status(http.StatusBadRequest)

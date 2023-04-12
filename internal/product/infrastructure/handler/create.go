@@ -25,7 +25,7 @@ func (p ProductGinHandler) Create(c *gin.Context) {
 		return
 	}
 
-	createdProduct, err := p.app.Create(productDTO.Name, productDTO.Description, productDTO.Category, productDTO.Price, productDTO.Stock, productDTO.IDSeller)
+	createdProduct, err := p.productService.Create(productDTO.Name, productDTO.Description, productDTO.Category, productDTO.Price, productDTO.Stock, productDTO.IDSeller)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

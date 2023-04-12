@@ -5,7 +5,7 @@ import (
 	"meliarqsoft2/internal/purchase/domain"
 )
 
-type IPurchaseManager interface {
+type IPurchaseService interface {
 	Create(IDProduct uuid.UUID, IDUser uuid.UUID, units int) (*domain.Purchase, error)
 	Find(productID uuid.UUID) ([]*domain.Purchase, error)
 	DeleteMany(productId uuid.UUID) error

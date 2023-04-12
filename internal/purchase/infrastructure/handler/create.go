@@ -26,7 +26,7 @@ func (handler PurchaseGinHandler) Create(c *gin.Context) {
 		return
 	}
 
-	purchase, err := handler.manager.Create(purchaseDTO.IDProduct, purchaseDTO.IDUser, purchaseDTO.Units)
+	purchase, err := handler.purchaseService.Create(purchaseDTO.IDProduct, purchaseDTO.IDUser, purchaseDTO.Units)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

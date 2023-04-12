@@ -5,9 +5,9 @@ import (
 )
 
 type UserGinHandler struct {
-	manager ports.IUserManager
+	service ports.IUserService
 }
 
-func NewUserGinHandler(manager ports.IUserManager) *UserGinHandler {
-	return &UserGinHandler{manager: manager}
+func NewUserGinHandler(service ports.IUserService) *UserGinHandler {
+	return &UserGinHandler{service: service}
 }

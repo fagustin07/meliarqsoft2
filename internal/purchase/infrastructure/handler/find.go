@@ -26,7 +26,7 @@ func (handler PurchaseGinHandler) Find(c *gin.Context) {
 		log.Println(err.Error())
 		return
 	}
-	resp, err := handler.manager.Find(id)
+	resp, err := handler.purchaseService.Find(id)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

@@ -21,7 +21,7 @@ import (
 func (handler UserGinHandler) Find(c *gin.Context) {
 	name := c.Query("email")
 
-	resp, err := handler.manager.Find(name)
+	resp, err := handler.service.Find(name)
 	if err != nil {
 		c.Status(http.StatusNotFound)
 		log.Println(err.Error())

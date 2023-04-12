@@ -7,23 +7,23 @@ import (
 	"time"
 )
 
-func (manager PurchaseService) Create(IDProduct uuid.UUID, IDUser uuid.UUID, units int) (*domain.Purchase, error) {
+func (service PurchaseService) Create(IDProduct uuid.UUID, IDUser uuid.UUID, units int) (*domain.Purchase, error) {
 	if units == 0 {
 		return &domain.Purchase{}, errors.New("cannot buy zero units")
 	}
-	err := manager.userManager.Exist(IDUser)
+	err := service.userService.Exist(IDUser)
 	if err != nil {
 		return &domain.Purchase{}, err
 	}
-	purchaseTotal, err := manager.productManager.ManipulateStock(IDProduct, units*-1)
+	purchaseTotal, err := service.productService.ManipulateStock(IDProduct, units*-1)
 	if err != nil {
 		return &domain.Purchase{}, err
 	}
 
 	newPurchase := domain.NewPurchase(IDProduct, IDUser, time.Now(), units, purchaseTotal)
-	err = manager.repository.Create(newPurchase)
+	err = service.repository.Create(newPurchase)
 	if err != nil {
-		_, err := manager.productManager.ManipulateStock(IDProduct, units)
+		_, err := service.productService.ManipulateStock(IDProduct, units)
 		if err != nil {
 			return nil, err
 		}

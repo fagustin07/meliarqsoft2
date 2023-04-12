@@ -25,7 +25,7 @@ func (handler UserGinHandler) Create(c *gin.Context) {
 		return
 	}
 
-	id, err := handler.manager.Create(userDTO.Name, userDTO.Surname, userDTO.Email)
+	id, err := handler.service.Create(userDTO.Name, userDTO.Surname, userDTO.Email)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

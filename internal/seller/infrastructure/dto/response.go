@@ -16,5 +16,5 @@ type SellerDTO struct {
 }
 
 func MapSellerToJSON(seller *domain.Seller) SellerDTO {
-	return SellerDTO{seller.ID, seller.BusinessName, seller.Email}
+	return SellerDTO{seller.ID, seller.BusinessName, seller.Email.Address}
 }

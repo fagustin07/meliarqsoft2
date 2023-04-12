@@ -5,9 +5,9 @@ import (
 )
 
 type PurchaseGinHandler struct {
-	manager ports.IPurchaseManager
+	purchaseService ports.IPurchaseService
 }
 
-func NewPurchaseGinHandler(manager ports.IPurchaseManager) *PurchaseGinHandler {
-	return &PurchaseGinHandler{manager: manager}
+func NewPurchaseGinHandler(manager ports.IPurchaseService) *PurchaseGinHandler {
+	return &PurchaseGinHandler{purchaseService: manager}
 }

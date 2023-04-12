@@ -12,5 +12,5 @@ type SellerModel struct {
 }
 
 func mapSellerToMongoModel(seller *domain.Seller) *SellerModel {
-	return &SellerModel{ID: seller.ID, BusinessName: seller.BusinessName, Email: seller.Email}
+	return &SellerModel{ID: seller.ID, BusinessName: seller.BusinessName, Email: seller.Email.Address}
 }

@@ -52,27 +52,31 @@ func (factory *Factory) InitMongoDB() *mongo.Client {
 	return client
 }
 
-func (factory *Factory) BuildProductHandler(sellManager *application2.SellerService) (*application.ProductApplication, *handler.ProductGinHandler) {
+func (factory *Factory) BuildProductHandler() (*application.ProductService, *handler.ProductGinHandler) {
 	repo := repository.NewProductMongoDBRepository(factory.dbClient)
-	app := application.NewProductApplication(repo, sellManager)
+	purchaseService, _ := factory.BuildPurchaseHandler()
+	sellerService, _ := factory.BuildSellerHandler()
+	app := application.NewProductService(repo, sellerService, purchaseService)
 	return app, handler.NewProductGinHandler(app)
 }
 
 func (factory *Factory) BuildSellerHandler() (*application2.SellerService, *handler2.SellerGinHandler) {
 	repo := repository2.NewSellerMongoDBRepository(factory.dbClient)
-	manager := application2.NewSellerManager(repo)
+	productService, _ := factory.BuildProductHandler()
+	manager := application2.NewSellerService(repo, productService)
 	return manager, handler2.NewSellerGinHandler(manager)
 }
 
-func (factory *Factory) BuildUserHandler() (*application3.UserManager, *handler3.UserGinHandler) {
+func (factory *Factory) BuildUserHandler() (*application3.UserService, *handler3.UserGinHandler) {
 	repo := repository3.NewUserMongoDBRepository(factory.dbClient)
-	manager := application3.NewUserManager(repo)
+	manager := application3.NewUserService(repo)
 	return manager, handler3.NewUserGinHandler(manager)
 }
 
-func (factory *Factory) BuildPurchaseHandler(prodManager *application.ProductApplication,
-	userManager *application3.UserManager) *handler4.PurchaseGinHandler {
+func (factory *Factory) BuildPurchaseHandler() (*application4.PurchaseService, *handler4.PurchaseGinHandler) {
 	repo := repository4.NewPurchaseMongoDBRepository(factory.dbClient)
-	manager := application4.NewPurchaseManager(repo, prodManager, userManager)
-	return handler4.NewPurchaseGinHandler(manager)
+	prodService, _ := factory.BuildProductHandler()
+	userService, _ := factory.BuildUserHandler()
+	service := application4.NewPurchaseService(repo, prodService, userService)
+	return service, handler4.NewPurchaseGinHandler(service)
 }

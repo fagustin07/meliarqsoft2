@@ -34,7 +34,7 @@ func (p ProductGinHandler) Update(c *gin.Context) {
 		return
 	}
 
-	_, err = p.app.Update(id, dataToUpdate.Name, dataToUpdate.Description, dataToUpdate.Category, dataToUpdate.Price, dataToUpdate.Stock)
+	_, err = p.productService.Update(id, dataToUpdate.Name, dataToUpdate.Description, dataToUpdate.Category, dataToUpdate.Price, dataToUpdate.Stock)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

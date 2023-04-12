@@ -23,7 +23,7 @@ func (p ProductGinHandler) Find(c *gin.Context) {
 	name := c.Query("name")
 	category := c.Query("category")
 
-	resp, err := p.app.Find(name, category)
+	resp, err := p.productService.Find(name, category)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)
