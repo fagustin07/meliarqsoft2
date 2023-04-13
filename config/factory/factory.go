@@ -54,16 +54,14 @@ func (factory *Factory) InitMongoDB() *mongo.Client {
 
 func (factory *Factory) BuildProductHandler() (*application.ProductService, *handler.ProductGinHandler) {
 	repo := repository.NewProductMongoDBRepository(factory.dbClient)
-	purchaseService, _ := factory.BuildPurchaseHandler()
 	sellerService, _ := factory.BuildSellerHandler()
-	app := application.NewProductService(repo, sellerService, purchaseService)
+	app := application.NewProductService(repo, sellerService)
 	return app, handler.NewProductGinHandler(app)
 }
 
 func (factory *Factory) BuildSellerHandler() (*application2.SellerService, *handler2.SellerGinHandler) {
 	repo := repository2.NewSellerMongoDBRepository(factory.dbClient)
-	productService, _ := factory.BuildProductHandler()
-	manager := application2.NewSellerService(repo, productService)
+	manager := application2.NewSellerService(repo)
 	return manager, handler2.NewSellerGinHandler(manager)
 }
 

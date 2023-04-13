@@ -3,17 +3,17 @@ package domain
 import (
 	"errors"
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/helpers/value_objects"
+	"meliarqsoft2/internal/domain"
 )
 
 type Seller struct {
 	ID           uuid.UUID
 	BusinessName string
-	Email        *value_objects.Email
+	Email        *domain.Email
 }
 
 func NewSeller(id uuid.UUID, businessName string, email string) (*Seller, error) {
-	newEmail, err := value_objects.NewEmail(email)
+	newEmail, err := domain.NewEmail(email)
 	if err != nil {
 		return nil, errors.New("invalid email")
 	}

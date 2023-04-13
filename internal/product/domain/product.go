@@ -2,7 +2,7 @@ package domain
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/helpers/value_objects"
+	"meliarqsoft2/internal/domain"
 )
 
 type Product struct {
@@ -10,17 +10,17 @@ type Product struct {
 	Name        string
 	Description string
 	Category    string
-	Price       *value_objects.Price
-	Stock       *value_objects.Stock
+	Price       *domain.Price
+	Stock       *domain.Stock
 	IDSeller    uuid.UUID
 }
 
 func NewProduct(id uuid.UUID, name string, description string, category string, price float32, stock int, IDSeller uuid.UUID) (*Product, error) {
-	priceObj, err := value_objects.NewPrice(price)
+	priceObj, err := domain.NewPrice(price)
 	if err != nil {
 		return nil, err
 	}
-	stockObj, err := value_objects.NewStock(stock)
+	stockObj, err := domain.NewStock(stock)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +34,7 @@ func (prod Product) CanConsume(units int) bool {
 
 func (prod Product) TakeUnits(units int) (float32, int, error) {
 	var unitsAbs float32
-	newStock, err := value_objects.NewStock(prod.Stock.Amount + units)
+	newStock, err := domain.NewStock(prod.Stock.Amount + units)
 	if err != nil {
 		return 0, 0, err
 	}

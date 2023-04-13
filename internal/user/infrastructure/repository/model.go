@@ -13,14 +13,13 @@ type UserModel struct {
 }
 
 func MapUserToMongoModel(user *domain.User) UserModel {
-	return UserModel{ID: user.ID, Name: user.Name, Surname: user.Surname, Email: user.Email}
+	return UserModel{ID: user.ID, Name: user.Name, Surname: user.Surname, Email: user.Email.Address}
 }
 
 func MapToUserDomain(userModel *UserModel) *domain.User {
-	return &domain.User{
-		ID:      userModel.ID,
-		Name:    userModel.Name,
-		Surname: userModel.Surname,
-		Email:   userModel.Email,
+	user, err := domain.NewUser(userModel.ID, userModel.Name, userModel.Email, userModel.Surname)
+	if err != nil {
+		return nil
 	}
+	return user
 }
