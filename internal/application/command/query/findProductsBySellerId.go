@@ -3,11 +3,11 @@ package query
 import (
 	"github.com/google/uuid"
 	"meliarqsoft2/internal/product/domain"
-	"meliarqsoft2/internal/product/infrastructure/repository"
+	"meliarqsoft2/internal/product/domain/ports"
 )
 
 type FindProductsBySellerID struct {
-	repository repository.ProductMongoDBRepository
+	repository ports.IProductRepository
 }
 
 func (query FindProductsBySellerID) Execute(sellerID uuid.UUID) ([]*domain.Product, error) {

@@ -1,4 +1,4 @@
-package command
+package action
 
 import (
 	"github.com/google/uuid"
@@ -9,7 +9,7 @@ type DeletePurchase struct {
 	repository ports.IPurchaseRepository
 }
 
-func NewDeletePurchase(repo ports.IPurchaseRepository) *DeletePurchase {
+func NewUndoPurchaseCommand(repo ports.IPurchaseRepository) *DeletePurchase {
 	return &DeletePurchase{
 		repository: repo,
 	}
