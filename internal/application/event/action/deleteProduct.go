@@ -7,14 +7,14 @@ import (
 )
 
 type DeleteProductEvent struct {
-	productRepository          ports.IProductRepository
-	deletePurchasesByProductId *action.UndoPurchasesByProductId
+	productRepository        ports.IProductRepository
+	deletePurchasesByProduct *action.UndoPurchasesByProductId
 }
 
 func NewDeleteProductEvent(prodRepo ports.IProductRepository, deletePurchases *action.UndoPurchasesByProductId) *DeleteProductEvent {
 	return &DeleteProductEvent{
-		productRepository:          prodRepo,
-		deletePurchasesByProductId: deletePurchases,
+		productRepository:        prodRepo,
+		deletePurchasesByProduct: deletePurchases,
 	}
 }
 
@@ -23,7 +23,7 @@ func (usecase DeleteProductEvent) Execute(id uuid.UUID) error {
 		return err
 	}
 
-	if err := usecase.deletePurchasesByProductId.Execute(id); err != nil {
+	if err := usecase.deletePurchasesByProduct.Execute(id); err != nil {
 		return err
 	}
 

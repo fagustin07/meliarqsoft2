@@ -8,10 +8,10 @@ import (
 
 type UnregisterSellerEvent struct {
 	sellerRepository         ports.ISellerRepository
-	deleteProductsBySellerId *action.DeleteProductsBySellerId
+	deleteProductsBySellerId *action.DeleteProductsBySeller
 }
 
-func NewDeleteSellerEvent(sellerRepo ports.ISellerRepository, deleteProd *action.DeleteProductsBySellerId) *UnregisterSellerEvent {
+func NewDeleteSellerEvent(sellerRepo ports.ISellerRepository, deleteProd *action.DeleteProductsBySeller) *UnregisterSellerEvent {
 	return &UnregisterSellerEvent{
 		sellerRepository:         sellerRepo,
 		deleteProductsBySellerId: deleteProd,
