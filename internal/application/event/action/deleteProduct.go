@@ -1,4 +1,4 @@
-package actions
+package action
 
 import (
 	"github.com/google/uuid"
@@ -11,7 +11,7 @@ type DeleteProductEvent struct {
 	deletePurchasesByProductId *action.UndoPurchasesByProductId
 }
 
-func NewDeleteProduct(prodRepo ports.IProductRepository, deletePurchases *action.UndoPurchasesByProductId) *DeleteProductEvent {
+func NewDeleteProductEvent(prodRepo ports.IProductRepository, deletePurchases *action.UndoPurchasesByProductId) *DeleteProductEvent {
 	return &DeleteProductEvent{
 		productRepository:          prodRepo,
 		deletePurchasesByProductId: deletePurchases,
