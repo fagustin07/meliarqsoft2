@@ -16,7 +16,7 @@ func NewUndoPurchaseCommand(repo ports.IPurchaseRepository) *DeletePurchase {
 }
 
 func (command DeletePurchase) Execute(id uuid.UUID) error {
-	err := command.repository.DeleteMany(id)
+	err := command.repository.Delete(id)
 	if err != nil {
 		return err
 	}

@@ -8,10 +8,10 @@ import (
 
 type DeleteProductEvent struct {
 	productRepository        ports.IProductRepository
-	deletePurchasesByProduct *action.UndoPurchasesByProductId
+	deletePurchasesByProduct *action.UndoPurchasesByProduct
 }
 
-func NewDeleteProductEvent(prodRepo ports.IProductRepository, deletePurchases *action.UndoPurchasesByProductId) *DeleteProductEvent {
+func NewDeleteProductEvent(prodRepo ports.IProductRepository, deletePurchases *action.UndoPurchasesByProduct) *DeleteProductEvent {
 	return &DeleteProductEvent{
 		productRepository:        prodRepo,
 		deletePurchasesByProduct: deletePurchases,

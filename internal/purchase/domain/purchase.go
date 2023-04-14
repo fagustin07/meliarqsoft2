@@ -6,6 +6,7 @@ import (
 )
 
 type Purchase struct {
+	ID        uuid.UUID
 	IDProduct uuid.UUID
 	IDUser    uuid.UUID
 	Date      time.Time
@@ -13,6 +14,6 @@ type Purchase struct {
 	Total     float32
 }
 
-func NewPurchase(IDProduct uuid.UUID, IDUser uuid.UUID, date time.Time, units int, total float32) *Purchase {
-	return &Purchase{IDProduct: IDProduct, IDUser: IDUser, Date: date, Units: units, Total: total}
+func NewPurchase(ID uuid.UUID, IDProduct uuid.UUID, IDUser uuid.UUID, date time.Time, units int, total float32) *Purchase {
+	return &Purchase{ID: ID, IDProduct: IDProduct, IDUser: IDUser, Date: date, Units: units, Total: total}
 }
