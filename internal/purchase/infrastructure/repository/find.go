@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"errors"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -29,7 +30,11 @@ func (repository PurchaseMongoDBRepository) Find(productID uuid.UUID) ([]*domain
 	var res []*domain.Purchase
 	for _, elem := range dbResult {
 		log.Print(elem)
-		res = append(res, MapToPurchaseDomain(elem))
+		purchase, err := MapToPurchaseDomain(elem)
+		if err != nil {
+			return nil, errors.New("failed mapping purchase from db to model")
+		}
+		res = append(res, purchase)
 	}
 
 	return res, err

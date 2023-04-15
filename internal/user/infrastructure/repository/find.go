@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
@@ -29,7 +30,12 @@ func (repo UserMongoDBRepository) Find(emailPattern string) ([]*domain.User, err
 
 	var res []*domain.User
 	for _, elem := range dbResult {
-		res = append(res, MapToUserDomain(elem))
+		user, err := MapToUserDomain(elem)
+		if err != nil {
+			return nil, errors.New("failed mapping user from db to model")
+		}
+
+		res = append(res, user)
 	}
 
 	return res, nil

@@ -21,11 +21,11 @@ func MapPurchaseToMongoModel(purchase *domain.Purchase) PurchaseModel {
 		IDProduct: purchase.IDProduct,
 		IDUser:    purchase.IDUser,
 		Date:      purchase.Date,
-		Units:     purchase.Units,
-		Total:     purchase.Total,
+		Units:     purchase.Units.Amount,
+		Total:     purchase.Total.Value,
 	}
 }
 
-func MapToPurchaseDomain(elem *PurchaseModel) *domain.Purchase {
+func MapToPurchaseDomain(elem *PurchaseModel) (*domain.Purchase, error) {
 	return domain.NewPurchase(elem.ID, elem.IDProduct, elem.IDUser, elem.Date, elem.Units, elem.Total)
 }

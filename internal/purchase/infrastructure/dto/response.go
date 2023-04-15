@@ -19,7 +19,7 @@ func MapPurchaseToJSON(purchase *domain.Purchase) PurchaseDTO {
 		IDProduct: purchase.IDProduct,
 		IDUser:    purchase.IDUser,
 		Date:      purchase.Date,
-		Units:     purchase.Units,
-		Total:     purchase.Total,
+		Units:     purchase.Units.Amount,
+		Total:     purchase.Total.Value,
 	}
 }
