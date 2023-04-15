@@ -1,15 +1,14 @@
 package query
 
 import (
-	"meliarqsoft2/internal/seller/domain"
-	"meliarqsoft2/internal/seller/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type FindSellerEvent struct {
-	repository ports.ISellerRepository
+	repository domain.ISellerRepository
 }
 
-func NewFindSellerEvent(repository ports.ISellerRepository) *FindSellerEvent {
+func NewFindSellerEvent(repository domain.ISellerRepository) *FindSellerEvent {
 	return &FindSellerEvent{
 		repository: repository,
 	}

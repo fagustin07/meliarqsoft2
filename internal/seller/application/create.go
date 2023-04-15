@@ -2,7 +2,7 @@ package application
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/seller/domain"
+	"meliarqsoft2/internal/domain"
 )
 
 func (service SellerService) Create(businessName string, email string) (uuid.UUID, error) {

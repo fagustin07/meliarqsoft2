@@ -2,14 +2,14 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/product/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type ManageProductStock struct {
-	repository ports.IProductRepository
+	repository domain.IProductRepository
 }
 
-func NewManageProductStockCommand(repository ports.IProductRepository) *ManageProductStock {
+func NewManageProductStockCommand(repository domain.IProductRepository) *ManageProductStock {
 	return &ManageProductStock{repository: repository}
 }
 

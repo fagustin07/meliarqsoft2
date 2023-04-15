@@ -3,7 +3,7 @@ package application
 import (
 	"errors"
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/purchase/domain"
+	"meliarqsoft2/internal/domain"
 	"time"
 )
 

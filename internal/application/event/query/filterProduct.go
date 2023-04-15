@@ -2,15 +2,14 @@ package query
 
 import (
 	"errors"
-	"meliarqsoft2/internal/product/domain"
-	"meliarqsoft2/internal/product/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type FilterProductEvent struct {
-	repository ports.IProductRepository
+	repository domain.IProductRepository
 }
 
-func NewFilterProductEvent(repository ports.IProductRepository) *FilterProductEvent {
+func NewFilterProductEvent(repository domain.IProductRepository) *FilterProductEvent {
 	return &FilterProductEvent{
 		repository: repository,
 	}

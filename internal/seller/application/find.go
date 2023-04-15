@@ -1,6 +1,8 @@
 package application
 
-import "meliarqsoft2/internal/seller/domain"
+import (
+	"meliarqsoft2/internal/domain"
+)
 
 func (service SellerService) Find(businessName string) ([]*domain.Seller, error) {
 	return service.repo.Find(businessName)

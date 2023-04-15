@@ -2,14 +2,14 @@ package query
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/user/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type ExistUser struct {
-	repository ports.IUserRepository
+	repository domain.IUserRepository
 }
 
-func NewExistUserCommand(repository ports.IUserRepository) *ExistUser {
+func NewExistUserCommand(repository domain.IUserRepository) *ExistUser {
 	return &ExistUser{repository: repository}
 }
 

@@ -3,10 +3,9 @@ package application
 import (
 	"github.com/google/uuid"
 	domain2 "meliarqsoft2/internal/domain"
-	"meliarqsoft2/internal/product/domain"
 )
 
-func (service *ProductService) Update(ID uuid.UUID, name string, description string, category string, price float32, stock int) (*domain.Product, error) {
+func (service *ProductService) Update(ID uuid.UUID, name string, description string, category string, price float32, stock int) (*domain2.Product, error) {
 	newPrice, err := domain2.NewPrice(price)
 	if err != nil {
 		return nil, err

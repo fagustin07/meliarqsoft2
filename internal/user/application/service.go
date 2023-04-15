@@ -1,13 +1,13 @@
 package application
 
 import (
-	"meliarqsoft2/internal/user/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type UserService struct {
-	repository ports.IUserRepository
+	repository domain.IUserRepository
 }
 
-func NewUserService(repo ports.IUserRepository) *UserService {
+func NewUserService(repo domain.IUserRepository) *UserService {
 	return &UserService{repository: repo}
 }

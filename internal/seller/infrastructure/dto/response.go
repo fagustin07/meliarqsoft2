@@ -2,7 +2,7 @@ package dto
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/seller/domain"
+	"meliarqsoft2/internal/domain"
 )
 
 type SellerID struct {

@@ -2,15 +2,14 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/user/domain"
-	"meliarqsoft2/internal/user/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type RegisterUserEvent struct {
-	repository ports.IUserRepository
+	repository domain.IUserRepository
 }
 
-func NewRegisterUserEvent(repository ports.IUserRepository) *RegisterUserEvent {
+func NewRegisterUserEvent(repository domain.IUserRepository) *RegisterUserEvent {
 	return &RegisterUserEvent{repository: repository}
 }
 

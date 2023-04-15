@@ -4,16 +4,16 @@ import (
 	"github.com/google/uuid"
 	"meliarqsoft2/internal/application/command/query"
 	"meliarqsoft2/internal/application/event/action"
-	"meliarqsoft2/internal/product/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type DeleteProductsBySeller struct {
-	repository    ports.IProductRepository
+	repository    domain.IProductRepository
 	findProducts  *query.FindProductsBySeller
 	deleteProduct *action.DeleteProductEvent
 }
 
-func NewDeleteProductsBySellerCommand(repository ports.IProductRepository,
+func NewDeleteProductsBySellerCommand(repository domain.IProductRepository,
 	findProducts *query.FindProductsBySeller,
 	deleteProduct *action.DeleteProductEvent) *DeleteProductsBySeller {
 

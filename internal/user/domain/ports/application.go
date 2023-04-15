@@ -2,7 +2,7 @@ package ports
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/user/domain"
+	"meliarqsoft2/internal/domain"
 )
 
 type IUserService interface {

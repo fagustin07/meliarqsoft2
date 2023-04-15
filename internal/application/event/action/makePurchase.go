@@ -5,19 +5,18 @@ import (
 	"github.com/google/uuid"
 	"meliarqsoft2/internal/application/command/action"
 	"meliarqsoft2/internal/application/command/query"
-	"meliarqsoft2/internal/purchase/domain"
-	"meliarqsoft2/internal/purchase/domain/ports"
+	"meliarqsoft2/internal/domain"
 	"time"
 )
 
 type MakePurchaseEvent struct {
-	repository         ports.IPurchaseRepository
+	repository         domain.IPurchaseRepository
 	findProduct        *query.FindProduct
 	existUser          *query.ExistUser
 	manageProductStock *action.ManageProductStock
 }
 
-func NewMakePurchaseEvent(repo ports.IPurchaseRepository, findProd *query.FindProduct, existUser *query.ExistUser,
+func NewMakePurchaseEvent(repo domain.IPurchaseRepository, findProd *query.FindProduct, existUser *query.ExistUser,
 	manageStock *action.ManageProductStock) *MakePurchaseEvent {
 	return &MakePurchaseEvent{
 		repository:         repo,

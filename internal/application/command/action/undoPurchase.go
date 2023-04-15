@@ -2,14 +2,14 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/purchase/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type UndoPurchase struct {
-	repository ports.IPurchaseRepository
+	repository domain.IPurchaseRepository
 }
 
-func NewUndoPurchaseCommand(repo ports.IPurchaseRepository) *UndoPurchase {
+func NewUndoPurchaseCommand(repo domain.IPurchaseRepository) *UndoPurchase {
 	return &UndoPurchase{
 		repository: repo,
 	}

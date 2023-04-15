@@ -2,15 +2,15 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/application/command/query"
+	"meliarqsoft2/internal/application/event/query"
 )
 
 type UndoPurchasesByProduct struct {
-	findPurchasesFromProduct *query.FindPurchasesFromProduct
+	findPurchasesFromProduct *query.FindPurchasesFromProductEvent
 	undoPurchase             *UndoPurchase
 }
 
-func NewUndoPurchasesByProductCommand(findPurchase *query.FindPurchasesFromProduct,
+func NewUndoPurchasesByProductCommand(findPurchase *query.FindPurchasesFromProductEvent,
 	undoPurchase *UndoPurchase) *UndoPurchasesByProduct {
 
 	return &UndoPurchasesByProduct{

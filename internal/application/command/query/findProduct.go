@@ -2,15 +2,14 @@ package query
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/product/domain"
-	"meliarqsoft2/internal/product/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type FindProduct struct {
-	repository ports.IProductRepository
+	repository domain.IProductRepository
 }
 
-func NewFindProductCommand(repository ports.IProductRepository) *FindProduct {
+func NewFindProductCommand(repository domain.IProductRepository) *FindProduct {
 	return &FindProduct{repository: repository}
 }
 

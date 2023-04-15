@@ -2,7 +2,7 @@ package application
 
 import (
 	"errors"
-	"meliarqsoft2/internal/product/domain"
+	"meliarqsoft2/internal/domain"
 )
 
 func (service *ProductService) Filter(minPrice float32, maxPrice float32) ([]*domain.Product, error) {

@@ -3,14 +3,13 @@ package action
 import (
 	"github.com/google/uuid"
 	"meliarqsoft2/internal/domain"
-	"meliarqsoft2/internal/seller/domain/ports"
 )
 
 type UpdateSellerEvent struct {
-	repository ports.ISellerRepository
+	repository domain.ISellerRepository
 }
 
-func NewUpdateSellerEvent(repository ports.ISellerRepository) *UpdateSellerEvent {
+func NewUpdateSellerEvent(repository domain.ISellerRepository) *UpdateSellerEvent {
 	return &UpdateSellerEvent{
 		repository: repository,
 	}

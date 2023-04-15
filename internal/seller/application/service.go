@@ -1,13 +1,13 @@
 package application
 
 import (
-	"meliarqsoft2/internal/seller/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type SellerService struct {
-	repo ports.ISellerRepository
+	repo domain.ISellerRepository
 }
 
-func NewSellerService(repo ports.ISellerRepository) *SellerService {
+func NewSellerService(repo domain.ISellerRepository) *SellerService {
 	return &SellerService{repo: repo}
 }

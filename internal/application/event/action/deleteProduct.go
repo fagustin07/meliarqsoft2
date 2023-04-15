@@ -3,18 +3,18 @@ package action
 import (
 	"github.com/google/uuid"
 	"meliarqsoft2/internal/application/command/action"
-	"meliarqsoft2/internal/product/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type DeleteProductEvent struct {
-	productRepository        ports.IProductRepository
-	deletePurchasesByProduct *action.UndoPurchasesByProduct
+	productRepository      domain.IProductRepository
+	undoPurchasesByProduct *action.UndoPurchasesByProduct
 }
 
-func NewDeleteProductEvent(prodRepo ports.IProductRepository, deletePurchases *action.UndoPurchasesByProduct) *DeleteProductEvent {
+func NewDeleteProductEvent(prodRepo domain.IProductRepository, undoPurchasesByProduct *action.UndoPurchasesByProduct) *DeleteProductEvent {
 	return &DeleteProductEvent{
-		productRepository:        prodRepo,
-		deletePurchasesByProduct: deletePurchases,
+		productRepository:      prodRepo,
+		undoPurchasesByProduct: undoPurchasesByProduct,
 	}
 }
 
@@ -23,7 +23,7 @@ func (actionEvent DeleteProductEvent) Execute(id uuid.UUID) error {
 		return err
 	}
 
-	if err := actionEvent.deletePurchasesByProduct.Execute(id); err != nil {
+	if err := actionEvent.undoPurchasesByProduct.Execute(id); err != nil {
 		return err
 	}
 

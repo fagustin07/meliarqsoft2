@@ -3,23 +3,22 @@ package action
 import (
 	"github.com/google/uuid"
 	"meliarqsoft2/internal/application/command/query"
-	"meliarqsoft2/internal/product/domain"
-	"meliarqsoft2/internal/product/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
-type RegisterProductEvent struct {
-	productRepository ports.IProductRepository
+type CreateProductEvent struct {
+	productRepository domain.IProductRepository
 	existSeller       *query.ExistSeller
 }
 
-func NewRegisterProductEvent(productRepository ports.IProductRepository, existSeller *query.ExistSeller) *RegisterProductEvent {
-	return &RegisterProductEvent{
+func NewCreateProductEvent(productRepository domain.IProductRepository, existSeller *query.ExistSeller) *CreateProductEvent {
+	return &CreateProductEvent{
 		productRepository: productRepository,
 		existSeller:       existSeller,
 	}
 }
 
-func (actionEvent RegisterProductEvent) Execute(name string, description string, category string, price float32, stock int, idSeller uuid.UUID) (*domain.Product, error) {
+func (actionEvent CreateProductEvent) Execute(name string, description string, category string, price float32, stock int, idSeller uuid.UUID) (*domain.Product, error) {
 	err := actionEvent.existSeller.Execute(idSeller)
 	if err != nil {
 		return nil, err

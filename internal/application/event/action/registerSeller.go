@@ -2,15 +2,14 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/seller/domain"
-	"meliarqsoft2/internal/seller/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type RegisterSellerEvent struct {
-	repository ports.ISellerRepository
+	repository domain.ISellerRepository
 }
 
-func NewRegisterSellerEvent(repository ports.ISellerRepository) *RegisterSellerEvent {
+func NewRegisterSellerEvent(repository domain.ISellerRepository) *RegisterSellerEvent {
 	return &RegisterSellerEvent{repository: repository}
 }
 

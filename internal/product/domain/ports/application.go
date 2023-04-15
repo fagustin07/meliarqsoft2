@@ -2,7 +2,7 @@ package ports
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/product/domain"
+	"meliarqsoft2/internal/domain"
 )
 
 type IProductService interface {

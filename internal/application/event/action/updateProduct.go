@@ -2,27 +2,25 @@ package action
 
 import (
 	"github.com/google/uuid"
-	domain2 "meliarqsoft2/internal/domain"
-	"meliarqsoft2/internal/product/domain"
-	"meliarqsoft2/internal/product/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type UpdateProductEvent struct {
-	repository ports.IProductRepository
+	repository domain.IProductRepository
 }
 
-func NewUpdateProductEvent(repository ports.IProductRepository) *UpdateProductEvent {
+func NewUpdateProductEvent(repository domain.IProductRepository) *UpdateProductEvent {
 	return &UpdateProductEvent{
 		repository: repository,
 	}
 }
 
 func (actionEvent UpdateProductEvent) Execute(ID uuid.UUID, name string, description string, category string, price float32, stock int) (*domain.Product, error) {
-	newPrice, err := domain2.NewPrice(price)
+	newPrice, err := domain.NewPrice(price)
 	if err != nil {
 		return nil, err
 	}
-	newStock, err := domain2.NewStock(stock)
+	newStock, err := domain.NewStock(stock)
 	if err != nil {
 		return nil, err
 	}

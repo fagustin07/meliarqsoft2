@@ -2,7 +2,7 @@ package ports
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/purchase/domain"
+	"meliarqsoft2/internal/domain"
 )
 
 type IPurchaseService interface {

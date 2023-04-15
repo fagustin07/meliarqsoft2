@@ -2,14 +2,14 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/user/domain/ports"
+	"meliarqsoft2/internal/domain"
 )
 
 type UnregisterUserEvent struct {
-	repository ports.IUserRepository
+	repository domain.IUserRepository
 }
 
-func NewUnregisterUserEvent(repository ports.IUserRepository) *UnregisterUserEvent {
+func NewUnregisterUserEvent(repository domain.IUserRepository) *UnregisterUserEvent {
 	return &UnregisterUserEvent{
 		repository: repository,
 	}
