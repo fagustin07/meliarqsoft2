@@ -1,8 +1,10 @@
 package domain
 
 import (
+	"errors"
 	"github.com/google/uuid"
 	"meliarqsoft2/internal/domain"
+	"strconv"
 )
 
 type Product struct {
@@ -48,4 +50,22 @@ func (prod Product) TakeUnits(units int) (float32, int, error) {
 	prod.Stock = newStock
 
 	return prod.Price.Value * unitsAbs, prod.Stock.Amount, nil
+}
+
+func (prod Product) Consume(units int) error {
+	newStock, err := domain.NewStock(prod.Stock.Amount - units)
+	if err != nil {
+		return errors.New("cannot consume more units of " + prod.Name + " than are in stock")
+	}
+	prod.Stock = newStock
+	return nil
+}
+
+func (prod Product) Restore(units int) error {
+	newStock, err := domain.NewStock(prod.Stock.Amount + units)
+	if err != nil {
+		return errors.New("failed to restore " + strconv.Itoa(units) + "units to product " + prod.Name)
+	}
+	prod.Stock = newStock
+	return nil
 }

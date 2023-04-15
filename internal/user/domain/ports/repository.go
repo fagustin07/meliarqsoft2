@@ -10,5 +10,5 @@ type IUserRepository interface {
 	Update(ID uuid.UUID, name string, surname string, email string) error
 	Delete(ID uuid.UUID) error
 	Find(emailPattern string) ([]*domain.User, error)
-	Exist(idUser uuid.UUID) error
+	FindById(idUser uuid.UUID) (*domain.User, error)
 }

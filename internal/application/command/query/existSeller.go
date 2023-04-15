@@ -9,6 +9,7 @@ type ExistSeller struct {
 	repository ports.ISellerRepository
 }
 
-func (query ExistSeller) Execute(id uuid.UUID) error {
-	return query.repository.Exist(id)
+// Execute TODO: revisar exist en repository
+func (query ExistSeller) Execute(id uuid.UUID) (bool, error) {
+	return query.repository.Exist(id) != nil, nil
 }

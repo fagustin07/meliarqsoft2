@@ -11,7 +11,7 @@ type IProductRepository interface {
 	Delete(ID uuid.UUID) error
 	Find(name string, category string) ([]*domain.Product, error)
 	Filter(minPrice float32, maxPrice float32) ([]*domain.Product, error)
-	GetProduct(ID uuid.UUID) (*domain.Product, error)
+	FindById(ID uuid.UUID) (*domain.Product, error)
 	UpdateStock(ID uuid.UUID, stock int) error
 	DeleteMany(sellerId uuid.UUID) error
 	GetFrom(sellerId uuid.UUID) ([]*domain.Product, error)

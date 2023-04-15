@@ -19,7 +19,7 @@ func NewDeleteProductEvent(prodRepo ports.IProductRepository, deletePurchases *a
 }
 
 func (usecase DeleteProductEvent) Execute(id uuid.UUID) error {
-	if _, err := usecase.productRepository.GetProduct(id); err != nil {
+	if _, err := usecase.productRepository.FindById(id); err != nil {
 		return err
 	}
 

@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"errors"
 	"github.com/google/uuid"
 	"meliarqsoft2/internal/user/domain"
 )
@@ -16,10 +17,10 @@ func MapUserToMongoModel(user *domain.User) UserModel {
 	return UserModel{ID: user.ID, Name: user.Name, Surname: user.Surname, Email: user.Email.Address}
 }
 
-func MapToUserDomain(userModel *UserModel) *domain.User {
+func MapToUserDomain(userModel *UserModel) (*domain.User, error) {
 	user, err := domain.NewUser(userModel.ID, userModel.Name, userModel.Email, userModel.Surname)
 	if err != nil {
-		return nil
+		return nil, errors.New("cannot map user from db to model")
 	}
-	return user
+	return user, nil
 }
