@@ -18,16 +18,16 @@ func NewDeleteProductEvent(prodRepo ports.IProductRepository, deletePurchases *a
 	}
 }
 
-func (usecase DeleteProductEvent) Execute(id uuid.UUID) error {
-	if _, err := usecase.productRepository.FindById(id); err != nil {
+func (actionEvent DeleteProductEvent) Execute(id uuid.UUID) error {
+	if _, err := actionEvent.productRepository.FindById(id); err != nil {
 		return err
 	}
 
-	if err := usecase.deletePurchasesByProduct.Execute(id); err != nil {
+	if err := actionEvent.deletePurchasesByProduct.Execute(id); err != nil {
 		return err
 	}
 
-	if err := usecase.productRepository.Delete(id); err != nil {
+	if err := actionEvent.productRepository.Delete(id); err != nil {
 		return err
 	}
 

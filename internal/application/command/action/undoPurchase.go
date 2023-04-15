@@ -5,17 +5,17 @@ import (
 	"meliarqsoft2/internal/purchase/domain/ports"
 )
 
-type DeletePurchase struct {
+type UndoPurchase struct {
 	repository ports.IPurchaseRepository
 }
 
-func NewUndoPurchaseCommand(repo ports.IPurchaseRepository) *DeletePurchase {
-	return &DeletePurchase{
+func NewUndoPurchaseCommand(repo ports.IPurchaseRepository) *UndoPurchase {
+	return &UndoPurchase{
 		repository: repo,
 	}
 }
 
-func (command DeletePurchase) Execute(id uuid.UUID) error {
+func (command UndoPurchase) Execute(id uuid.UUID) error {
 	err := command.repository.Delete(id)
 	if err != nil {
 		return err

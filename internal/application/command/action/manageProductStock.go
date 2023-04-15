@@ -9,6 +9,10 @@ type ManageProductStock struct {
 	repository ports.IProductRepository
 }
 
+func NewManageProductStockCommand(repository ports.IProductRepository) *ManageProductStock {
+	return &ManageProductStock{repository: repository}
+}
+
 func (actionCommand ManageProductStock) Execute(ID uuid.UUID, units int, isIncrement bool) error {
 	product, err := actionCommand.repository.FindById(ID)
 	if err != nil {

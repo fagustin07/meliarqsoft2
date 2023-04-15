@@ -5,10 +5,16 @@ import (
 	"meliarqsoft2/internal/seller/domain/ports"
 )
 
-type FindSeller struct {
+type FindSellerEvent struct {
 	repository ports.ISellerRepository
 }
 
-func (eventQuery FindSeller) Execute(businessName string) ([]*domain.Seller, error) {
-	return eventQuery.repository.Find(businessName)
+func NewFindSellerEvent(repository ports.ISellerRepository) *FindSellerEvent {
+	return &FindSellerEvent{
+		repository: repository,
+	}
+}
+
+func (queryEvent FindSellerEvent) Execute(businessName string) ([]*domain.Seller, error) {
+	return queryEvent.repository.Find(businessName)
 }

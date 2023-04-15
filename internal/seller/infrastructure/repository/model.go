@@ -11,6 +11,10 @@ type SellerModel struct {
 	Email        string    `json:"email" bson:"email"`
 }
 
-func mapSellerToMongoModel(seller *domain.Seller) *SellerModel {
+func MapSellerToMongoModel(seller *domain.Seller) *SellerModel {
 	return &SellerModel{ID: seller.ID, BusinessName: seller.BusinessName, Email: seller.Email.Address}
+}
+
+func MapSellerFromModel(model *SellerModel) (*domain.Seller, error) {
+	return domain.NewSeller(model.ID, model.BusinessName, model.Email)
 }

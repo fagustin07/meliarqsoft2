@@ -11,6 +11,12 @@ type UpdateProductEvent struct {
 	repository ports.IProductRepository
 }
 
+func NewUpdateProductEvent(repository ports.IProductRepository) *UpdateProductEvent {
+	return &UpdateProductEvent{
+		repository: repository,
+	}
+}
+
 func (actionEvent UpdateProductEvent) Execute(ID uuid.UUID, name string, description string, category string, price float32, stock int) (*domain.Product, error) {
 	newPrice, err := domain2.NewPrice(price)
 	if err != nil {

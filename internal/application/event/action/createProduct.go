@@ -12,8 +12,15 @@ type RegisterProductEvent struct {
 	existSeller       *query.ExistSeller
 }
 
-func (event RegisterProductEvent) Execute(name string, description string, category string, price float32, stock int, idSeller uuid.UUID) (*domain.Product, error) {
-	err := event.existSeller.Execute(idSeller)
+func NewRegisterProductEvent(productRepository ports.IProductRepository, existSeller *query.ExistSeller) *RegisterProductEvent {
+	return &RegisterProductEvent{
+		productRepository: productRepository,
+		existSeller:       existSeller,
+	}
+}
+
+func (actionEvent RegisterProductEvent) Execute(name string, description string, category string, price float32, stock int, idSeller uuid.UUID) (*domain.Product, error) {
+	err := actionEvent.existSeller.Execute(idSeller)
 	if err != nil {
 		return nil, err
 	}
@@ -28,7 +35,7 @@ func (event RegisterProductEvent) Execute(name string, description string, categ
 		return nil, err
 	}
 
-	_, err = event.productRepository.Create(newProduct)
+	_, err = actionEvent.productRepository.Create(newProduct)
 	if err != nil {
 		return nil, err
 	}

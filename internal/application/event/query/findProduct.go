@@ -5,10 +5,16 @@ import (
 	"meliarqsoft2/internal/product/domain/ports"
 )
 
-type FindProduct struct {
+type FindProductEvent struct {
 	repository ports.IProductRepository
 }
 
-func (queryEvent FindProduct) Execute(name string, category string) ([]*domain.Product, error) {
+func NewFindProductEvent(repository ports.IProductRepository) *FindProductEvent {
+	return &FindProductEvent{
+		repository: repository,
+	}
+}
+
+func (queryEvent FindProductEvent) Execute(name string, category string) ([]*domain.Product, error) {
 	return queryEvent.repository.Find(name, category)
 }

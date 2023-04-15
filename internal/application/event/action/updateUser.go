@@ -10,6 +10,12 @@ type UpdateUserEvent struct {
 	repository ports.IUserRepository
 }
 
+func NewUpdateUserEvent(repository ports.IUserRepository) *UpdateUserEvent {
+	return &UpdateUserEvent{
+		repository: repository,
+	}
+}
+
 func (actionEvent UpdateUserEvent) Execute(ID uuid.UUID, name string, surname string, email string) error {
 	newEmail, err := domain.NewEmail(email)
 	if err != nil {

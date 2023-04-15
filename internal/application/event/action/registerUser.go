@@ -10,6 +10,10 @@ type RegisterUserEvent struct {
 	repository ports.IUserRepository
 }
 
+func NewRegisterUserEvent(repository ports.IUserRepository) *RegisterUserEvent {
+	return &RegisterUserEvent{repository: repository}
+}
+
 func (actionEvent RegisterUserEvent) Execute(name string, surname string, email string) (uuid.UUID, error) {
 	newUUID, err := uuid.NewUUID()
 	if err != nil {

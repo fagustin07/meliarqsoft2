@@ -10,5 +10,5 @@ type ISellerRepository interface {
 	Update(id uuid.UUID, businessName string, email string) error
 	Delete(ID uuid.UUID) error
 	Find(businessName string) ([]*domain.Seller, error)
-	Exist(idSeller uuid.UUID) error
+	FindById(idSeller uuid.UUID) (*domain.Seller, error)
 }

@@ -10,6 +10,10 @@ type RegisterSellerEvent struct {
 	repository ports.ISellerRepository
 }
 
+func NewRegisterSellerEvent(repository ports.ISellerRepository) *RegisterSellerEvent {
+	return &RegisterSellerEvent{repository: repository}
+}
+
 func (event RegisterSellerEvent) Execute(businessName string, email string) (uuid.UUID, error) {
 	newUUID, err := uuid.NewUUID()
 	if err != nil {

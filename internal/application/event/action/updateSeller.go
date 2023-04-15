@@ -10,6 +10,12 @@ type UpdateSellerEvent struct {
 	repository ports.ISellerRepository
 }
 
+func NewUpdateSellerEvent(repository ports.ISellerRepository) *UpdateSellerEvent {
+	return &UpdateSellerEvent{
+		repository: repository,
+	}
+}
+
 func (actionEvent UpdateSellerEvent) Execute(id uuid.UUID, businessName string, email string) error {
 	newEmail, err := domain.NewEmail(email)
 	if err != nil {

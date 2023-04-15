@@ -7,7 +7,7 @@ import (
 )
 
 func (repo SellerMongoDBRepository) Create(seller *domain.Seller) error {
-	dbSeller := mapSellerToMongoModel(seller)
+	dbSeller := MapSellerToMongoModel(seller)
 	_, err := repo.collection.InsertOne(context.Background(), dbSeller)
 	if err != nil {
 		log.Println("Error saving seller", err)

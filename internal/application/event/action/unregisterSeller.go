@@ -3,31 +3,35 @@ package action
 import (
 	"github.com/google/uuid"
 	"meliarqsoft2/internal/application/command/action"
+	"meliarqsoft2/internal/application/command/query"
 	"meliarqsoft2/internal/seller/domain/ports"
 )
 
 type UnregisterSellerEvent struct {
-	sellerRepository         ports.ISellerRepository
-	deleteProductsBySellerId *action.DeleteProductsBySeller
+	sellerRepository       ports.ISellerRepository
+	deleteProductsBySeller *action.DeleteProductsBySeller
+	existSeller            *query.ExistSeller
 }
 
-func NewDeleteSellerEvent(sellerRepo ports.ISellerRepository, deleteProd *action.DeleteProductsBySeller) *UnregisterSellerEvent {
+func NewUnregisterSellerEvent(sellerRepository ports.ISellerRepository,
+	deleteProductsBySeller *action.DeleteProductsBySeller, existSeller *query.ExistSeller) *UnregisterSellerEvent {
 	return &UnregisterSellerEvent{
-		sellerRepository:         sellerRepo,
-		deleteProductsBySellerId: deleteProd,
+		sellerRepository:       sellerRepository,
+		deleteProductsBySeller: deleteProductsBySeller,
+		existSeller:            existSeller,
 	}
 }
 
-func (usecase UnregisterSellerEvent) Execute(id uuid.UUID) error {
-	if err := usecase.sellerRepository.Exist(id); err != nil {
+func (actionEvent UnregisterSellerEvent) Execute(id uuid.UUID) error {
+	if err := actionEvent.existSeller.Execute(id); err != nil {
 		return err
 	}
 
-	if err := usecase.deleteProductsBySellerId.Execute(id); err != nil {
+	if err := actionEvent.deleteProductsBySeller.Execute(id); err != nil {
 		return err
 	}
 
-	if err := usecase.sellerRepository.Delete(id); err != nil {
+	if err := actionEvent.sellerRepository.Delete(id); err != nil {
 		return err
 	}
 

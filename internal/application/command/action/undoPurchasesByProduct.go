@@ -6,19 +6,21 @@ import (
 )
 
 type UndoPurchasesByProduct struct {
-	findPurchases *query.FindPurchasesFromProduct
-	undoPurchase  *DeletePurchase
+	findPurchasesFromProduct *query.FindPurchasesFromProduct
+	undoPurchase             *UndoPurchase
 }
 
-func NewUndoPurchasesByProductCommand(findPurchase *query.FindPurchasesFromProduct, undoPurchase *DeletePurchase) *UndoPurchasesByProduct {
+func NewUndoPurchasesByProductCommand(findPurchase *query.FindPurchasesFromProduct,
+	undoPurchase *UndoPurchase) *UndoPurchasesByProduct {
+
 	return &UndoPurchasesByProduct{
-		findPurchases: findPurchase,
-		undoPurchase:  undoPurchase,
+		findPurchasesFromProduct: findPurchase,
+		undoPurchase:             undoPurchase,
 	}
 }
 
 func (commandAction UndoPurchasesByProduct) Execute(productID uuid.UUID) error {
-	purchases, err := commandAction.findPurchases.Execute(productID)
+	purchases, err := commandAction.findPurchasesFromProduct.Execute(productID)
 	if err != nil {
 		return err
 	}
