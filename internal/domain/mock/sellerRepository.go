@@ -36,11 +36,12 @@ func (m *MockISellerRepository) EXPECT() *MockISellerRepositoryMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockISellerRepository) Create(seller *model.Seller) error {
+func (m *MockISellerRepository) Create(seller *model.Seller) (uuid.UUID, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", seller)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(uuid.UUID)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // Create indicates an expected call of Create.

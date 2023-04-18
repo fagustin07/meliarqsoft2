@@ -34,7 +34,13 @@ func (handler GinRegisterUser) Execute(c *gin.Context) {
 		return
 	}
 
-	id, err := handler.RegisterUserEvent.Execute(userDTO.Name, userDTO.Surname, userDTO.Email)
+	toModel, err := userDTO.MapToModel()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	id, err := handler.RegisterUserEvent.Execute(&toModel)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

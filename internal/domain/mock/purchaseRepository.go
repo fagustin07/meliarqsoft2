@@ -36,17 +36,19 @@ func (m *MockIPurchaseRepository) EXPECT() *MockIPurchaseRepositoryMockRecorder 
 }
 
 // Create mocks base method.
-func (m *MockIPurchaseRepository) Create(purchase *model.Purchase) error {
+func (m *MockIPurchaseRepository) Create(purchase *model.Purchase, product *model.Product) (uuid.UUID, float32, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Create", purchase)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret := m.ctrl.Call(m, "Create", purchase, product)
+	ret0, _ := ret[0].(uuid.UUID)
+	ret1, _ := ret[1].(float32)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
 }
 
 // Create indicates an expected call of Create.
-func (mr *MockIPurchaseRepositoryMockRecorder) Create(purchase interface{}) *gomock.Call {
+func (mr *MockIPurchaseRepositoryMockRecorder) Create(purchase, product interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockIPurchaseRepository)(nil).Create), purchase)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockIPurchaseRepository)(nil).Create), purchase, product)
 }
 
 // Delete mocks base method.

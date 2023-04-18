@@ -21,7 +21,7 @@ func NewSeller(id uuid.UUID, businessName string, email string) (*Seller, error)
 
 //go:generate mockgen -destination=../mock/sellerRepository.go -package=mock -source=seller.go
 type ISellerRepository interface {
-	Create(seller *Seller) error
+	Create(seller *Seller) (uuid.UUID, error)
 	Update(id uuid.UUID, businessName string, email string) error
 	Delete(ID uuid.UUID) error
 	Find(businessName string) ([]*Seller, error)

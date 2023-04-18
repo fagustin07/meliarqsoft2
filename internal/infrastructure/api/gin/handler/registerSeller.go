@@ -34,7 +34,13 @@ func (handler GinRegisterSeller) Execute(c *gin.Context) {
 		return
 	}
 
-	id, err := handler.registerSellerEvent.Execute(sellerDTO.BusinessName, sellerDTO.Email)
+	requestedSeller, err := sellerDTO.MapToModel()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	id, err := handler.registerSellerEvent.Execute(&requestedSeller)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

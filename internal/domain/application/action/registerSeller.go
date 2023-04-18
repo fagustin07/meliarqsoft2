@@ -13,21 +13,11 @@ func NewRegisterSellerEvent(repository model.ISellerRepository) *RegisterSellerE
 	return &RegisterSellerEvent{repository: repository}
 }
 
-func (event RegisterSellerEvent) Execute(businessName string, email string) (uuid.UUID, error) {
-	newUUID, err := uuid.NewUUID()
+func (event RegisterSellerEvent) Execute(seller *model.Seller) (uuid.UUID, error) {
+	newId, err := event.repository.Create(seller)
 	if err != nil {
 		return uuid.Nil, err
 	}
 
-	newSeller, err := model.NewSeller(newUUID, businessName, email)
-	if err != nil {
-		return uuid.Nil, err
-	}
-
-	err = event.repository.Create(newSeller)
-	if err != nil {
-		return uuid.Nil, err
-	}
-
-	return newUUID, nil
+	return newId, nil
 }

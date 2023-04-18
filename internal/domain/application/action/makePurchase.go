@@ -1,11 +1,9 @@
 package action
 
 import (
-	"errors"
 	"github.com/google/uuid"
 	"meliarqsoft2/internal/domain/application/query"
 	"meliarqsoft2/internal/domain/model"
-	"time"
 )
 
 type MakePurchaseEvent struct {
@@ -25,40 +23,31 @@ func NewMakePurchaseEvent(repo model.IPurchaseRepository, findProd *query.FindPr
 	}
 }
 
-func (actionEvent MakePurchaseEvent) Execute(IDProduct uuid.UUID, IDUser uuid.UUID, units int) (*model.Purchase, error) {
-	product, err := actionEvent.findProduct.Execute(IDProduct)
+func (actionEvent MakePurchaseEvent) Execute(purchase *model.Purchase) (uuid.UUID, float32, error) {
+	product, err := actionEvent.findProduct.Execute(purchase.IDProduct)
 	if err != nil {
-		return nil, err
+		return uuid.Nil, 0, err
 	}
 
-	if err := actionEvent.existUser.Execute(IDUser); err != nil {
-		return nil, err
+	if err := actionEvent.existUser.Execute(purchase.IDUser); err != nil {
+		return uuid.Nil, 0, err
 	}
 
-	newUUID, err := uuid.NewUUID()
+	err = actionEvent.manageProductStock.Execute(purchase.IDProduct, purchase.Units.Amount, false)
 	if err != nil {
-		return nil, errors.New("failed generating a purchase identifier")
+		return uuid.Nil, 0, err
 	}
 
-	newPurchase, err := model.NewPurchase(newUUID, IDProduct, IDUser, time.Now(), units, product.Price.Value*float32(units))
-	if err != nil {
-		return nil, err
-	}
+	id, total, err := actionEvent.repository.Create(purchase, product)
 
-	err = actionEvent.manageProductStock.Execute(IDProduct, units, false)
 	if err != nil {
-		return nil, err
-	}
-
-	err = actionEvent.repository.Create(newPurchase)
-	if err != nil {
-		err := actionEvent.manageProductStock.Execute(IDProduct, units, true)
-		if err != nil {
-			return nil, err
+		err2 := actionEvent.manageProductStock.Execute(purchase.IDProduct, purchase.Units.Amount, true)
+		if err2 != nil {
+			return uuid.Nil, 0, err2
 		}
 
-		return nil, err
+		return uuid.Nil, 0, err
 	}
 
-	return newPurchase, nil
+	return id, total, nil
 }

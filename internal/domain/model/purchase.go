@@ -27,7 +27,7 @@ func NewPurchase(ID uuid.UUID, IDProduct uuid.UUID, IDUser uuid.UUID, date time.
 
 //go:generate mockgen -destination=../mock/purchaseRepository.go -package=mock -source=purchase.go
 type IPurchaseRepository interface {
-	Create(purchase *Purchase) error
+	Create(purchase *Purchase, product *Product) (uuid.UUID, float32, error)
 	Find(productID uuid.UUID) ([]*Purchase, error)
 	Delete(ID uuid.UUID) error
 }

@@ -13,21 +13,11 @@ func NewRegisterUserEvent(repository model.IUserRepository) *RegisterUserEvent {
 	return &RegisterUserEvent{repository: repository}
 }
 
-func (actionEvent RegisterUserEvent) Execute(name string, surname string, email string) (uuid.UUID, error) {
-	newUUID, err := uuid.NewUUID()
+func (actionEvent RegisterUserEvent) Execute(user *model.User) (uuid.UUID, error) {
+	id, err := actionEvent.repository.Create(user)
 	if err != nil {
 		return uuid.Nil, err
 	}
 
-	newUser, err := model.NewUser(newUUID, name, surname, email)
-	if err != nil {
-		return uuid.Nil, err
-	}
-
-	err = actionEvent.repository.Create(newUser)
-	if err != nil {
-		return uuid.Nil, err
-	}
-
-	return newUUID, nil
+	return id, nil
 }

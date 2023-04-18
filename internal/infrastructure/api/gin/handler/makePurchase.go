@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"meliarqsoft2/internal/domain/application/action"
+	"meliarqsoft2/internal/domain/model"
 	dto2 "meliarqsoft2/internal/infrastructure/api/dto"
 	"net/http"
 )
@@ -35,12 +36,21 @@ func (handler GinMakePurchase) Execute(c *gin.Context) {
 		return
 	}
 
-	purchase, err := handler.MakePurchaseEvent.Execute(purchaseDTO.IDProduct, purchaseDTO.IDUser, purchaseDTO.Units)
+	toModel, err := purchaseDTO.MapToModel()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	id, total, err := handler.MakePurchaseEvent.Execute(&toModel)
+
+	toModel.ID = id
+	newTotal, err := model.NewTotal(total)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)
 		return
 	}
+	toModel.Total = newTotal
 
-	c.JSON(http.StatusCreated, dto2.MapPurchaseToJSON(purchase))
+	c.JSON(http.StatusCreated, dto2.MapPurchaseToJSON(&toModel))
 }
