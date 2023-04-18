@@ -95,10 +95,10 @@ func (mr *MockIProductRepositoryMockRecorder) Find(name, category interface{}) *
 }
 
 // FindById mocks base method.
-func (m *MockIProductRepository) FindById(ID uuid.UUID) (domain.Product, error) {
+func (m *MockIProductRepository) FindById(ID uuid.UUID) (*domain.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindById", ID)
-	ret0, _ := ret[0].(domain.Product)
+	ret0, _ := ret[0].(*domain.Product)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

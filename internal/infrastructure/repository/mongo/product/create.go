@@ -33,6 +33,22 @@ func mapProductToMongoModel(product domain.Product) *ProductModel {
 }
 
 func mapProductToDomainModel(product *ProductModel) (domain.Product, error) {
-	return domain.NewProduct(product.ID, product.Name, product.Description, product.Category, product.Price,
-		product.Stock, product.IDSeller)
+	newPrice, err := domain.NewPrice(product.Price)
+	if err != nil {
+		return domain.Product{}, err
+	}
+
+	stock, err := domain.NewStock(product.Stock)
+	if err != nil {
+		return domain.Product{}, err
+	}
+
+	return domain.Product{
+		Name:        product.Name,
+		Description: product.Description,
+		Category:    product.Category,
+		Price:       newPrice,
+		Stock:       stock,
+		IDSeller:    product.IDSeller,
+	}, nil
 }

@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/joho/godotenv"
 	"log"
-	"meliarqsoft2/internal/application/command/action"
-	"meliarqsoft2/internal/application/command/query"
+	action2 "meliarqsoft2/internal/domain/application/command/action"
+	query2 "meliarqsoft2/internal/domain/application/command/query"
 	"meliarqsoft2/internal/infrastructure/api"
 	"meliarqsoft2/internal/infrastructure/api/gin"
 	"meliarqsoft2/internal/infrastructure/repository/mongo"
@@ -30,38 +30,38 @@ func main() {
 	purchaseRepository := purchase.NewPurchaseMongoRepository(client)
 
 	// needed to build seller services
-	findPurchasesFromProductEvent := query.NewFindPurchasesFromProductEvent(purchaseRepository)
-	undoPurchase := action.NewUndoPurchaseCommand(purchaseRepository)
-	undoPurchaseByProduct := action.NewUndoPurchasesByProductCommand(findPurchasesFromProductEvent, undoPurchase)
-	findProduct := query.NewFindProductsBySellerCommand(productRepository)
-	deleteProductEvent := action.NewDeleteProductEvent(productRepository, undoPurchaseByProduct)
+	findPurchasesFromProductEvent := query2.NewFindPurchasesFromProductEvent(purchaseRepository)
+	undoPurchase := action2.NewUndoPurchaseCommand(purchaseRepository)
+	undoPurchaseByProduct := action2.NewUndoPurchasesByProductCommand(findPurchasesFromProductEvent, undoPurchase)
+	findProduct := query2.NewFindProductsBySellerCommand(productRepository)
+	deleteProductEvent := action2.NewDeleteProductEvent(productRepository, undoPurchaseByProduct)
 
 	// seller
-	deleteProductsBySeller := action.NewDeleteProductsBySellerCommand(productRepository, findProduct, deleteProductEvent)
-	existSeller := query.NewExistSellerCommand(sellerRepository)
-	registerSellerEvent := action.NewRegisterSellerEvent(sellerRepository)
-	updateSellerEvent := action.NewUpdateSellerEvent(sellerRepository)
-	unregisterSellerEvent := action.NewUnregisterSellerEvent(sellerRepository, deleteProductsBySeller, existSeller)
-	findSellerEvent := query.NewFindSellerEvent(sellerRepository)
+	deleteProductsBySeller := action2.NewDeleteProductsBySellerCommand(productRepository, findProduct, deleteProductEvent)
+	existSeller := query2.NewExistSellerCommand(sellerRepository)
+	registerSellerEvent := action2.NewRegisterSellerEvent(sellerRepository)
+	updateSellerEvent := action2.NewUpdateSellerEvent(sellerRepository)
+	unregisterSellerEvent := action2.NewUnregisterSellerEvent(sellerRepository, deleteProductsBySeller, existSeller)
+	findSellerEvent := query2.NewFindSellerEvent(sellerRepository)
 
 	// user
-	existUser := query.NewExistUserCommand(userRepository)
-	registerUserEvent := action.NewRegisterUserEvent(userRepository)
-	updateUserEvent := action.NewUpdateUserEvent(userRepository)
-	findUserEvent := query.NewFindUserEvent(userRepository)
-	unregisterUserEvent := action.NewUnregisterUserEvent(userRepository)
+	existUser := query2.NewExistUserCommand(userRepository)
+	registerUserEvent := action2.NewRegisterUserEvent(userRepository)
+	updateUserEvent := action2.NewUpdateUserEvent(userRepository)
+	findUserEvent := query2.NewFindUserEvent(userRepository)
+	unregisterUserEvent := action2.NewUnregisterUserEvent(userRepository)
 
 	// product
-	createProductEvent := action.NewCreateProductEvent(productRepository, existSeller)
-	updateProductEvent := action.NewUpdateProductEvent(productRepository)
-	findProductEvent := query.NewFindProductEvent(productRepository)
-	filterProdctEvent := query.NewFilterProductEvent(productRepository)
+	createProductEvent := action2.NewCreateProductEvent(productRepository, existSeller)
+	updateProductEvent := action2.NewUpdateProductEvent(productRepository)
+	findProductEvent := query2.NewFindProductEvent(productRepository)
+	filterProdctEvent := query2.NewFilterProductEvent(productRepository)
 	// delete product event was declared previously
 
 	// make a purchase
-	findProductCommand := query.NewFindProductCommand(productRepository)
-	manageProductStock := action.NewManageProductStockCommand(productRepository)
-	makePurchaseEvent := action.NewMakePurchaseEvent(purchaseRepository, findProductCommand, existUser, manageProductStock)
+	findProductCommand := query2.NewFindProductCommand(productRepository)
+	manageProductStock := action2.NewManageProductStockCommand(productRepository)
+	makePurchaseEvent := action2.NewMakePurchaseEvent(purchaseRepository, findProductCommand, existUser, manageProductStock)
 
 	newAPI := gin.NewMeliAPI(
 		8080,

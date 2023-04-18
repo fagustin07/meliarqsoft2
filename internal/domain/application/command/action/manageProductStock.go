@@ -2,9 +2,7 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"log"
 	"meliarqsoft2/internal/domain"
-	"strconv"
 )
 
 type ManageProductStock struct {
@@ -32,7 +30,7 @@ func (actionCommand ManageProductStock) Execute(ID uuid.UUID, units int, isIncre
 			return err
 		}
 	}
-	log.Println(strconv.Itoa(product.Stock.Amount) + "\n")
+
 	err = actionCommand.repository.UpdateStock(ID, product.Stock.Amount)
 	if err != nil {
 		return err

@@ -16,19 +16,6 @@ type Product struct {
 	IDSeller    uuid.UUID
 }
 
-func NewProduct(id uuid.UUID, name string, description string, category string, price float32, stock int, IDSeller uuid.UUID) (Product, error) {
-	priceObj, err := NewPrice(price)
-	if err != nil {
-		return Product{}, err
-	}
-	stockObj, err := NewStock(stock)
-	if err != nil {
-		return Product{}, err
-	}
-
-	return Product{ID: id, Name: name, Description: description, Category: category, Price: priceObj, Stock: stockObj, IDSeller: IDSeller}, nil
-}
-
 func (prod *Product) CanConsume(units int) bool {
 	return prod.Stock.Amount >= units
 }
@@ -58,7 +45,7 @@ type IProductRepository interface {
 	Delete(ID uuid.UUID) error
 	Find(name string, category string) ([]Product, error)
 	Filter(minPrice float32, maxPrice float32) ([]Product, error)
-	FindById(ID uuid.UUID) (Product, error)
+	FindById(ID uuid.UUID) (*Product, error)
 	UpdateStock(ID uuid.UUID, stock int) error
 	GetFrom(sellerId uuid.UUID) ([]Product, error)
 }

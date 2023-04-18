@@ -2,8 +2,8 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/application/command/query"
 	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/application/command/query"
 )
 
 type CreateProductEvent struct {

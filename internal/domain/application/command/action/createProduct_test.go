@@ -4,14 +4,14 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
-	"meliarqsoft2/internal/application/command/query"
+	"meliarqsoft2/internal/domain/application/command/query"
 	"meliarqsoft2/internal/domain/mock"
 	"meliarqsoft2/internal/infrastructure/api/dto"
 	"testing"
 )
 
 func Test_CreateProductEvent(t *testing.T) {
-	createProdEvent, mocks := setUpEvent(t)
+	createProdEvent, mocks := setUpCreateProdEvent(t)
 
 	newUUID, _ := uuid.NewUUID()
 	newProduct, _ := dto.CreateProductRequest{
@@ -33,7 +33,7 @@ func Test_CreateProductEvent(t *testing.T) {
 }
 
 func Test_CreateProductEvent_FailsWhenSellerDoesNotExist(t *testing.T) {
-	createProdEvent, mocks := setUpEvent(t)
+	createProdEvent, mocks := setUpCreateProdEvent(t)
 
 	newProduct, _ := dto.CreateProductRequest{
 		Name:        "DDL",
@@ -52,7 +52,7 @@ func Test_CreateProductEvent_FailsWhenSellerDoesNotExist(t *testing.T) {
 	assert.Error(t, err)
 }
 
-func setUpEvent(t *testing.T) (*CreateProductEvent, *mock.RepositoriesMock) {
+func setUpCreateProdEvent(t *testing.T) (*CreateProductEvent, *mock.RepositoriesMock) {
 	mocks := mock.NewMockRepositories(t)
 	existSeller := query.NewExistSellerCommand(mocks.SellerRepository)
 

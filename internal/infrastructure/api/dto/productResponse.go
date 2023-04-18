@@ -23,3 +23,24 @@ func MapProductProductToJSON(product domain.Product) ProductDTO {
 	return ProductDTO{product.ID, product.Name, product.Description,
 		product.Category, product.Price.Value, product.Stock.Amount, product.IDSeller}
 }
+
+func (dto ProductDTO) MapToModel() (domain.Product, error) {
+	newPrice, err := domain.NewPrice(dto.Price)
+	if err != nil {
+		return domain.Product{}, err
+	}
+
+	stock, err := domain.NewStock(dto.Stock)
+	if err != nil {
+		return domain.Product{}, err
+	}
+
+	return domain.Product{
+		Name:        dto.Name,
+		Description: dto.Description,
+		Category:    dto.Category,
+		Price:       newPrice,
+		Stock:       stock,
+		IDSeller:    dto.IDSeller,
+	}, nil
+}
