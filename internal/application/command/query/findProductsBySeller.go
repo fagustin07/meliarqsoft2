@@ -13,7 +13,7 @@ func NewFindProductsBySellerCommand(repository domain.IProductRepository) *FindP
 	return &FindProductsBySeller{repository: repository}
 }
 
-func (queryCommand FindProductsBySeller) Execute(sellerID uuid.UUID) ([]*domain.Product, error) {
+func (queryCommand FindProductsBySeller) Execute(sellerID uuid.UUID) ([]domain.Product, error) {
 	res, err := queryCommand.repository.GetFrom(sellerID)
 	if err != nil {
 		return nil, err

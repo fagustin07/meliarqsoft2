@@ -19,7 +19,7 @@ type ProductID struct {
 	ID uuid.UUID `json:"product_id" bson:"product_id"`
 }
 
-func MapProductProductToJSON(product *domain.Product) ProductDTO {
+func MapProductProductToJSON(product domain.Product) ProductDTO {
 	return ProductDTO{product.ID, product.Name, product.Description,
 		product.Category, product.Price.Value, product.Stock.Amount, product.IDSeller}
 }

@@ -8,7 +8,7 @@ import (
 	"meliarqsoft2/internal/domain"
 )
 
-func (repo MongoRepository) GetFrom(sellerId uuid.UUID) ([]*domain.Product, error) {
+func (repo MongoRepository) GetFrom(sellerId uuid.UUID) ([]domain.Product, error) {
 	var filter = bson.M{"id_seller": sellerId}
 
 	cursor, err := repo.collection.Find(context.Background(), filter)
@@ -23,7 +23,7 @@ func (repo MongoRepository) GetFrom(sellerId uuid.UUID) ([]*domain.Product, erro
 		return nil, err
 	}
 
-	var res []*domain.Product
+	var res []domain.Product
 	for _, elem := range dbResult {
 		prod, err := mapProductToDomainModel(elem)
 		if err != nil {

@@ -15,14 +15,14 @@ func NewUpdateProductEvent(repository domain.IProductRepository) *UpdateProductE
 	}
 }
 
-func (actionEvent UpdateProductEvent) Execute(ID uuid.UUID, name string, description string, category string, price float32, stock int) (*domain.Product, error) {
+func (actionEvent UpdateProductEvent) Execute(ID uuid.UUID, name string, description string, category string, price float32, stock int) (domain.Product, error) {
 	newPrice, err := domain.NewPrice(price)
 	if err != nil {
-		return nil, err
+		return domain.Product{}, err
 	}
 	newStock, err := domain.NewStock(stock)
 	if err != nil {
-		return nil, err
+		return domain.Product{}, err
 	}
 
 	return actionEvent.repository.Update(ID, name, description, category, newPrice.Value, newStock.Amount)

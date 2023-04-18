@@ -18,26 +18,16 @@ func NewCreateProductEvent(productRepository domain.IProductRepository, existSel
 	}
 }
 
-func (actionEvent CreateProductEvent) Execute(name string, description string, category string, price float32, stock int, idSeller uuid.UUID) (*domain.Product, error) {
-	err := actionEvent.existSeller.Execute(idSeller)
+func (actionEvent CreateProductEvent) Execute(product domain.Product) (uuid.UUID, error) {
+	err := actionEvent.existSeller.Execute(product.IDSeller)
 	if err != nil {
-		return nil, err
+		return uuid.Nil, err
 	}
 
-	newUUID, err := uuid.NewUUID()
+	id, err := actionEvent.productRepository.Create(product)
 	if err != nil {
-		return nil, err
+		return uuid.Nil, err
 	}
 
-	newProduct, err := domain.NewProduct(newUUID, name, description, category, price, stock, idSeller)
-	if err != nil {
-		return nil, err
-	}
-
-	_, err = actionEvent.productRepository.Create(newProduct)
-	if err != nil {
-		return nil, err
-	}
-
-	return newProduct, nil
+	return id, nil
 }

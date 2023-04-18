@@ -8,7 +8,7 @@ import (
 	"meliarqsoft2/internal/domain"
 )
 
-func (repo MongoRepository) Filter(minPrice float32, maxPrice float32) ([]*domain.Product, error) {
+func (repo MongoRepository) Filter(minPrice float32, maxPrice float32) ([]domain.Product, error) {
 	filter := bson.D{
 		{"$and",
 			bson.A{
@@ -33,7 +33,7 @@ func (repo MongoRepository) Filter(minPrice float32, maxPrice float32) ([]*domai
 		return nil, err
 	}
 
-	var res []*domain.Product
+	var res []domain.Product
 	for _, elem := range dbResult {
 		prod, err := mapProductToDomainModel(elem)
 		if err != nil {

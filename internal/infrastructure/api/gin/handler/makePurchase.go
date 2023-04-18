@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"meliarqsoft2/internal/application/command/action"
-	"meliarqsoft2/internal/purchase/infrastructure/dto"
+	dto2 "meliarqsoft2/internal/infrastructure/api/dto"
 	"net/http"
 )
 
@@ -29,7 +29,7 @@ func NewGinMakePurchase(makePurchaseEvent *action.MakePurchaseEvent) *GinMakePur
 // @Failure 500
 // @Router /products/purchases [POST]
 func (handler GinMakePurchase) Execute(c *gin.Context) {
-	var purchaseDTO dto.CreatePurchaseRequest
+	var purchaseDTO dto2.CreatePurchaseRequest
 	if err := c.BindJSON(&purchaseDTO); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -42,5 +42,5 @@ func (handler GinMakePurchase) Execute(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, dto.MapPurchaseToJSON(purchase))
+	c.JSON(http.StatusCreated, dto2.MapPurchaseToJSON(purchase))
 }

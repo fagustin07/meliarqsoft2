@@ -25,9 +25,9 @@ func NewPurchase(ID uuid.UUID, IDProduct uuid.UUID, IDUser uuid.UUID, date time.
 	return &Purchase{ID: ID, IDProduct: IDProduct, IDUser: IDUser, Date: date, Units: newUnits, Total: newTotal}, nil
 }
 
+//go:generate mockgen -destination=./mock/priceRepository.go -package=mock -source=purchase.go
 type IPurchaseRepository interface {
 	Create(purchase *Purchase) error
 	Find(productID uuid.UUID) ([]*Purchase, error)
-	DeleteMany(productId uuid.UUID) error
 	Delete(ID uuid.UUID) error
 }

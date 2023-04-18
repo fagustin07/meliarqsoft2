@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"meliarqsoft2/internal/application/command/action"
-	"meliarqsoft2/internal/product/infrastructure/dto"
+	dto2 "meliarqsoft2/internal/infrastructure/api/dto"
 	"net/http"
 )
 
@@ -28,17 +28,23 @@ func NewGinCreateProduct(createProductEvent *action.CreateProductEvent) *GinCrea
 // @Failure 500
 // @Router /products [post]
 func (handler GinCreateProduct) Execute(c *gin.Context) {
-	var productDTO dto.CreateProductRequest
+	var productDTO dto2.CreateProductRequest
 	if err := c.BindJSON(&productDTO); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	createdProduct, err := handler.CreateProductEvent.Execute(productDTO.Name, productDTO.Description, productDTO.Category, productDTO.Price, productDTO.Stock, productDTO.IDSeller)
+	product, err := productDTO.MapToModel()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	createdProductID, err := handler.CreateProductEvent.Execute(product)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)
 		return
 	}
-	c.JSON(http.StatusCreated, dto.ProductID{ID: createdProduct.ID})
+	c.JSON(http.StatusCreated, dto2.ProductID{ID: createdProductID})
 }

@@ -13,10 +13,10 @@ func NewFindProductCommand(repository domain.IProductRepository) *FindProductByI
 	return &FindProductById{repository: repository}
 }
 
-func (queryCommand FindProductById) Execute(productID uuid.UUID) (*domain.Product, error) {
+func (queryCommand FindProductById) Execute(productID uuid.UUID) (domain.Product, error) {
 	prod, err := queryCommand.repository.FindById(productID)
 	if err != nil {
-		return nil, err
+		return domain.Product{}, err
 	}
 
 	return prod, nil

@@ -5,7 +5,7 @@ import (
 	"github.com/google/uuid"
 	"log"
 	"meliarqsoft2/internal/application/command/query"
-	"meliarqsoft2/internal/purchase/infrastructure/dto"
+	"meliarqsoft2/internal/infrastructure/api/dto"
 	"net/http"
 )
 

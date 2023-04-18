@@ -9,7 +9,7 @@ import (
 	"meliarqsoft2/internal/domain"
 )
 
-func (repo MongoRepository) Find(name string, category string) ([]*domain.Product, error) {
+func (repo MongoRepository) Find(name string, category string) ([]domain.Product, error) {
 	var filter = bson.D{
 		{"$and",
 			bson.A{
@@ -40,7 +40,7 @@ func (repo MongoRepository) Find(name string, category string) ([]*domain.Produc
 		return nil, err
 	}
 
-	var res []*domain.Product
+	var res []domain.Product
 	for _, elem := range dbResult {
 		prod, err := mapProductToDomainModel(elem)
 		if err != nil {

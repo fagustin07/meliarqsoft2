@@ -16,39 +16,21 @@ type Product struct {
 	IDSeller    uuid.UUID
 }
 
-func NewProduct(id uuid.UUID, name string, description string, category string, price float32, stock int, IDSeller uuid.UUID) (*Product, error) {
+func NewProduct(id uuid.UUID, name string, description string, category string, price float32, stock int, IDSeller uuid.UUID) (Product, error) {
 	priceObj, err := NewPrice(price)
 	if err != nil {
-		return nil, err
+		return Product{}, err
 	}
 	stockObj, err := NewStock(stock)
 	if err != nil {
-		return nil, err
+		return Product{}, err
 	}
 
-	return &Product{ID: id, Name: name, Description: description, Category: category, Price: priceObj, Stock: stockObj, IDSeller: IDSeller}, nil
+	return Product{ID: id, Name: name, Description: description, Category: category, Price: priceObj, Stock: stockObj, IDSeller: IDSeller}, nil
 }
 
 func (prod *Product) CanConsume(units int) bool {
-	return units+prod.Stock.Amount >= 0
-}
-
-func (prod *Product) TakeUnits(units int) (float32, int, error) {
-	var unitsAbs float32
-	newStock, err := NewStock(prod.Stock.Amount + units)
-	if err != nil {
-		return 0, 0, err
-	}
-
-	if units < 0 {
-		unitsAbs = float32(units * -1)
-	} else {
-		unitsAbs = float32(units)
-	}
-
-	prod.Stock = newStock
-
-	return prod.Price.Value * unitsAbs, prod.Stock.Amount, nil
+	return prod.Stock.Amount >= units
 }
 
 func (prod *Product) Consume(units int) error {
@@ -69,13 +51,14 @@ func (prod *Product) Restore(units int) error {
 	return nil
 }
 
+//go:generate mockgen -destination=./mock/productRepository.go -package=mock -source=product.go
 type IProductRepository interface {
-	Create(product *Product) (*Product, error)
-	Update(ID uuid.UUID, name string, description string, category string, price float32, stock int) (*Product, error)
+	Create(product Product) (uuid.UUID, error)
+	Update(ID uuid.UUID, name string, description string, category string, price float32, stock int) (Product, error)
 	Delete(ID uuid.UUID) error
-	Find(name string, category string) ([]*Product, error)
-	Filter(minPrice float32, maxPrice float32) ([]*Product, error)
-	FindById(ID uuid.UUID) (*Product, error)
+	Find(name string, category string) ([]Product, error)
+	Filter(minPrice float32, maxPrice float32) ([]Product, error)
+	FindById(ID uuid.UUID) (Product, error)
 	UpdateStock(ID uuid.UUID, stock int) error
-	GetFrom(sellerId uuid.UUID) ([]*Product, error)
+	GetFrom(sellerId uuid.UUID) ([]Product, error)
 }

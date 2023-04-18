@@ -15,7 +15,7 @@ func NewFilterProductEvent(repository domain.IProductRepository) *FilterProductE
 	}
 }
 
-func (queryEvent FilterProductEvent) Execute(minPrice float32, maxPrice float32) ([]*domain.Product, error) {
+func (queryEvent FilterProductEvent) Execute(minPrice float32, maxPrice float32) ([]domain.Product, error) {
 	if maxPrice < minPrice {
 		return nil, errors.New("min_price cannot be gt max_price")
 	}

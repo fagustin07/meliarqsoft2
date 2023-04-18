@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"meliarqsoft2/internal/application/command/action"
-	"meliarqsoft2/internal/seller/infrastructure/dto"
+	dto2 "meliarqsoft2/internal/infrastructure/api/dto"
 	"net/http"
 )
 
@@ -28,7 +28,7 @@ func NewGinRegisterSeller(registerSellerEvent *action.RegisterSellerEvent) *GinR
 // @Failure 500
 // @Router /sellers [POST]
 func (handler GinRegisterSeller) Execute(c *gin.Context) {
-	var sellerDTO dto.CreateSellerRequest
+	var sellerDTO dto2.CreateSellerRequest
 	if err := c.BindJSON(&sellerDTO); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -40,5 +40,5 @@ func (handler GinRegisterSeller) Execute(c *gin.Context) {
 		log.Print(err)
 		return
 	}
-	c.JSON(http.StatusCreated, dto.SellerID{ID: id})
+	c.JSON(http.StatusCreated, dto2.SellerID{ID: id})
 }

@@ -14,6 +14,6 @@ func NewFindProductEvent(repository domain.IProductRepository) *FindProductEvent
 	}
 }
 
-func (queryEvent FindProductEvent) Execute(name string, category string) ([]*domain.Product, error) {
+func (queryEvent FindProductEvent) Execute(name string, category string) ([]domain.Product, error) {
 	return queryEvent.repository.Find(name, category)
 }
