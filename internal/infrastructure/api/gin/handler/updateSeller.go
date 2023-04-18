@@ -4,11 +4,20 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"log"
+	"meliarqsoft2/internal/application/command/action"
 	"meliarqsoft2/internal/seller/infrastructure/dto"
 	"net/http"
 )
 
-// Update
+type GinUpdateSeller struct {
+	updateSellerEvent *action.UpdateSellerEvent
+}
+
+func NewGinUpdateSeller(updateSellerEvent *action.UpdateSellerEvent) *GinUpdateSeller {
+	return &GinUpdateSeller{updateSellerEvent: updateSellerEvent}
+}
+
+// Execute Update seller
 // @Summary Update a seller
 // @Description Update seller from a seller
 // @Accept json
@@ -20,7 +29,7 @@ import (
 // @Failure 400
 // @Failure 500
 // @Router /sellers/{id} [PUT]
-func (handler SellerGinHandler) Update(c *gin.Context) {
+func (handler GinUpdateSeller) Execute(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
 	if err != nil {
 		c.Status(http.StatusBadRequest)
@@ -34,7 +43,7 @@ func (handler SellerGinHandler) Update(c *gin.Context) {
 		return
 	}
 
-	err = handler.service.Update(id, dataToUpdate.BusinessName, dataToUpdate.Email)
+	err = handler.updateSellerEvent.Execute(id, dataToUpdate.BusinessName, dataToUpdate.Email)
 
 	if err != nil {
 		c.Status(http.StatusBadRequest)

@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-func (repo MongoDBRepository) Update(ID uuid.UUID, businessName string, email string) error {
+func (repo MongoRepository) Update(ID uuid.UUID, businessName string, email string) error {
 	var fieldsToUpdate bson.D
 	if businessName != "" {
 		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "business_name", Value: businessName})

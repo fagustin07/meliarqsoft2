@@ -9,7 +9,7 @@ import (
 	"meliarqsoft2/internal/domain"
 )
 
-func (repo MongoDBRepository) Find(businessName string) ([]*domain.Seller, error) {
+func (repo MongoRepository) Find(businessName string) ([]*domain.Seller, error) {
 	var filter = bson.D{{
 		Key: "business_name", Value: primitive.Regex{
 			Pattern: ".*" + businessName + ".*",

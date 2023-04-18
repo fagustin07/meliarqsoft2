@@ -2,7 +2,7 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/application/event/query"
+	"meliarqsoft2/internal/application/command/query"
 )
 
 type UndoPurchasesByProduct struct {

@@ -4,10 +4,19 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"log"
+	"meliarqsoft2/internal/application/command/action"
 	"net/http"
 )
 
-// Delete
+type GinDeleteProduct struct {
+	deleteProductEvent *action.DeleteProductEvent
+}
+
+func NewGinDeleteProduct(deleteProductEvent *action.DeleteProductEvent) *GinDeleteProduct {
+	return &GinDeleteProduct{deleteProductEvent: deleteProductEvent}
+}
+
+// Execute Delete
 // @Summary Delete a product
 // @Description Delete product from a seller
 // @Produce json
@@ -17,7 +26,7 @@ import (
 // @Failure 404
 // @Failure 400
 // @Router /products/{id} [DELETE]
-func (p ProductGinHandler) Delete(c *gin.Context) {
+func (handler GinDeleteProduct) Execute(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
 
 	if err != nil {
@@ -26,7 +35,7 @@ func (p ProductGinHandler) Delete(c *gin.Context) {
 		return
 	}
 
-	err = p.productService.Delete(id)
+	err = handler.deleteProductEvent.Execute(id)
 
 	if err != nil {
 		c.Status(http.StatusNotFound)

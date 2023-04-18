@@ -3,7 +3,6 @@ package action
 import (
 	"errors"
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/application/command/action"
 	"meliarqsoft2/internal/application/command/query"
 	"meliarqsoft2/internal/domain"
 	"time"
@@ -11,13 +10,13 @@ import (
 
 type MakePurchaseEvent struct {
 	repository         domain.IPurchaseRepository
-	findProduct        *query.FindProduct
+	findProduct        *query.FindProductById
 	existUser          *query.ExistUser
-	manageProductStock *action.ManageProductStock
+	manageProductStock *ManageProductStock
 }
 
-func NewMakePurchaseEvent(repo domain.IPurchaseRepository, findProd *query.FindProduct, existUser *query.ExistUser,
-	manageStock *action.ManageProductStock) *MakePurchaseEvent {
+func NewMakePurchaseEvent(repo domain.IPurchaseRepository, findProd *query.FindProductById, existUser *query.ExistUser,
+	manageStock *ManageProductStock) *MakePurchaseEvent {
 	return &MakePurchaseEvent{
 		repository:         repo,
 		findProduct:        findProd,

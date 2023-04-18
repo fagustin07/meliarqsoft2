@@ -3,11 +3,20 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"log"
+	"meliarqsoft2/internal/application/command/query"
 	"meliarqsoft2/internal/product/infrastructure/dto"
 	"net/http"
 )
 
-// Find
+type GinFindProduct struct {
+	FindProductEvent *query.FindProductEvent
+}
+
+func NewGinFindProduct(findProductEvent *query.FindProductEvent) *GinFindProduct {
+	return &GinFindProduct{FindProductEvent: findProductEvent}
+}
+
+// Execute Find product
 // @Summary Find products
 // @Description Find products that contains given name string and category string
 // @Accept json
@@ -19,11 +28,11 @@ import (
 // @Failure 400
 // @Failure 500
 // @Router /products [get]
-func (p ProductGinHandler) Find(c *gin.Context) {
+func (handler GinFindProduct) Execute(c *gin.Context) {
 	name := c.Query("name")
 	category := c.Query("category")
 
-	resp, err := p.productService.Find(name, category)
+	resp, err := handler.FindProductEvent.Execute(name, category)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

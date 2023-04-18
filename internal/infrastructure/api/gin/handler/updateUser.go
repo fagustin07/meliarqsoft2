@@ -4,11 +4,20 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"log"
+	"meliarqsoft2/internal/application/command/action"
 	"meliarqsoft2/internal/user/infrastructure/dto"
 	"net/http"
 )
 
-// Update
+type GinUpdateUser struct {
+	UpdateUserEvent *action.UpdateUserEvent
+}
+
+func NewGinUpdateUser(unregisterUserEvent *action.UpdateUserEvent) *GinUpdateUser {
+	return &GinUpdateUser{UpdateUserEvent: unregisterUserEvent}
+}
+
+// Execute Update
 // @Summary Update a user
 // @Description Update user from a user
 // @Produce json
@@ -19,7 +28,7 @@ import (
 // @Failure 404
 // @Failure 400
 // @Router /users/{id} [PUT]
-func (handler UserGinHandler) Update(c *gin.Context) {
+func (handler GinUpdateUser) Execute(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
 	if err != nil {
 		c.Status(http.StatusBadRequest)
@@ -33,7 +42,7 @@ func (handler UserGinHandler) Update(c *gin.Context) {
 		return
 	}
 
-	err = handler.service.Update(id, dataToUpdate.Name, dataToUpdate.Surname, dataToUpdate.Email)
+	err = handler.UpdateUserEvent.Execute(id, dataToUpdate.Name, dataToUpdate.Surname, dataToUpdate.Email)
 
 	if err != nil {
 		c.Status(http.StatusBadRequest)

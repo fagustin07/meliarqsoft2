@@ -2,16 +2,15 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/application/command/action"
 	"meliarqsoft2/internal/domain"
 )
 
 type DeleteProductEvent struct {
 	productRepository      domain.IProductRepository
-	undoPurchasesByProduct *action.UndoPurchasesByProduct
+	undoPurchasesByProduct *UndoPurchasesByProduct
 }
 
-func NewDeleteProductEvent(prodRepo domain.IProductRepository, undoPurchasesByProduct *action.UndoPurchasesByProduct) *DeleteProductEvent {
+func NewDeleteProductEvent(prodRepo domain.IProductRepository, undoPurchasesByProduct *UndoPurchasesByProduct) *DeleteProductEvent {
 	return &DeleteProductEvent{
 		productRepository:      prodRepo,
 		undoPurchasesByProduct: undoPurchasesByProduct,

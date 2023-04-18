@@ -4,11 +4,20 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"log"
+	"meliarqsoft2/internal/application/command/query"
 	"meliarqsoft2/internal/purchase/infrastructure/dto"
 	"net/http"
 )
 
-// Find
+type GinFindPurchases struct {
+	FindPurchasesFromProductEvent *query.FindPurchasesFromProductEvent
+}
+
+func NewGinFindPurchases(findPurchasesFromProductEvent *query.FindPurchasesFromProductEvent) *GinFindPurchases {
+	return &GinFindPurchases{FindPurchasesFromProductEvent: findPurchasesFromProductEvent}
+}
+
+// Execute Find
 // @Summary Find purchases from product.
 // @Description Find purchases from product
 // @Produce json
@@ -18,7 +27,7 @@ import (
 // @Failure 404
 // @Failure 400
 // @Router /products/{id}/purchases [GET]
-func (handler PurchaseGinHandler) Find(c *gin.Context) {
+func (handler GinFindPurchases) Execute(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
 	log.Println(id)
 	if err != nil {
@@ -26,7 +35,7 @@ func (handler PurchaseGinHandler) Find(c *gin.Context) {
 		log.Println(err.Error())
 		return
 	}
-	resp, err := handler.purchaseService.Find(id)
+	resp, err := handler.FindPurchasesFromProductEvent.Execute(id)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

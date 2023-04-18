@@ -29,11 +29,11 @@ func NewProduct(id uuid.UUID, name string, description string, category string, 
 	return &Product{ID: id, Name: name, Description: description, Category: category, Price: priceObj, Stock: stockObj, IDSeller: IDSeller}, nil
 }
 
-func (prod Product) CanConsume(units int) bool {
+func (prod *Product) CanConsume(units int) bool {
 	return units+prod.Stock.Amount >= 0
 }
 
-func (prod Product) TakeUnits(units int) (float32, int, error) {
+func (prod *Product) TakeUnits(units int) (float32, int, error) {
 	var unitsAbs float32
 	newStock, err := NewStock(prod.Stock.Amount + units)
 	if err != nil {
@@ -51,7 +51,7 @@ func (prod Product) TakeUnits(units int) (float32, int, error) {
 	return prod.Price.Value * unitsAbs, prod.Stock.Amount, nil
 }
 
-func (prod Product) Consume(units int) error {
+func (prod *Product) Consume(units int) error {
 	newStock, err := NewStock(prod.Stock.Amount - units)
 	if err != nil {
 		return errors.New("cannot consume more units of " + prod.Name + " than are in stock")
@@ -60,7 +60,7 @@ func (prod Product) Consume(units int) error {
 	return nil
 }
 
-func (prod Product) Restore(units int) error {
+func (prod *Product) Restore(units int) error {
 	newStock, err := NewStock(prod.Stock.Amount + units)
 	if err != nil {
 		return errors.New("failed to restore " + strconv.Itoa(units) + "units to product " + prod.Name)
@@ -77,6 +77,5 @@ type IProductRepository interface {
 	Filter(minPrice float32, maxPrice float32) ([]*Product, error)
 	FindById(ID uuid.UUID) (*Product, error)
 	UpdateStock(ID uuid.UUID, stock int) error
-	DeleteMany(sellerId uuid.UUID) error
 	GetFrom(sellerId uuid.UUID) ([]*Product, error)
 }

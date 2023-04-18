@@ -3,12 +3,21 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"log"
+	"meliarqsoft2/internal/application/command/query"
 	"meliarqsoft2/internal/product/infrastructure/dto"
 	"net/http"
 	"strconv"
 )
 
-// Filter
+type GinFilterProduct struct {
+	FilterProductEvent *query.FilterProductEvent
+}
+
+func NewGinFilterProduct(filterProductEvent *query.FilterProductEvent) *GinFilterProduct {
+	return &GinFilterProduct{FilterProductEvent: filterProductEvent}
+}
+
+// Execute Filter
 // @Summary Filter products
 // @Description Filter products that contains given name string and category string
 // @Accept json
@@ -20,7 +29,7 @@ import (
 // @Failure 400
 // @Failure 500
 // @Router /products/prices [GET]
-func (p ProductGinHandler) Filter(c *gin.Context) {
+func (handler GinFilterProduct) Execute(c *gin.Context) {
 	var (
 		min, max float32
 		err      error
@@ -36,7 +45,8 @@ func (p ProductGinHandler) Filter(c *gin.Context) {
 		log.Print(err)
 		return
 	}
-	resp, err := p.productService.Filter(min, max)
+
+	resp, err := handler.FilterProductEvent.Execute(min, max)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

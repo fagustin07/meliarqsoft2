@@ -18,7 +18,7 @@ func MapUserToMongoModel(user *domain.User) UserModel {
 }
 
 func MapToUserDomain(userModel *UserModel) (*domain.User, error) {
-	user, err := domain.NewUser(userModel.ID, userModel.Name, userModel.Email, userModel.Surname)
+	user, err := domain.NewUser(userModel.ID, userModel.Name, userModel.Surname, userModel.Email)
 	if err != nil {
 		return nil, errors.New("cannot map user from db to model")
 	}

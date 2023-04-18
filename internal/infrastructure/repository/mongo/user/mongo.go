@@ -14,7 +14,7 @@ type MongoRepository struct {
 	collection *mongo.Collection
 }
 
-func NewUserMongoRepository(client *mongo.Client) *MongoRepository {
+func NewMongoRepository(client *mongo.Client) *MongoRepository {
 	DbName := os.Getenv("DB_NAME")
 	const DbCollection = "users"
 

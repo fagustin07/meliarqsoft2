@@ -3,11 +3,20 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"log"
+	"meliarqsoft2/internal/application/command/query"
 	"meliarqsoft2/internal/user/infrastructure/dto"
 	"net/http"
 )
 
-// Find
+type GinFindUser struct {
+	FindUserEvent *query.FindUserEvent
+}
+
+func NewGinFindUser(findUserEvent *query.FindUserEvent) *GinFindUser {
+	return &GinFindUser{FindUserEvent: findUserEvent}
+}
+
+// Execute Find User
 // @Summary Find user
 // @Description Find user with given id
 // @Accept json
@@ -18,10 +27,10 @@ import (
 // @Failure 400
 // @Failure 500
 // @Router /users [GET]
-func (handler UserGinHandler) Find(c *gin.Context) {
-	name := c.Query("email")
+func (handler GinFindUser) Execute(c *gin.Context) {
+	emailPattern := c.Query("email")
 
-	resp, err := handler.service.Find(name)
+	resp, err := handler.FindUserEvent.Execute(emailPattern)
 	if err != nil {
 		c.Status(http.StatusNotFound)
 		log.Println(err.Error())

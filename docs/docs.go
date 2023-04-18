@@ -75,7 +75,7 @@ const docTemplate = `{
                 "summary": "Create a product",
                 "parameters": [
                     {
-                        "description": "Register",
+                        "description": "Create a product",
                         "name": "Body",
                         "in": "body",
                         "required": true,
@@ -422,18 +422,18 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "description": "Delete seller from a seller",
+                "description": "Unregister seller from a seller",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Sellers"
                 ],
-                "summary": "Delete a seller",
+                "summary": "Unregister a seller",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "ID from seller to delete",
+                        "description": "ID from seller to unregister",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -571,18 +571,18 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "description": "Delete user from a user",
+                "description": "Unregister user from a user",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Users"
                 ],
-                "summary": "Delete a user",
+                "summary": "Unregister a user",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "ID from user to delete",
+                        "description": "ID from user to unregister",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -627,12 +627,10 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "price": {
-                    "type": "number",
-                    "minimum": 0
+                    "type": "number"
                 },
                 "stock": {
-                    "type": "integer",
-                    "minimum": 0
+                    "type": "integer"
                 }
             }
         },
@@ -768,9 +766,6 @@ const docTemplate = `{
         },
         "dto.UpdateProductRequest": {
             "type": "object",
-            "required": [
-                "stock"
-            ],
             "properties": {
                 "category": {
                     "type": "string"
@@ -782,12 +777,10 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "price": {
-                    "type": "number",
-                    "minimum": 0
+                    "type": "number"
                 },
                 "stock": {
-                    "type": "integer",
-                    "minimum": 0
+                    "type": "integer"
                 }
             }
         },

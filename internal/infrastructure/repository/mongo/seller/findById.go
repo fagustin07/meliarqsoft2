@@ -10,7 +10,7 @@ import (
 	"meliarqsoft2/internal/domain"
 )
 
-func (repo MongoDBRepository) FindById(idSeller uuid.UUID) (*domain.Seller, error) {
+func (repo MongoRepository) FindById(idSeller uuid.UUID) (*domain.Seller, error) {
 	var sellerDb SellerModel
 	err := repo.collection.FindOne(context.Background(), bson.M{"_id": idSeller}).Decode(&sellerDb)
 	if err != nil {

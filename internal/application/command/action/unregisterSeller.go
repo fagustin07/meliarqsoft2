@@ -2,19 +2,18 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/application/command/action"
 	"meliarqsoft2/internal/application/command/query"
 	"meliarqsoft2/internal/domain"
 )
 
 type UnregisterSellerEvent struct {
 	sellerRepository       domain.ISellerRepository
-	deleteProductsBySeller *action.DeleteProductsBySeller
+	deleteProductsBySeller *DeleteProductsBySeller
 	existSeller            *query.ExistSeller
 }
 
 func NewUnregisterSellerEvent(sellerRepository domain.ISellerRepository,
-	deleteProductsBySeller *action.DeleteProductsBySeller, existSeller *query.ExistSeller) *UnregisterSellerEvent {
+	deleteProductsBySeller *DeleteProductsBySeller, existSeller *query.ExistSeller) *UnregisterSellerEvent {
 	return &UnregisterSellerEvent{
 		sellerRepository:       sellerRepository,
 		deleteProductsBySeller: deleteProductsBySeller,

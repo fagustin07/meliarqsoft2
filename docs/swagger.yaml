@@ -10,10 +10,8 @@ definitions:
       name:
         type: string
       price:
-        minimum: 0
         type: number
       stock:
-        minimum: 0
         type: integer
     required:
     - category
@@ -118,13 +116,9 @@ definitions:
       name:
         type: string
       price:
-        minimum: 0
         type: number
       stock:
-        minimum: 0
         type: integer
-    required:
-    - stock
     type: object
   dto.UpdateSellerRequest:
     properties:
@@ -203,7 +197,7 @@ paths:
       - application/json
       description: Create product from a seller
       parameters:
-      - description: Register
+      - description: Create a product
         in: body
         name: Body
         required: true
@@ -408,9 +402,9 @@ paths:
       - Sellers
   /sellers/{id}:
     delete:
-      description: Delete seller from a seller
+      description: Unregister seller from a seller
       parameters:
-      - description: ID from seller to delete
+      - description: ID from seller to unregister
         in: path
         name: id
         required: true
@@ -424,7 +418,7 @@ paths:
           description: Bad Request
         "404":
           description: Not Found
-      summary: Delete a seller
+      summary: Unregister a seller
       tags:
       - Sellers
     put:
@@ -508,9 +502,9 @@ paths:
       - Users
   /users/{id}:
     delete:
-      description: Delete user from a user
+      description: Unregister user from a user
       parameters:
-      - description: ID from user to delete
+      - description: ID from user to unregister
         in: path
         name: id
         required: true
@@ -524,7 +518,7 @@ paths:
           description: Bad Request
         "404":
           description: Not Found
-      summary: Delete a user
+      summary: Unregister a user
       tags:
       - Users
     put:

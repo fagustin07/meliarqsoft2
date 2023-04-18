@@ -3,19 +3,18 @@ package action
 import (
 	"github.com/google/uuid"
 	"meliarqsoft2/internal/application/command/query"
-	"meliarqsoft2/internal/application/event/action"
 	"meliarqsoft2/internal/domain"
 )
 
 type DeleteProductsBySeller struct {
 	repository    domain.IProductRepository
 	findProducts  *query.FindProductsBySeller
-	deleteProduct *action.DeleteProductEvent
+	deleteProduct *DeleteProductEvent
 }
 
 func NewDeleteProductsBySellerCommand(repository domain.IProductRepository,
 	findProducts *query.FindProductsBySeller,
-	deleteProduct *action.DeleteProductEvent) *DeleteProductsBySeller {
+	deleteProduct *DeleteProductEvent) *DeleteProductsBySeller {
 
 	return &DeleteProductsBySeller{
 		repository:    repository,

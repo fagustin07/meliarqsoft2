@@ -6,7 +6,7 @@ import (
 	"meliarqsoft2/internal/domain"
 )
 
-func (repo MongoDBRepository) Create(seller *domain.Seller) error {
+func (repo MongoRepository) Create(seller *domain.Seller) error {
 	dbSeller := MapSellerToMongoModel(seller)
 	_, err := repo.collection.InsertOne(context.Background(), dbSeller)
 	if err != nil {

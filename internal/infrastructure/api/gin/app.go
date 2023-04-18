@@ -13,8 +13,8 @@ import (
 )
 
 type MeliGinApp struct {
-	port   int         `required:"true" default:"8080"`
-	events *api.Events `required:"true"`
+	port   int
+	events *api.Events
 }
 
 func NewMeliAPI(port int, events *api.Events) *MeliGinApp {
@@ -24,7 +24,7 @@ func NewMeliAPI(port int, events *api.Events) *MeliGinApp {
 	}
 }
 
-func (app MeliGinApp) Run(events *api.Events) error {
+func (app MeliGinApp) Run() error {
 
 	route := gin.Default()
 
@@ -39,25 +39,26 @@ func (app MeliGinApp) Run(events *api.Events) error {
 	basePath := route.Group("/api/v1")
 
 	userRoute := basePath.Group("/users")
-	userRoute.POST("", handler.NewGinUserRegister(events.RegisterUserEvent).Execute)
-	userRoute.GET("", NotImplemented)
-	userRoute.PUT("/:id", NotImplemented)
-	userRoute.DELETE("/:id", NotImplemented)
+	userRoute.POST("", handler.NewGinUserRegister(app.events.RegisterUserEvent).Execute)
+	userRoute.GET("", handler.NewGinFindUser(app.events.FindUserEvent).Execute)
+	userRoute.PUT("/:id", handler.NewGinUpdateUser(app.events.UpdateUserEvent).Execute)
+	userRoute.DELETE("/:id", handler.NewGinUnregisterUser(app.events.UnregisterUserEvent).Execute)
 
 	sellerRoute := basePath.Group("/sellers")
-	sellerRoute.POST("", handler.NewGinRegisterSeller(events.RegisterSellerEvent).Execute)
-	sellerRoute.PUT("/:id", NotImplemented)
-	sellerRoute.DELETE("/:id", NotImplemented)
-	sellerRoute.GET("", NotImplemented)
+	sellerRoute.POST("", handler.NewGinRegisterSeller(app.events.RegisterSellerEvent).Execute)
+	sellerRoute.GET("", handler.NewGinFindSeller(app.events.FindSellerEvent).Execute)
+	sellerRoute.PUT("/:id", handler.NewGinUpdateSeller(app.events.UpdateSellerEvent).Execute)
+	sellerRoute.DELETE("/:id", handler.NewGinUnregisterSeller(app.events.UnregisterSellerEvent).Execute)
 
 	productRoute := basePath.Group("/products")
-	productRoute.POST("", NotImplemented)
-	productRoute.PUT("/:id", NotImplemented)
-	productRoute.DELETE("/:id", NotImplemented)
-	productRoute.GET("", NotImplemented)
-	productRoute.GET("/prices", NotImplemented)
-	productRoute.POST("/purchases", NotImplemented)
-	productRoute.GET("/:id/purchases", NotImplemented)
+	productRoute.POST("", handler.NewGinCreateProduct(app.events.CreateProductEvent).Execute)
+	productRoute.GET("", handler.NewGinFindProduct(app.events.FindProductEvent).Execute)
+	productRoute.PUT("/:id", handler.NewGinUpdateProduct(app.events.UpdateProductEvent).Execute)
+	productRoute.DELETE("/:id", handler.NewGinDeleteProduct(app.events.DeleteProductEvent).Execute)
+	productRoute.GET("/prices", handler.NewGinFilterProduct(app.events.FilterProductEvent).Execute)
+
+	productRoute.POST("/purchases", handler.NewGinMakePurchase(app.events.MakePurchaseEvent).Execute)
+	productRoute.GET("/:id/purchases", handler.NewGinFindPurchases(app.events.FindPurchasesFromProductEvent).Execute)
 
 	return route.Run()
 }

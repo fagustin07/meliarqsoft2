@@ -8,17 +8,17 @@ import (
 	"os"
 )
 
-type MongoDBRepository struct {
+type MongoRepository struct {
 	client     *mongo.Client
 	database   *mongo.Database
 	collection *mongo.Collection
 }
 
-func NewSellerMongoDBRepository(client *mongo.Client) *MongoDBRepository {
+func NewMongoRepository(client *mongo.Client) *MongoRepository {
 	DbName := os.Getenv("DB_NAME")
 	const DbCollection = "sellers"
 
-	repo := &MongoDBRepository{
+	repo := &MongoRepository{
 		client:     client,
 		database:   client.Database(DbName),
 		collection: client.Database(DbName).Collection(DbCollection),
