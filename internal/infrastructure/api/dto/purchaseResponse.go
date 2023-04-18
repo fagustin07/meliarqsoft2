@@ -2,7 +2,7 @@ package dto
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 	"time"
 )
 
@@ -14,7 +14,7 @@ type PurchaseDTO struct {
 	Total     float32   `json:"total" bson:"total"`
 }
 
-func MapPurchaseToJSON(purchase *domain.Purchase) PurchaseDTO {
+func MapPurchaseToJSON(purchase *model.Purchase) PurchaseDTO {
 	return PurchaseDTO{
 		IDProduct: purchase.IDProduct,
 		IDUser:    purchase.IDUser,

@@ -7,10 +7,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 )
 
-func (repository MongoRepository) Find(productID uuid.UUID) ([]*domain.Purchase, error) {
+func (repository MongoRepository) Find(productID uuid.UUID) ([]*model.Purchase, error) {
 	filter := bson.D{{"id_product", productID}}
 
 	cursor, err := repository.collection.Find(context.Background(), filter)
@@ -27,7 +27,7 @@ func (repository MongoRepository) Find(productID uuid.UUID) ([]*domain.Purchase,
 		return nil, err
 	}
 
-	var res []*domain.Purchase
+	var res []*model.Purchase
 	for _, elem := range dbResult {
 		log.Print(elem)
 		purchase, err := MapToPurchaseDomain(elem)

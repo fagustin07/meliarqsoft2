@@ -5,10 +5,10 @@ import (
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"log"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 )
 
-func (repo MongoRepository) GetFrom(sellerId uuid.UUID) ([]domain.Product, error) {
+func (repo MongoRepository) GetFrom(sellerId uuid.UUID) ([]model.Product, error) {
 	var filter = bson.M{"id_seller": sellerId}
 
 	cursor, err := repo.collection.Find(context.Background(), filter)
@@ -23,7 +23,7 @@ func (repo MongoRepository) GetFrom(sellerId uuid.UUID) ([]domain.Product, error
 		return nil, err
 	}
 
-	var res []domain.Product
+	var res []model.Product
 	for _, elem := range dbResult {
 		prod, err := mapProductToDomainModel(elem)
 		if err != nil {

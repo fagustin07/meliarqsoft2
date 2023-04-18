@@ -5,10 +5,10 @@ import (
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"log"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 )
 
-func (repo MongoRepository) Update(ID uuid.UUID, name string, description string, category string, price float32, stock int) (domain.Product, error) {
+func (repo MongoRepository) Update(ID uuid.UUID, name string, description string, category string, price float32, stock int) (model.Product, error) {
 	var fieldsToUpdate bson.D
 	if name != "" {
 		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "name", Value: name})
@@ -39,8 +39,8 @@ func (repo MongoRepository) Update(ID uuid.UUID, name string, description string
 
 	if err != nil {
 		log.Print(err)
-		return domain.Product{}, err
+		return model.Product{}, err
 	}
 
-	return domain.Product{}, nil
+	return model.Product{}, nil
 }

@@ -6,10 +6,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 )
 
-func (repo MongoRepository) Find(emailPattern string) ([]*domain.User, error) {
+func (repo MongoRepository) Find(emailPattern string) ([]*model.User, error) {
 	var filter = bson.D{{
 		Key: "email", Value: primitive.Regex{
 			Pattern: ".*" + emailPattern + ".*",
@@ -28,7 +28,7 @@ func (repo MongoRepository) Find(emailPattern string) ([]*domain.User, error) {
 		return nil, err
 	}
 
-	var res []*domain.User
+	var res []*model.User
 	for _, elem := range dbResult {
 		user, err := MapToUserDomain(elem)
 		if err != nil {

@@ -2,7 +2,7 @@ package dto
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 )
 
 type ProductDTO struct {
@@ -19,23 +19,23 @@ type ProductID struct {
 	ID uuid.UUID `json:"product_id" bson:"product_id"`
 }
 
-func MapProductProductToJSON(product domain.Product) ProductDTO {
+func MapProductProductToJSON(product model.Product) ProductDTO {
 	return ProductDTO{product.ID, product.Name, product.Description,
 		product.Category, product.Price.Value, product.Stock.Amount, product.IDSeller}
 }
 
-func (dto ProductDTO) MapToModel() (domain.Product, error) {
-	newPrice, err := domain.NewPrice(dto.Price)
+func (dto ProductDTO) MapToModel() (model.Product, error) {
+	newPrice, err := model.NewPrice(dto.Price)
 	if err != nil {
-		return domain.Product{}, err
+		return model.Product{}, err
 	}
 
-	stock, err := domain.NewStock(dto.Stock)
+	stock, err := model.NewStock(dto.Stock)
 	if err != nil {
-		return domain.Product{}, err
+		return model.Product{}, err
 	}
 
-	return domain.Product{
+	return model.Product{
 		Name:        dto.Name,
 		Description: dto.Description,
 		Category:    dto.Category,

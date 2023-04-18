@@ -5,10 +5,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 )
 
-func (repo MongoRepository) Filter(minPrice float32, maxPrice float32) ([]domain.Product, error) {
+func (repo MongoRepository) Filter(minPrice float32, maxPrice float32) ([]model.Product, error) {
 	filter := bson.D{
 		{"$and",
 			bson.A{
@@ -33,7 +33,7 @@ func (repo MongoRepository) Filter(minPrice float32, maxPrice float32) ([]domain
 		return nil, err
 	}
 
-	var res []domain.Product
+	var res []model.Product
 	for _, elem := range dbResult {
 		prod, err := mapProductToDomainModel(elem)
 		if err != nil {

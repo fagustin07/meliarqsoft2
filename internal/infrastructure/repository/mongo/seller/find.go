@@ -6,10 +6,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 )
 
-func (repo MongoRepository) Find(businessName string) ([]*domain.Seller, error) {
+func (repo MongoRepository) Find(businessName string) ([]*model.Seller, error) {
 	var filter = bson.D{{
 		Key: "business_name", Value: primitive.Regex{
 			Pattern: ".*" + businessName + ".*",
@@ -31,7 +31,7 @@ func (repo MongoRepository) Find(businessName string) ([]*domain.Seller, error) 
 		return nil, err
 	}
 
-	var res []*domain.Seller
+	var res []*model.Seller
 	for _, elem := range dbResult {
 		res = append(res, mapProductToDomainModel(elem))
 	}
@@ -39,8 +39,8 @@ func (repo MongoRepository) Find(businessName string) ([]*domain.Seller, error) 
 	return res, nil
 }
 
-func mapProductToDomainModel(elem *SellerModel) *domain.Seller {
-	seller, err := domain.NewSeller(elem.ID, elem.BusinessName, elem.Email)
+func mapProductToDomainModel(elem *SellerModel) *model.Seller {
+	seller, err := model.NewSeller(elem.ID, elem.BusinessName, elem.Email)
 	if err != nil {
 		return nil
 	}

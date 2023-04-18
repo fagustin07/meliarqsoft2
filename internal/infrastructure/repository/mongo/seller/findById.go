@@ -7,10 +7,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 )
 
-func (repo MongoRepository) FindById(idSeller uuid.UUID) (*domain.Seller, error) {
+func (repo MongoRepository) FindById(idSeller uuid.UUID) (*model.Seller, error) {
 	var sellerDb SellerModel
 	err := repo.collection.FindOne(context.Background(), bson.M{"_id": idSeller}).Decode(&sellerDb)
 	if err != nil {

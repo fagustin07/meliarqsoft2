@@ -5,7 +5,7 @@
 package mock
 
 import (
-	domain "meliarqsoft2/internal/domain"
+	model "meliarqsoft2/internal/domain/model"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
@@ -36,7 +36,7 @@ func (m *MockIUserRepository) EXPECT() *MockIUserRepositoryMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockIUserRepository) Create(user *domain.User) error {
+func (m *MockIUserRepository) Create(user *model.User) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", user)
 	ret0, _ := ret[0].(error)
@@ -64,10 +64,10 @@ func (mr *MockIUserRepositoryMockRecorder) Delete(ID interface{}) *gomock.Call {
 }
 
 // Find mocks base method.
-func (m *MockIUserRepository) Find(emailPattern string) ([]*domain.User, error) {
+func (m *MockIUserRepository) Find(emailPattern string) ([]*model.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Find", emailPattern)
-	ret0, _ := ret[0].([]*domain.User)
+	ret0, _ := ret[0].([]*model.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -79,10 +79,10 @@ func (mr *MockIUserRepositoryMockRecorder) Find(emailPattern interface{}) *gomoc
 }
 
 // FindById mocks base method.
-func (m *MockIUserRepository) FindById(idUser uuid.UUID) (*domain.User, error) {
+func (m *MockIUserRepository) FindById(idUser uuid.UUID) (*model.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindById", idUser)
-	ret0, _ := ret[0].(*domain.User)
+	ret0, _ := ret[0].(*model.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

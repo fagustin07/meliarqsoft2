@@ -4,11 +4,11 @@ import (
 	"context"
 	"github.com/google/uuid"
 	"log"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 	"time"
 )
 
-func (repo MongoRepository) Create(product domain.Product) (uuid.UUID, error) {
+func (repo MongoRepository) Create(product model.Product) (uuid.UUID, error) {
 	newUUID, err := uuid.NewUUID()
 	if err != nil {
 		return uuid.Nil, err
@@ -25,25 +25,25 @@ func (repo MongoRepository) Create(product domain.Product) (uuid.UUID, error) {
 	return newUUID, nil
 }
 
-func mapProductToMongoModel(product domain.Product) *ProductModel {
+func mapProductToMongoModel(product model.Product) *ProductModel {
 	return &ProductModel{
 		ID: product.ID, Name: product.Name, Description: product.Description, Category: product.Category,
 		Price: product.Price.Value, Stock: product.Stock.Amount, IDSeller: product.IDSeller, CreatedAt: time.Now(),
 	}
 }
 
-func mapProductToDomainModel(product *ProductModel) (domain.Product, error) {
-	newPrice, err := domain.NewPrice(product.Price)
+func mapProductToDomainModel(product *ProductModel) (model.Product, error) {
+	newPrice, err := model.NewPrice(product.Price)
 	if err != nil {
-		return domain.Product{}, err
+		return model.Product{}, err
 	}
 
-	stock, err := domain.NewStock(product.Stock)
+	stock, err := model.NewStock(product.Stock)
 	if err != nil {
-		return domain.Product{}, err
+		return model.Product{}, err
 	}
 
-	return domain.Product{
+	return model.Product{
 		Name:        product.Name,
 		Description: product.Description,
 		Category:    product.Category,

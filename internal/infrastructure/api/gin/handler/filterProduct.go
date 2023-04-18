@@ -3,7 +3,7 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"log"
-	"meliarqsoft2/internal/domain/application/command/query"
+	"meliarqsoft2/internal/domain/application/query"
 	"meliarqsoft2/internal/infrastructure/api/dto"
 	"net/http"
 	"strconv"

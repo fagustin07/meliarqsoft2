@@ -2,7 +2,7 @@ package seller
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 )
 
 type SellerModel struct {
@@ -11,10 +11,19 @@ type SellerModel struct {
 	Email        string    `json:"email" bson:"email"`
 }
 
-func MapSellerToMongoModel(seller *domain.Seller) *SellerModel {
+func MapSellerToMongoModel(seller *model.Seller) *SellerModel {
 	return &SellerModel{ID: seller.ID, BusinessName: seller.BusinessName, Email: seller.Email.Address}
 }
 
-func MapSellerFromModel(model *SellerModel) (*domain.Seller, error) {
-	return domain.NewSeller(model.ID, model.BusinessName, model.Email)
+func MapSellerFromModel(mongoModel *SellerModel) (*model.Seller, error) {
+	address, err := model.NewEmail(mongoModel.Email)
+	if err != nil {
+		return nil, err
+	}
+
+	return &model.Seller{
+		ID:           mongoModel.ID,
+		BusinessName: mongoModel.BusinessName,
+		Email:        address,
+	}, nil
 }

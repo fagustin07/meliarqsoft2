@@ -5,7 +5,7 @@
 package mock
 
 import (
-	domain "meliarqsoft2/internal/domain"
+	domain "meliarqsoft2/internal/domain/model"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"

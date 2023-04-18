@@ -2,7 +2,7 @@ package purchase
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 	"time"
 )
 
@@ -15,7 +15,7 @@ type PurchaseModel struct {
 	Total     float32   `json:"total" bson:"total"`
 }
 
-func MapPurchaseToMongoModel(purchase *domain.Purchase) PurchaseModel {
+func MapPurchaseToMongoModel(purchase *model.Purchase) PurchaseModel {
 	return PurchaseModel{
 		ID:        purchase.ID,
 		IDProduct: purchase.IDProduct,
@@ -26,6 +26,6 @@ func MapPurchaseToMongoModel(purchase *domain.Purchase) PurchaseModel {
 	}
 }
 
-func MapToPurchaseDomain(elem *PurchaseModel) (*domain.Purchase, error) {
-	return domain.NewPurchase(elem.ID, elem.IDProduct, elem.IDUser, elem.Date, elem.Units, elem.Total)
+func MapToPurchaseDomain(elem *PurchaseModel) (*model.Purchase, error) {
+	return model.NewPurchase(elem.ID, elem.IDProduct, elem.IDUser, elem.Date, elem.Units, elem.Total)
 }

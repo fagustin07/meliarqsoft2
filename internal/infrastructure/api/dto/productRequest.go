@@ -2,7 +2,7 @@ package dto
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 )
 
 type CreateProductRequest struct {
@@ -22,18 +22,18 @@ type UpdateProductRequest struct {
 	Stock       int     `json:"stock" bson:"stock"`
 }
 
-func (dto CreateProductRequest) MapToModel() (domain.Product, error) {
-	newPrice, err := domain.NewPrice(dto.Price)
+func (dto CreateProductRequest) MapToModel() (model.Product, error) {
+	newPrice, err := model.NewPrice(dto.Price)
 	if err != nil {
-		return domain.Product{}, err
+		return model.Product{}, err
 	}
 
-	stock, err := domain.NewStock(dto.Stock)
+	stock, err := model.NewStock(dto.Stock)
 	if err != nil {
-		return domain.Product{}, err
+		return model.Product{}, err
 	}
 
-	return domain.Product{
+	return model.Product{
 		Name:        dto.Name,
 		Description: dto.Description,
 		Category:    dto.Category,

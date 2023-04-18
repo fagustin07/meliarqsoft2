@@ -6,10 +6,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
-	"meliarqsoft2/internal/domain"
+	"meliarqsoft2/internal/domain/model"
 )
 
-func (repo MongoRepository) Find(name string, category string) ([]domain.Product, error) {
+func (repo MongoRepository) Find(name string, category string) ([]model.Product, error) {
 	var filter = bson.D{
 		{"$and",
 			bson.A{
@@ -40,7 +40,7 @@ func (repo MongoRepository) Find(name string, category string) ([]domain.Product
 		return nil, err
 	}
 
-	var res []domain.Product
+	var res []model.Product
 	for _, elem := range dbResult {
 		prod, err := mapProductToDomainModel(elem)
 		if err != nil {

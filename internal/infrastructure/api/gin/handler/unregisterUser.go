@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"log"
-	"meliarqsoft2/internal/domain/application/command/action"
+	"meliarqsoft2/internal/domain/application/action"
 	"net/http"
 )
 
