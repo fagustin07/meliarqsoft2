@@ -4,11 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"go.mongodb.org/mongo-driver/bson"
 	"meliarqsoft2/docs"
 	"meliarqsoft2/internal/infrastructure/api"
 	"meliarqsoft2/internal/infrastructure/api/gin/handler"
-	"net/http"
 	"strconv"
 )
 
@@ -61,8 +59,4 @@ func (app MeliGinApp) Run() error {
 	productRoute.GET("/:id/purchases", handler.NewGinFindPurchases(app.events.FindPurchasesFromProductEvent).Execute)
 
 	return route.Run()
-}
-
-func NotImplemented(c *gin.Context) {
-	c.JSON(http.StatusInternalServerError, bson.M{"message": "not implemented yet"})
 }
