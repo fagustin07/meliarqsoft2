@@ -2,6 +2,7 @@ package query
 
 import (
 	"errors"
+	"log"
 	"meliarqsoft2/internal/domain/model"
 )
 
@@ -16,6 +17,8 @@ func NewFilterProductEvent(repository model.IProductRepository) *FilterProductEv
 }
 
 func (queryEvent FilterProductEvent) Execute(minPrice float32, maxPrice float32) ([]model.Product, error) {
+	log.Println(minPrice)
+	log.Println(maxPrice)
 	if maxPrice < minPrice {
 		return nil, errors.New("min_price cannot be gt max_price")
 	}

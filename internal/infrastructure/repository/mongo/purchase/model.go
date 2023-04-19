@@ -38,7 +38,7 @@ func MapToPurchaseDomain(elem *PurchaseModel) (*model.Purchase, error) {
 	}
 
 	return &model.Purchase{
-		ID:        uuid.UUID{},
+		ID:        elem.ID,
 		IDProduct: elem.IDProduct,
 		IDUser:    elem.IDUser,
 		Date:      time.Now(),

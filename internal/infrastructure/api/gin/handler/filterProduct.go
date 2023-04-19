@@ -23,30 +23,21 @@ func NewGinFilterProduct(filterProductEvent *query.FilterProductEvent) *GinFilte
 // @Accept json
 // @Produce json
 // @Tags Products
-// @Param min_price query string  true "starting price"
-// @Param max_price query string  true "limit price"
+// @Param min_price query number  false "starting price" minimum(0)
+// @Param max_price query number  false "limit price"    minimum(0)
 // @Success 200 {object} []dto.ProductDTO
 // @Failure 400
 // @Failure 500
 // @Router /products/prices [GET]
 func (handler GinFilterProduct) Execute(c *gin.Context) {
-	var (
-		min, max float32
-		err      error
-	)
-	if min, err = findQueryParam("min_price", c); err != nil {
+	var filterQuery dto.FilterProductQuery
+	if err := c.ShouldBindQuery(&filterQuery); err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)
 		return
 	}
-
-	if max, err = findQueryParam("max_price", c); err != nil {
-		c.Status(http.StatusBadRequest)
-		log.Print(err)
-		return
-	}
-
-	resp, err := handler.FilterProductEvent.Execute(min, max)
+	log.Println(filterQuery)
+	resp, err := handler.FilterProductEvent.Execute(filterQuery.GetMin(), filterQuery.GetMax())
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 		log.Print(err)

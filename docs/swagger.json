@@ -103,18 +103,18 @@
                 "summary": "Filter products",
                 "parameters": [
                     {
-                        "type": "string",
+                        "minimum": 0,
+                        "type": "number",
                         "description": "starting price",
                         "name": "min_price",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     },
                     {
-                        "type": "string",
+                        "minimum": 0,
+                        "type": "number",
                         "description": "limit price",
                         "name": "max_price",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -714,6 +714,9 @@
             "type": "object",
             "properties": {
                 "date": {
+                    "type": "string"
+                },
+                "id": {
                     "type": "string"
                 },
                 "id_product": {

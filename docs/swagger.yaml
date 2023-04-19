@@ -84,6 +84,8 @@ definitions:
     properties:
       date:
         type: string
+      id:
+        type: string
       id_product:
         type: string
       id_user:
@@ -295,14 +297,14 @@ paths:
       parameters:
       - description: starting price
         in: query
+        minimum: 0
         name: min_price
-        required: true
-        type: string
+        type: number
       - description: limit price
         in: query
+        minimum: 0
         name: max_price
-        required: true
-        type: string
+        type: number
       produces:
       - application/json
       responses:
