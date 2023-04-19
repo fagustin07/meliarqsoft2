@@ -1,5 +1,8 @@
 # Arquitectura Hexagonal basada en DDD.
 
+## Documentacion requerida
+   Los documentos solicitados se encuentran en la carpeta *[documentacion](https://github.com/fagustin07/meliarqsoft2/tree/main/documentacion)*.
+   
 ## Requerimientos
 - [Docker](https://docs.docker.com/get-docker/). 🐳
 - [Docker Compose](https://docs.docker.com/get-docker/). 🐳
@@ -35,4 +38,4 @@ Con estos pasos lo que se hizo fue descargar paquetes para correr y medir los te
 
 Aclaracion: Por defecto el nombre del contenedor de la app es meliarq-app-1. Puede asegurarse con el comando `docker ps` el nombre del contenedor es el basado en la imagen `meliarq-app`
 
-### Autor: Federico Sandoval.
+Autor: Federico Sandoval.
