@@ -32,7 +32,7 @@ func (prod *Product) Consume(units int) error {
 func (prod *Product) Restore(units int) error {
 	newStock, err := NewStock(prod.Stock.Amount + units)
 	if err != nil {
-		return errors.New("failed to restore " + strconv.Itoa(units) + "units to product " + prod.Name)
+		return errors.New("failed to restore " + strconv.Itoa(units) + " units to product " + prod.Name)
 	}
 	prod.Stock = newStock
 	return nil

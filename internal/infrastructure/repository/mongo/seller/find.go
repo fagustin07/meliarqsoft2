@@ -33,17 +33,25 @@ func (repo MongoRepository) Find(businessName string) ([]*model.Seller, error) {
 
 	var res []*model.Seller
 	for _, elem := range dbResult {
-		res = append(res, mapProductToDomainModel(elem))
+		seller, err2 := mapSellerToDomainModel(elem)
+		if err2 != nil {
+			return nil, err2
+		}
+		res = append(res, seller)
 	}
 
 	return res, nil
 }
 
-func mapProductToDomainModel(elem *SellerModel) *model.Seller {
-	seller, err := model.NewSeller(elem.ID, elem.BusinessName, elem.Email)
+func mapSellerToDomainModel(elem *SellerModel) (*model.Seller, error) {
+	address, err := model.NewEmail(elem.Email)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return seller
+	return &model.Seller{
+		ID:           elem.ID,
+		BusinessName: elem.BusinessName,
+		Email:        address,
+	}, nil
 }

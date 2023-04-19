@@ -27,5 +27,22 @@ func MapPurchaseToMongoModel(purchase *model.Purchase) PurchaseModel {
 }
 
 func MapToPurchaseDomain(elem *PurchaseModel) (*model.Purchase, error) {
-	return model.NewPurchase(elem.ID, elem.IDProduct, elem.IDUser, elem.Date, elem.Units, elem.Total)
+	newUnits, err := model.NewUnits(elem.Units)
+	if err != nil {
+		return nil, err
+	}
+	newTotal, err := model.NewTotal(elem.Total)
+	if err != nil {
+		return nil, err
+
+	}
+
+	return &model.Purchase{
+		ID:        uuid.UUID{},
+		IDProduct: elem.IDProduct,
+		IDUser:    elem.IDUser,
+		Date:      time.Now(),
+		Units:     newUnits,
+		Total:     newTotal,
+	}, nil
 }

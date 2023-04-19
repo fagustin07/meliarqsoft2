@@ -3,6 +3,7 @@ package model
 import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
+	"strconv"
 	"testing"
 )
 
@@ -46,6 +47,22 @@ func TestProduct_KnowCanConsumeStock(t *testing.T) {
 	prod := ddlProduct()
 
 	assert.True(t, prod.CanConsume(prod.Stock.Amount))
+}
+
+func TestProduct_ThrowsErrorWhenFailsRestoringStock(t *testing.T) {
+	prod := ddlProduct()
+	err := prod.Restore(-2000)
+
+	assert.Error(t, err)
+	assert.Equal(t, err.Error(), "failed to restore "+strconv.Itoa(-2000)+" units to product "+prod.Name)
+}
+
+func TestProduct_ThrowsErrorWhenFailsConsumingStock(t *testing.T) {
+	prod := ddlProduct()
+	err := prod.Consume(70000)
+
+	assert.Error(t, err)
+	assert.Equal(t, err.Error(), "cannot consume more units of "+prod.Name+" than are in stock")
 }
 
 func ddlProduct() Product {

@@ -8,7 +8,7 @@ type Stock struct {
 
 func NewStock(amount int) (*Stock, error) {
 	if amount < 0 {
-		return &Stock{}, errors.New("invalid stock amount")
+		return nil, errors.New("invalid stock amount")
 	} else {
 		return &Stock{Amount: amount}, nil
 	}
