@@ -1,5 +1,8 @@
 # Arquitectura Hexagonal basada en DDD.
 
+## Documentacion requerida
+   Los documentos solicitados se encuentran en la carpeta *[documentacion](https://github.com/fagustin07/meliarqsoft2/tree/main/documentacion)*.
+   
 ## Requerimientos
 - [Docker](https://docs.docker.com/get-docker/). 🐳
 - [Docker Compose](https://docs.docker.com/get-docker/). 🐳
@@ -15,10 +18,10 @@
    2. Si queremos correr la app con la DB de Mongo Atlas, debemos solicitar al autor del proyecto y reemplazar la key `MONGODB_URI`.
    3. Si queremos correr solo la app (implica instalar Golang en nuestra PC) y dockerizar la db, debemos reemplazar en `MONGODB_URI` el host `db` por `localhost`.
 4. Con base en lo que hayamos elegido, seguimos de forma correlativa:
-   1. Para correr todo el compose local, ejecutamos `docker compose -f docker-compose-dev.yml up`
-   2. Para correr la app con Mongo Atlas, ejecutamos `docker compose up`
+   1. Para correr todo el compose local, ejecutamos `docker compose -f docker-compose-dev.yml up --build`
+   2. Para correr la app con Mongo Atlas, ejecutamos `docker compose up --build`
    3. Para correr solo la DB con la app local:
-      1. Ejecutamos `docker compose -f docker-compose-dev-db.yml`.
+      1. Ejecutamos `docker compose -f docker-compose-dev-db.yml up`.
       2. Ejecutamos `go run cmd/main.go`
 5. Para este punto, deberiamos ver en la consola un mensaje que nos indique que la app corre en el puerto 8080.
 6. Entramos a nuestro navegador y buscamos `localhost:8080/docs/index.html` y veremos la doc heca con Swagger de la app.
@@ -35,4 +38,4 @@ Con estos pasos lo que se hizo fue descargar paquetes para correr y medir los te
 
 Aclaracion: Por defecto el nombre del contenedor de la app es meliarq-app-1. Puede asegurarse con el comando `docker ps` el nombre del contenedor es el basado en la imagen `meliarq-app`
 
-### Autor: Federico Sandoval.
+Autor: Federico Sandoval.
