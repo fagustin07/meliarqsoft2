@@ -44,6 +44,7 @@ func mapProductToDomainModel(product *ProductModel) (model.Product, error) {
 	}
 
 	return model.Product{
+		ID:          product.ID,
 		Name:        product.Name,
 		Description: product.Description,
 		Category:    product.Category,

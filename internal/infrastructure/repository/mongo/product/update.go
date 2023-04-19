@@ -26,7 +26,7 @@ func (repo MongoRepository) Update(ID uuid.UUID, name string, description string
 		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "price", Value: price})
 	}
 
-	if stock >= 0 {
+	if stock > 0 {
 		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "stock", Value: stock})
 	}
 
