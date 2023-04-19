@@ -23,4 +23,14 @@
 5. Para este punto, deberiamos ver en la consola un mensaje que nos indique que la app corre en el puerto 8080.
 6. Entramos a nuestro navegador y buscamos `localhost:8080/docs/index.html` y veremos la doc heca con Swagger de la app.
 
+# Correr los tests
+Primeramente, para correr los tests unitarios de la app, primero la debemos tener corriendo y ejecutar en el contenedor de la app:
+1. `docker exec -it <CONTENEDOR> sh -c 'go test -v -coverprofile="coverage.out" -covermode=atomic ./internal/domain/...'`
+2. `docker exec -it <CONTENEDOR> sh -c 'go install gitlab.com/fgmarand/gocoverstats@latest'`
+3. `docker exec -it <CONTENEDOR> sh -c 'gocoverstats -v -f coverage.out -percent > coverage_rates.out'`
+Con estos pasos lo que se hizo fue descargar paquetes para correr y medir los tests con coverage(1,2) y generar un reporte de coverage(3). Por último, para visualizar el coverage de los tests corremos:
+4. `docker exec -it <CONTENEDOR> sh -c 'cat coverage_rates.out'`.
+
+Aclaracion: Por defecto el nombre del contenedor de la app es meliarq-app-1. Puede asegurarse con el comando `docker ps` el nombre del contenedor es el basado en la imagen `meliarq-app`
+
 ### Autor: Federico Sandoval.

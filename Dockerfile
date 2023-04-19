@@ -1,5 +1,5 @@
 # imagen base
-FROM golang:1.17
+FROM golang:1.20.3-alpine3.17
 
 # directorio de trabajo
 WORKDIR /app
@@ -20,11 +20,13 @@ COPY cmd/ cmd/
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app ./cmd/
 
 # imagen final
-FROM alpine:latest
+FROM golang:1.20.3-alpine3.17
 RUN apk --no-cache add ca-certificates
-WORKDIR /root/
+
+WORKDIR /app
+
 COPY .env .
-COPY --from=0 /app/app .
+COPY --from=0 /app .
 
 # exponer el puerto 8080
 EXPOSE 8080
