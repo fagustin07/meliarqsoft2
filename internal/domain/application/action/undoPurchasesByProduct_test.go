@@ -1,6 +1,7 @@
 package action
 
 import (
+	"errors"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"meliarqsoft2/internal/domain/application/query"
@@ -24,6 +25,23 @@ func Test_UndoPurchasesByProduct(t *testing.T) {
 	err := undoPurchasesByProduct.Execute(idProd)
 
 	assert.NoError(t, err)
+}
+
+func Test_UndoPurchasesByProduct_ThrowsErrorWhenUndoPurchaseFails(t *testing.T) {
+	undoPurchasesByProduct, mocks := setUpUndoPurchasesByProduct(t)
+
+	idProd, _ := uuid.NewUUID()
+	idPurch, _ := uuid.NewUUID()
+
+	purch := &model.Purchase{ID: idPurch}
+	purchases := []*model.Purchase{purch}
+
+	mocks.PurchaseRepository.EXPECT().Find(idProd).Return(purchases, nil)
+	mocks.PurchaseRepository.EXPECT().Delete(idPurch).Return(errors.New(""))
+
+	err := undoPurchasesByProduct.Execute(idProd)
+
+	assert.Error(t, err)
 }
 
 func setUpUndoPurchasesByProduct(t *testing.T) (*UndoPurchasesByProduct, *mock.RepositoriesMock) {

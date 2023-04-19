@@ -16,6 +16,13 @@ func Test_UpdateUserEvent(t *testing.T) {
 	assert.NoError(t, updateUser.Execute(id, "chester", "sandoval", "chester@gmail.com"))
 }
 
+func Test_UpdateUserEventOnInvalidEmailGivenThrowsError(t *testing.T) {
+	updateUser, _ := setUpUpdateUser(t)
+	id, _ := uuid.NewUUID()
+
+	assert.Error(t, updateUser.Execute(id, "chester", "sandoval", "chester"))
+}
+
 func setUpUpdateUser(t *testing.T) (*UpdateUserEvent, *mock.RepositoriesMock) {
 	mocks := mock.NewMockRepositories(t)
 
