@@ -2,9 +2,9 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"meliarqsoft2/internal/domain/application/action"
 	dto2 "meliarqsoft2/internal/infrastructure/api/dto"
+	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
@@ -36,14 +36,13 @@ func (handler GinRegisterSeller) Execute(c *gin.Context) {
 
 	requestedSeller, err := sellerDTO.MapToModel()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 
 	id, err := handler.registerSellerEvent.Execute(&requestedSeller)
 	if err != nil {
-		c.Status(http.StatusBadRequest)
-		log.Print(err)
+		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 	c.JSON(http.StatusCreated, dto2.SellerID{ID: id})

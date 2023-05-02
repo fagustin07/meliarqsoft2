@@ -2,9 +2,9 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"meliarqsoft2/internal/domain/application/query"
 	"meliarqsoft2/internal/infrastructure/api/dto"
+	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
@@ -32,8 +32,7 @@ func (handler GinFindUser) Execute(c *gin.Context) {
 
 	resp, err := handler.FindUserEvent.Execute(emailPattern)
 	if err != nil {
-		c.Status(http.StatusNotFound)
-		log.Println(err.Error())
+		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 

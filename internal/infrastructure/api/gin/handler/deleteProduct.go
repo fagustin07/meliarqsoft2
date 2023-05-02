@@ -3,8 +3,8 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"log"
 	"meliarqsoft2/internal/domain/application/action"
+	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
@@ -30,16 +30,14 @@ func (handler GinDeleteProduct) Execute(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
 
 	if err != nil {
-		c.Status(http.StatusBadRequest)
-		log.Println(err.Error())
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	err = handler.deleteProductEvent.Execute(id)
 
 	if err != nil {
-		c.Status(http.StatusNotFound)
-		log.Println(err.Error())
+		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 

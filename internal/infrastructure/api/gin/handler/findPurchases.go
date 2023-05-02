@@ -3,9 +3,9 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"log"
 	"meliarqsoft2/internal/domain/application/query"
 	"meliarqsoft2/internal/infrastructure/api/dto"
+	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
@@ -29,16 +29,13 @@ func NewGinFindPurchases(findPurchasesFromProductEvent *query.FindPurchasesFromP
 // @Router /products/{id}/purchases [GET]
 func (handler GinFindPurchases) Execute(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
-	log.Println(id)
 	if err != nil {
-		c.Status(http.StatusBadRequest)
-		log.Println(err.Error())
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	resp, err := handler.FindPurchasesFromProductEvent.Execute(id)
 	if err != nil {
-		c.Status(http.StatusBadRequest)
-		log.Print(err)
+		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 

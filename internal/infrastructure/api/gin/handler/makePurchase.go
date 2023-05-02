@@ -2,10 +2,10 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"meliarqsoft2/internal/domain/application/action"
 	"meliarqsoft2/internal/domain/model"
 	dto2 "meliarqsoft2/internal/infrastructure/api/dto"
+	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
@@ -38,7 +38,7 @@ func (handler GinMakePurchase) Execute(c *gin.Context) {
 
 	toModel, err := purchaseDTO.MapToModel()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 	id, total, err := handler.MakePurchaseEvent.Execute(&toModel)
@@ -46,8 +46,7 @@ func (handler GinMakePurchase) Execute(c *gin.Context) {
 	toModel.ID = id
 	newTotal, err := model.NewTotal(total)
 	if err != nil {
-		c.Status(http.StatusBadRequest)
-		log.Print(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	toModel.Total = newTotal

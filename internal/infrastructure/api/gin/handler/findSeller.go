@@ -2,9 +2,9 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"meliarqsoft2/internal/domain/application/query"
 	"meliarqsoft2/internal/infrastructure/api/dto"
+	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
@@ -32,8 +32,7 @@ func (handler GinFindSeller) Execute(c *gin.Context) {
 
 	resp, err := handler.FindSellerEvent.Execute(name)
 	if err != nil {
-		c.Status(http.StatusBadRequest)
-		log.Print(err)
+		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 

@@ -2,11 +2,10 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"meliarqsoft2/internal/domain/application/query"
 	"meliarqsoft2/internal/infrastructure/api/dto"
+	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
-	"strconv"
 )
 
 type GinFilterProduct struct {
@@ -32,15 +31,13 @@ func NewGinFilterProduct(filterProductEvent *query.FilterProductEvent) *GinFilte
 func (handler GinFilterProduct) Execute(c *gin.Context) {
 	var filterQuery dto.FilterProductQuery
 	if err := c.ShouldBindQuery(&filterQuery); err != nil {
-		c.Status(http.StatusBadRequest)
-		log.Print(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	log.Println(filterQuery)
+
 	resp, err := handler.FilterProductEvent.Execute(filterQuery.GetMin(), filterQuery.GetMax())
 	if err != nil {
-		c.Status(http.StatusBadRequest)
-		log.Print(err)
+		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 	var res []dto.ProductDTO
@@ -48,12 +45,4 @@ func (handler GinFilterProduct) Execute(c *gin.Context) {
 		res = append(res, dto.MapProductProductToJSON(elem))
 	}
 	c.JSON(http.StatusOK, res)
-}
-
-func findQueryParam(key string, c *gin.Context) (float32, error) {
-	val, err := strconv.ParseFloat(c.Query(key), 32)
-	if err != nil {
-		return 0, err
-	}
-	return float32(val), nil
 }

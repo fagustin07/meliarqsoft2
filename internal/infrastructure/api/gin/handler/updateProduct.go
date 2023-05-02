@@ -3,9 +3,9 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"log"
 	"meliarqsoft2/internal/domain/application/action"
 	"meliarqsoft2/internal/infrastructure/api/dto"
+	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
@@ -32,21 +32,19 @@ func NewGinUpdateProduct(updateProductEvent *action.UpdateProductEvent) *GinUpda
 func (handler GinUpdateProduct) Execute(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
 	if err != nil {
-		c.Status(http.StatusBadRequest)
-		log.Println(err.Error())
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	var dataToUpdate dto.UpdateProductRequest
 	if err := c.BindJSON(&dataToUpdate); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 
 	_, err = handler.UpdateProductEvent.Execute(id, dataToUpdate.Name, dataToUpdate.Description, dataToUpdate.Category, dataToUpdate.Price, dataToUpdate.Stock)
 	if err != nil {
-		c.Status(http.StatusBadRequest)
-		log.Print(err)
+		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 
