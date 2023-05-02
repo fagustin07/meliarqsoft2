@@ -2,7 +2,6 @@ package purchase
 
 import (
 	"context"
-	"errors"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -16,9 +15,10 @@ func (repository MongoRepository) Find(productID uuid.UUID) ([]*model.Purchase, 
 	cursor, err := repository.collection.Find(context.Background(), filter)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			return nil, err
+			return nil, nil
 		}
 		log.Print(err)
+		return nil, err
 	}
 
 	var dbResult []*PurchaseModel
@@ -32,10 +32,10 @@ func (repository MongoRepository) Find(productID uuid.UUID) ([]*model.Purchase, 
 		log.Print(elem)
 		purchase, err := MapToPurchaseDomain(elem)
 		if err != nil {
-			return nil, errors.New("failed mapping purchase from db to model")
+			return nil, err
 		}
 		res = append(res, purchase)
 	}
 
-	return res, err
+	return res, nil
 }

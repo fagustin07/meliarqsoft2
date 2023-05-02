@@ -79,6 +79,36 @@ func (mr *MockISellerRepositoryMockRecorder) Find(businessName interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Find", reflect.TypeOf((*MockISellerRepository)(nil).Find), businessName)
 }
 
+// FindByBusinessName mocks base method.
+func (m *MockISellerRepository) FindByBusinessName(businessName string) (*model.Seller, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FindByBusinessName", businessName)
+	ret0, _ := ret[0].(*model.Seller)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FindByBusinessName indicates an expected call of FindByBusinessName.
+func (mr *MockISellerRepositoryMockRecorder) FindByBusinessName(businessName interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByBusinessName", reflect.TypeOf((*MockISellerRepository)(nil).FindByBusinessName), businessName)
+}
+
+// FindByEmail mocks base method.
+func (m *MockISellerRepository) FindByEmail(email string) (*model.Seller, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FindByEmail", email)
+	ret0, _ := ret[0].(*model.Seller)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FindByEmail indicates an expected call of FindByEmail.
+func (mr *MockISellerRepositoryMockRecorder) FindByEmail(email interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByEmail", reflect.TypeOf((*MockISellerRepository)(nil).FindByEmail), email)
+}
+
 // FindById mocks base method.
 func (m *MockISellerRepository) FindById(idSeller uuid.UUID) (*model.Seller, error) {
 	m.ctrl.T.Helper()

@@ -30,7 +30,7 @@ func (repo MongoRepository) Find(name string, category string) ([]model.Product,
 	if err != nil {
 		log.Print(err)
 		if err == mongo.ErrNoDocuments {
-			return nil, err
+			return nil, nil
 		}
 	}
 

@@ -1,7 +1,7 @@
 package model
 
 import (
-	"errors"
+	"meliarqsoft2/pkg/exceptions/model"
 	"net/mail"
 )
 
@@ -13,7 +13,7 @@ func NewEmail(address string) (*Email, error) {
 	_, err := mail.ParseAddress(address)
 
 	if err != nil {
-		return nil, errors.New("invalid email address")
+		return nil, model.InvalidEmailError{}
 	} else {
 		return &Email{Address: address}, nil
 	}

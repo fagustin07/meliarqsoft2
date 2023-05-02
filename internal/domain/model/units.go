@@ -1,6 +1,8 @@
 package model
 
-import "errors"
+import (
+	"meliarqsoft2/pkg/exceptions/model"
+)
 
 type Units struct {
 	Amount int
@@ -8,7 +10,7 @@ type Units struct {
 
 func NewUnits(value int) (*Units, error) {
 	if value <= 0 {
-		return nil, errors.New("invalid units amount")
+		return nil, model.InvalidUnitsError{}
 	}
 	return &Units{Amount: value}, nil
 }

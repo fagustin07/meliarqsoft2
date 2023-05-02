@@ -4,8 +4,9 @@ import (
 	"context"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
-	"log"
+	"go.mongodb.org/mongo-driver/mongo"
 	"meliarqsoft2/internal/domain/model"
+	model2 "meliarqsoft2/pkg/exceptions/model"
 )
 
 func (repo MongoRepository) Update(ID uuid.UUID, name string, description string, category string, price float32, stock int) (model.Product, error) {
@@ -30,15 +31,16 @@ func (repo MongoRepository) Update(ID uuid.UUID, name string, description string
 		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "stock", Value: stock})
 	}
 
-	x, err := repo.collection.UpdateOne(
+	_, err := repo.collection.UpdateOne(
 		context.Background(),
 		bson.M{"_id": ID},
 		bson.D{{"$set", fieldsToUpdate}},
 	)
-	log.Println(x)
 
 	if err != nil {
-		log.Print(err)
+		if err == mongo.ErrNoDocuments {
+			return model.Product{}, model2.ProductNotFound{Id: ID.String()}
+		}
 		return model.Product{}, err
 	}
 

@@ -7,6 +7,7 @@ WORKDIR /app
 # copiar archivos necesarios
 COPY ./cmd ./cmd
 COPY ./internal ./internal
+COPY ./pkg ./pkg
 COPY ./docs ./docs
 COPY go.mod ./
 COPY go.sum ./

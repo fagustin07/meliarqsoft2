@@ -5,7 +5,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"log"
 	"meliarqsoft2/internal/domain/model"
 )
 
@@ -19,15 +18,13 @@ func (repo MongoRepository) Find(businessName string) ([]*model.Seller, error) {
 	cursor, err := repo.collection.Find(context.Background(), filter)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			return nil, err
+			return nil, nil
 		}
-		log.Print(err)
-		return nil, nil
+		return nil, err
 	}
 
 	var dbResult []*SellerModel
 	if err = cursor.All(context.TODO(), &dbResult); err != nil {
-		log.Print(err)
 		return nil, err
 	}
 

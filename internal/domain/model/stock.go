@@ -1,6 +1,8 @@
 package model
 
-import "errors"
+import (
+	"meliarqsoft2/pkg/exceptions/model"
+)
 
 type Stock struct {
 	Amount int
@@ -8,7 +10,7 @@ type Stock struct {
 
 func NewStock(amount int) (*Stock, error) {
 	if amount < 0 {
-		return nil, errors.New("invalid stock amount")
+		return nil, model.InvalidStockError{}
 	} else {
 		return &Stock{Amount: amount}, nil
 	}

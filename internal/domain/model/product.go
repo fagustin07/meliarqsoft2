@@ -1,9 +1,8 @@
 package model
 
 import (
-	"errors"
 	"github.com/google/uuid"
-	"strconv"
+	"meliarqsoft2/pkg/exceptions/model"
 )
 
 type Product struct {
@@ -23,7 +22,7 @@ func (prod *Product) CanConsume(units int) bool {
 func (prod *Product) Consume(units int) error {
 	newStock, err := NewStock(prod.Stock.Amount - units)
 	if err != nil {
-		return errors.New("cannot consume more units of " + prod.Name + " than are in stock")
+		return model.ProductWithoutStockError{ProductName: prod.Name}
 	}
 	prod.Stock = newStock
 	return nil
@@ -32,7 +31,7 @@ func (prod *Product) Consume(units int) error {
 func (prod *Product) Restore(units int) error {
 	newStock, err := NewStock(prod.Stock.Amount + units)
 	if err != nil {
-		return errors.New("failed to restore " + strconv.Itoa(units) + " units to product " + prod.Name)
+		return model.ProductRestoreStockError{ProductName: prod.Name, Units: units}
 	}
 	prod.Stock = newStock
 	return nil
@@ -48,4 +47,5 @@ type IProductRepository interface {
 	FindById(ID uuid.UUID) (*Product, error)
 	UpdateStock(ID uuid.UUID, stock int) error
 	GetFrom(sellerId uuid.UUID) ([]Product, error)
+	FindBySellerAndName(seller uuid.UUID, name string) (*Product, error)
 }

@@ -17,4 +17,6 @@ type ISellerRepository interface {
 	Delete(ID uuid.UUID) error
 	Find(businessName string) ([]*Seller, error)
 	FindById(idSeller uuid.UUID) (*Seller, error)
+	FindByEmail(email string) (*Seller, error)
+	FindByBusinessName(businessName string) (*Seller, error)
 }

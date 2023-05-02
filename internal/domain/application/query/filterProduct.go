@@ -1,9 +1,9 @@
 package query
 
 import (
-	"errors"
 	"log"
 	"meliarqsoft2/internal/domain/model"
+	model2 "meliarqsoft2/pkg/exceptions/model"
 )
 
 type FilterProductEvent struct {
@@ -20,7 +20,7 @@ func (queryEvent FilterProductEvent) Execute(minPrice float32, maxPrice float32)
 	log.Println(minPrice)
 	log.Println(maxPrice)
 	if maxPrice < minPrice {
-		return nil, errors.New("min_price cannot be gt max_price")
+		return nil, model2.MinAndMaxPriceCombinationError{}
 	}
 
 	return queryEvent.repository.Filter(minPrice, maxPrice)

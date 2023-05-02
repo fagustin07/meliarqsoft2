@@ -3,22 +3,26 @@ package product
 import (
 	"context"
 	"github.com/google/uuid"
-	"log"
 	"meliarqsoft2/internal/domain/model"
+	model2 "meliarqsoft2/pkg/exceptions/model"
 	"time"
 )
 
 func (repo MongoRepository) Create(product model.Product) (uuid.UUID, error) {
 	newUUID, err := uuid.NewUUID()
 	if err != nil {
-		return uuid.Nil, err
+		return uuid.Nil, model2.CreateUUIDError{}
 	}
 	product.ID = newUUID
+
+	_, err = repo.FindBySellerAndName(product.IDSeller, product.Name)
+	if _, productNotExist := err.(model2.ProductNotFound); !productNotExist {
+		return uuid.Nil, model2.ProductAlreadyExist{}
+	}
 
 	dbProduct := mapProductToMongoModel(product)
 	_, err = repo.collection.InsertOne(context.Background(), dbProduct)
 	if err != nil {
-		log.Println("Error saving product", err)
 		return uuid.Nil, err
 	}
 

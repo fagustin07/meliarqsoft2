@@ -22,14 +22,14 @@ func (repo MongoRepository) Filter(minPrice float32, maxPrice float32) ([]model.
 
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			return nil, err
+			return nil, nil
 		}
 		log.Print(err)
+		return nil, err
 	}
 
 	var dbResult []*ProductModel
 	if err = cursor.All(context.TODO(), &dbResult); err != nil {
-		log.Print(err)
 		return nil, err
 	}
 
@@ -42,5 +42,5 @@ func (repo MongoRepository) Filter(minPrice float32, maxPrice float32) ([]model.
 		res = append(res, prod)
 	}
 
-	return res, err
+	return res, nil
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"meliarqsoft2/internal/domain/model"
 )
@@ -13,7 +14,9 @@ func (repo MongoRepository) GetFrom(sellerId uuid.UUID) ([]model.Product, error)
 
 	cursor, err := repo.collection.Find(context.Background(), filter)
 	if err != nil {
-		log.Print(err)
+		if err == mongo.ErrNoDocuments {
+			return nil, nil
+		}
 		return nil, err
 	}
 

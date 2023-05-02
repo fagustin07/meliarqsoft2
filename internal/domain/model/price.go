@@ -1,6 +1,8 @@
 package model
 
-import "errors"
+import (
+	"meliarqsoft2/pkg/exceptions/model"
+)
 
 type Price struct {
 	Value float32
@@ -8,7 +10,7 @@ type Price struct {
 
 func NewPrice(amount float32) (*Price, error) {
 	if amount < 0 {
-		return nil, errors.New("invalid price value")
+		return nil, model.InvalidPriceError{}
 	} else {
 		return &Price{Value: amount}, nil
 	}

@@ -4,7 +4,8 @@ import (
 	"context"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
-	"log"
+	"go.mongodb.org/mongo-driver/mongo"
+	model2 "meliarqsoft2/pkg/exceptions/model"
 )
 
 func (repo MongoRepository) Update(ID uuid.UUID, businessName string, email string) error {
@@ -23,7 +24,9 @@ func (repo MongoRepository) Update(ID uuid.UUID, businessName string, email stri
 	)
 
 	if err != nil {
-		log.Print(err)
+		if err == mongo.ErrNoDocuments {
+			return model2.SellerNotFoundError{Id: ID.String()}
+		}
 		return err
 	}
 

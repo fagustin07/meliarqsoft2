@@ -4,7 +4,8 @@ import (
 	"context"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
-	"log"
+	"go.mongodb.org/mongo-driver/mongo"
+	model2 "meliarqsoft2/pkg/exceptions/model"
 )
 
 func (repo MongoRepository) Update(ID uuid.UUID, name string, surname string, email string) error {
@@ -28,7 +29,9 @@ func (repo MongoRepository) Update(ID uuid.UUID, name string, surname string, em
 	)
 
 	if err != nil {
-		log.Print(err)
+		if err == mongo.ErrNoDocuments {
+			return model2.UserNotFoundError{Id: ID.String()}
+		}
 		return err
 	}
 

@@ -5,7 +5,7 @@
 package mock
 
 import (
-	domain "meliarqsoft2/internal/domain/model"
+	model "meliarqsoft2/internal/domain/model"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
@@ -36,7 +36,7 @@ func (m *MockIProductRepository) EXPECT() *MockIProductRepositoryMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockIProductRepository) Create(product domain.Product) (uuid.UUID, error) {
+func (m *MockIProductRepository) Create(product model.Product) (uuid.UUID, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", product)
 	ret0, _ := ret[0].(uuid.UUID)
@@ -65,10 +65,10 @@ func (mr *MockIProductRepositoryMockRecorder) Delete(ID interface{}) *gomock.Cal
 }
 
 // Filter mocks base method.
-func (m *MockIProductRepository) Filter(minPrice, maxPrice float32) ([]domain.Product, error) {
+func (m *MockIProductRepository) Filter(minPrice, maxPrice float32) ([]model.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Filter", minPrice, maxPrice)
-	ret0, _ := ret[0].([]domain.Product)
+	ret0, _ := ret[0].([]model.Product)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -80,10 +80,10 @@ func (mr *MockIProductRepositoryMockRecorder) Filter(minPrice, maxPrice interfac
 }
 
 // Find mocks base method.
-func (m *MockIProductRepository) Find(name, category string) ([]domain.Product, error) {
+func (m *MockIProductRepository) Find(name, category string) ([]model.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Find", name, category)
-	ret0, _ := ret[0].([]domain.Product)
+	ret0, _ := ret[0].([]model.Product)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -95,10 +95,10 @@ func (mr *MockIProductRepositoryMockRecorder) Find(name, category interface{}) *
 }
 
 // FindById mocks base method.
-func (m *MockIProductRepository) FindById(ID uuid.UUID) (*domain.Product, error) {
+func (m *MockIProductRepository) FindById(ID uuid.UUID) (*model.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindById", ID)
-	ret0, _ := ret[0].(*domain.Product)
+	ret0, _ := ret[0].(*model.Product)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -109,11 +109,26 @@ func (mr *MockIProductRepositoryMockRecorder) FindById(ID interface{}) *gomock.C
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindById", reflect.TypeOf((*MockIProductRepository)(nil).FindById), ID)
 }
 
+// FindBySellerAndName mocks base method.
+func (m *MockIProductRepository) FindBySellerAndName(seller uuid.UUID, name string) (*model.Product, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FindBySellerAndName", seller, name)
+	ret0, _ := ret[0].(*model.Product)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FindBySellerAndName indicates an expected call of FindBySellerAndName.
+func (mr *MockIProductRepositoryMockRecorder) FindBySellerAndName(seller, name interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindBySellerAndName", reflect.TypeOf((*MockIProductRepository)(nil).FindBySellerAndName), seller, name)
+}
+
 // GetFrom mocks base method.
-func (m *MockIProductRepository) GetFrom(sellerId uuid.UUID) ([]domain.Product, error) {
+func (m *MockIProductRepository) GetFrom(sellerId uuid.UUID) ([]model.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetFrom", sellerId)
-	ret0, _ := ret[0].([]domain.Product)
+	ret0, _ := ret[0].([]model.Product)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -125,10 +140,10 @@ func (mr *MockIProductRepositoryMockRecorder) GetFrom(sellerId interface{}) *gom
 }
 
 // Update mocks base method.
-func (m *MockIProductRepository) Update(ID uuid.UUID, name, description, category string, price float32, stock int) (domain.Product, error) {
+func (m *MockIProductRepository) Update(ID uuid.UUID, name, description, category string, price float32, stock int) (model.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", ID, name, description, category, price, stock)
-	ret0, _ := ret[0].(domain.Product)
+	ret0, _ := ret[0].(model.Product)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
