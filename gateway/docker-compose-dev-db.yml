@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: meli
+      MONGO_INITDB_ROOT_PASSWORD: meli
+      MONGO_INITDB_DATABASE: meli
+    volumes:
+      - db-data:/var/lib/mongo
+volumes:
+  db-data:
