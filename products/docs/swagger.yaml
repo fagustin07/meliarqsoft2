@@ -1,0 +1,197 @@
+definitions:
+  dto.CreateProductRequest:
+    properties:
+      category:
+        type: string
+      description:
+        type: string
+      id_seller:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+      stock:
+        type: integer
+    required:
+    - category
+    - description
+    - id_seller
+    - name
+    type: object
+  dto.ProductDTO:
+    properties:
+      category:
+        type: string
+      description:
+        type: string
+      id:
+        example: ""
+        type: string
+      id_seller:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+      stock:
+        type: integer
+    type: object
+  dto.ProductID:
+    properties:
+      product_id:
+        type: string
+    type: object
+  dto.UpdateProductRequest:
+    properties:
+      category:
+        type: string
+      description:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+      stock:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /products:
+    get:
+      consumes:
+      - application/json
+      description: Find products that contains given name string and category string
+      parameters:
+      - description: find name
+        in: query
+        name: name
+        type: string
+      - description: find category
+        in: query
+        name: category
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.ProductDTO'
+            type: array
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Find products
+      tags:
+      - Products
+    post:
+      consumes:
+      - application/json
+      description: Create product from a seller
+      parameters:
+      - description: Create a product
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ProductID'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create a product
+      tags:
+      - Products
+  /products/{id}:
+    delete:
+      description: Delete product from a seller
+      parameters:
+      - description: ID from product to delete
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Delete a product
+      tags:
+      - Products
+    put:
+      consumes:
+      - application/json
+      description: Update product from a seller
+      parameters:
+      - description: Register
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateProductRequest'
+      - description: ID from product to update
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Update a product
+      tags:
+      - Products
+  /products/prices:
+    get:
+      consumes:
+      - application/json
+      description: Filter products that contains given name string and category string
+      parameters:
+      - description: starting price
+        in: query
+        minimum: 0
+        name: min_price
+        type: number
+      - description: limit price
+        in: query
+        minimum: 0
+        name: max_price
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.ProductDTO'
+            type: array
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Filter products
+      tags:
+      - Products
+swagger: "2.0"
