@@ -49,7 +49,7 @@ func Test_MakePurchaseReturnErrorWhenFailOnCreatePurchase(t *testing.T) {
 	newId, err := makePurchaseEvent.Execute(&purchase)
 
 	assert.Error(t, err)
-	assert.Nil(t, newId)
+	assert.Equal(t, newId, uuid.Nil)
 }
 
 func setUpMakePurchase(t *testing.T) (*MakePurchaseEvent, *mock.RepositoriesMock) {
