@@ -29,8 +29,5 @@ WORKDIR /app
 COPY .env .
 COPY --from=0 /app .
 
-# exponer el puerto 8080
-EXPOSE 8080
-
 # comando de inicio
 CMD ["./app"]

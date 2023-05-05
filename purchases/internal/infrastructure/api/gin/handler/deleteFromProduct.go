@@ -20,7 +20,7 @@ func NewGinDeleteFromProduct(deleteFromProductEvent *action.UndoPurchasesByProdu
 // @Summary Delete all purchases from product
 // @Description Delete all purchases from product
 // @Produce json
-// @Tags Purchase
+// @Tags Purchases
 // @Param 	id 	path  string true "ID from product to delete purchases"
 // @Success 204
 // @Failure 404
