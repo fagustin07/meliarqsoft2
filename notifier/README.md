@@ -13,9 +13,9 @@ Implementación de un servicio de notificaciones para una plataforma de compra y
 
 1. Configurar credenciales
 	1. 	Credenciales para amqp
-		Dentro del archivo [amqp.py]() completar los campos "user" y "password" con las credenciales de [cloudamqp](https://cloudamqp.com).
+		Dentro del archivo [amqp.py](https://github.com/fagustin07/meliarqsoft2/blob/dev/notifier/src/main/config/amqp.py) completar los campos "user" y "password" con las credenciales de [cloudamqp](https://cloudamqp.com).
 	2. Credenciales para envios de email
-		Dentro del archivo [smtp.py]() completar los campos "email" y "password" con las credenciales de hotmail.
+		Dentro del archivo [smtp.py](https://github.com/fagustin07/meliarqsoft2/blob/dev/notifier/src/main/config/smtp.py) completar los campos "email" y "password" con las credenciales de hotmail.
 2. Para ejecutar el proyecto podemos hacerlo de forma normal o con docker:
    1. Para ejecutarlo de manera normal, primero debemos instalar las dependencias:
 
