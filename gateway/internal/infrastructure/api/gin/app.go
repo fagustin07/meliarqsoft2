@@ -1,6 +1,7 @@
 package gin
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -58,5 +59,5 @@ func (app MeliGinApp) Run() error {
 	productRoute.POST("/purchases", handler.NewGinMakePurchase(app.events.MakePurchaseEvent).Execute)
 	productRoute.GET("/:id/purchases", handler.NewGinFindPurchases(app.events.FindPurchasesFromProductEvent).Execute)
 
-	return route.Run()
+	return route.Run(fmt.Sprintf(":%d", app.port))
 }

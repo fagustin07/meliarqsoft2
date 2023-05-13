@@ -12,12 +12,19 @@ import (
 	"meliarqsoft2/internal/infrastructure/repository/mongo/purchase"
 	"meliarqsoft2/internal/infrastructure/repository/mongo/seller"
 	"meliarqsoft2/internal/infrastructure/repository/mongo/user"
+	"os"
+	"strconv"
 )
 
 func main() {
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
+	}
+
+	port, err := strconv.Atoi(os.Getenv("APP_PORT"))
+	if err != nil {
+		panic(err.Error())
 	}
 
 	newFactory := mongo.NewFactory()
@@ -64,7 +71,7 @@ func main() {
 	makePurchaseEvent := action.NewMakePurchaseEvent(purchaseRepository, findProductCommand, existUser, manageProductStock)
 
 	newAPI := gin.NewMeliAPI(
-		8080,
+		port,
 		api.NewEvents(
 			registerSellerEvent,
 			updateSellerEvent,

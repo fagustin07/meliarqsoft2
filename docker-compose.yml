@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: ./gateway/
+      dockerfile: Dockerfile
+    env_file:
+      .env
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    profiles: ["service"]
+  postman:
+    image: postman/newman
+    container_name: postmanTests
+    command:
+      run meli_collection.json -e meli_env.json
+      -r cli,json
+      --reporter-json-export="reports/fastRestAPITests.json"
+    volumes:
+      - ./integration_tests:/etc/newman
+    profiles: ["testing"]
+    depends_on:
+      - "api"
+    links:
+      - "api"

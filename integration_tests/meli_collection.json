@@ -1,0 +1,54 @@
+{
+	"info": {
+		"_postman_id": "b0d2fea3-d575-45d9-9468-fe8221b31475",
+		"name": "meli",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Buscar vendedores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Comenzamos con un vendedor en nuestro sistema\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(1);",
+							"    pm.expect(response[0].seller_id).to.eql(\"a391cf49-de65-11ed-974b-0242ac1c0002\")",
+							"    pm.expect(response[0].businessName).to.eql(\"MAROLIO\")",
+							"    pm.expect(response[0].email).to.eql(\"ventas@marolio.com\")",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/sellers",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"sellers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
