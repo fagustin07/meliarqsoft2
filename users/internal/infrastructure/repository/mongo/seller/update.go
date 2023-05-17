@@ -24,6 +24,10 @@ func (repo MongoRepository) Update(ID uuid.UUID, businessName string, email stri
 	)
 
 	if err != nil {
+		if mongo.IsDuplicateKeyError(err) {
+			return model2.SellerAlreadyExist{}
+		}
+
 		if err == mongo.ErrNoDocuments {
 			return model2.SellerNotFoundError{Id: ID.String()}
 		}

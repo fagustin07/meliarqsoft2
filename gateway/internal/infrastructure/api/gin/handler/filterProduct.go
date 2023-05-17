@@ -2,18 +2,18 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"meliarqsoft2/internal/domain/application/query"
+	"meliarqsoft2/internal/domain/model"
 	"meliarqsoft2/internal/infrastructure/api/dto"
 	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
 type GinFilterProduct struct {
-	FilterProductEvent *query.FilterProductEvent
+	productService model.IProductService
 }
 
-func NewGinFilterProduct(filterProductEvent *query.FilterProductEvent) *GinFilterProduct {
-	return &GinFilterProduct{FilterProductEvent: filterProductEvent}
+func NewGinFilterProduct(productService model.IProductService) *GinFilterProduct {
+	return &GinFilterProduct{productService: productService}
 }
 
 // Execute Filter
@@ -35,14 +35,11 @@ func (handler GinFilterProduct) Execute(c *gin.Context) {
 		return
 	}
 
-	resp, err := handler.FilterProductEvent.Execute(filterQuery.GetMin(), filterQuery.GetMax())
+	resp, err := handler.productService.Filter(filterQuery.GetMin(), filterQuery.GetMax())
 	if err != nil {
 		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
-	var res []dto.ProductDTO
-	for _, elem := range resp {
-		res = append(res, dto.MapProductProductToJSON(elem))
-	}
-	c.JSON(http.StatusOK, res)
+
+	c.JSON(http.StatusOK, resp)
 }

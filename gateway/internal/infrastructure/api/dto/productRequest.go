@@ -15,14 +15,6 @@ type CreateProductRequest struct {
 	IDSeller    uuid.UUID `json:"id_seller" bson:"id_seller" binding:"required"`
 }
 
-type UpdateProductRequest struct {
-	Name        string  `json:"name" bson:"name"`
-	Description string  `json:"description" bson:"description"`
-	Category    string  `json:"category" bson:"category"`
-	Price       float32 `json:"price" bson:"price"`
-	Stock       int     `json:"stock" bson:"stock"`
-}
-
 func (dto CreateProductRequest) MapToModel() (model.Product, error) {
 	newPrice, err := model.NewPrice(dto.Price)
 	if err != nil {

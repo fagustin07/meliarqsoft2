@@ -101,6 +101,8 @@ func main() {
 			findPurchasesFromProductEvent,
 		),
 		services.UserHttpSyncService{BasePath: os.Getenv("USER_URL")},
+		services.SellerHttpSyncService{BasePath: os.Getenv("USER_URL")},
+		services.ProductHttpSyncService{BasePath: os.Getenv("PRODUCT_URL")},
 	)
 
 	err = newAPI.Run()

@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"errors"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -46,10 +45,6 @@ func (repo MongoRepository) Update(ID uuid.UUID, name string, surname string, em
 			return model2.UserAlreadyExistError{}
 		}
 		return err
-	}
-
-	if res.ModifiedCount == 0 {
-		return errors.New("cannot update user " + ID.String())
 	}
 
 	return nil

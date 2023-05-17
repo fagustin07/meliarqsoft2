@@ -10,6 +10,12 @@ import (
 )
 
 func (repo MongoRepository) Update(ID uuid.UUID, name string, description string, category string, price float32, stock int) (model.Product, error) {
+	_, err := repo.FindById(ID)
+
+	if err != nil {
+		return model.Product{}, model2.ProductNotFound{Id: ID.String()}
+	}
+
 	var fieldsToUpdate bson.D
 	if name != "" {
 		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "name", Value: name})
@@ -31,7 +37,7 @@ func (repo MongoRepository) Update(ID uuid.UUID, name string, description string
 		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "stock", Value: stock})
 	}
 
-	_, err := repo.collection.UpdateOne(
+	_, err = repo.collection.UpdateOne(
 		context.Background(),
 		bson.M{"_id": ID},
 		bson.D{{"$set", fieldsToUpdate}},
@@ -40,6 +46,9 @@ func (repo MongoRepository) Update(ID uuid.UUID, name string, description string
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
 			return model.Product{}, model2.ProductNotFound{Id: ID.String()}
+		}
+		if mongo.IsDuplicateKeyError(err) {
+			return model.Product{}, model2.ProductAlreadyExist{}
 		}
 		return model.Product{}, err
 	}

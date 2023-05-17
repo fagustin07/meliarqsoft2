@@ -2,18 +2,17 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"meliarqsoft2/internal/domain/application/query"
-	"meliarqsoft2/internal/infrastructure/api/dto"
+	"meliarqsoft2/internal/domain/model"
 	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
 type GinFindProduct struct {
-	FindProductEvent *query.FindProductEvent
+	productService model.IProductService
 }
 
-func NewGinFindProduct(findProductEvent *query.FindProductEvent) *GinFindProduct {
-	return &GinFindProduct{FindProductEvent: findProductEvent}
+func NewGinFindProduct(productService model.IProductService) *GinFindProduct {
+	return &GinFindProduct{productService: productService}
 }
 
 // Execute Find product
@@ -32,15 +31,11 @@ func (handler GinFindProduct) Execute(c *gin.Context) {
 	name := c.Query("name")
 	category := c.Query("category")
 
-	resp, err := handler.FindProductEvent.Execute(name, category)
+	resp, err := handler.productService.Find(name, category)
 	if err != nil {
 		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 
-	var res []dto.ProductDTO
-	for _, elem := range resp {
-		res = append(res, dto.MapProductProductToJSON(elem))
-	}
-	c.JSON(http.StatusOK, res)
+	c.JSON(http.StatusOK, resp)
 }

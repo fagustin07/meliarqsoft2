@@ -37,6 +37,16 @@ func (prod *Product) Restore(units int) error {
 	return nil
 }
 
+type ProductJSON struct {
+	ID          uuid.UUID `json:"id,string,omitempty" bson:"id,string,omitempty"`
+	Name        string    `json:"name" bson:"name"`
+	Description string    `json:"description" bson:"description"`
+	Category    string    `json:"category" bson:"category"`
+	Price       float32   `json:"price" bson:"price"`
+	Stock       int       `json:"stock" bson:"stock"`
+	IDSeller    uuid.UUID `json:"id_seller" bson:"id_seller"`
+}
+
 //go:generate mockgen -destination=../mock/productRepository.go -package=mock -source=product.go
 type IProductRepository interface {
 	Create(product Product) (uuid.UUID, error)
@@ -48,4 +58,18 @@ type IProductRepository interface {
 	UpdateStock(ID uuid.UUID, stock int) error
 	GetFrom(sellerId uuid.UUID) ([]Product, error)
 	FindBySellerAndName(seller uuid.UUID, name string) (*Product, error)
+}
+
+type IProductService interface {
+	Update(ID uuid.UUID, updateReq UpdateProductRequest) error
+	Find(name string, category string) ([]ProductJSON, error)
+	Filter(minPrice float32, maxPrice float32) ([]ProductJSON, error)
+}
+
+type UpdateProductRequest struct {
+	Name        string  `json:"name" bson:"name"`
+	Description string  `json:"description" bson:"description"`
+	Category    string  `json:"category" bson:"category"`
+	Price       float32 `json:"price" bson:"price"`
+	Stock       int     `json:"stock" bson:"stock"`
 }

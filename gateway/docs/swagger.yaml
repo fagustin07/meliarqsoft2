@@ -18,8 +18,6 @@ definitions:
     - description
     - id_seller
     - name
-    - price
-    - stock
     type: object
   dto.CreatePurchaseRequest:
     properties:

@@ -2,18 +2,18 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"meliarqsoft2/internal/domain/application/action"
+	"meliarqsoft2/internal/domain/model"
 	dto2 "meliarqsoft2/internal/infrastructure/api/dto"
 	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
 type GinRegisterSeller struct {
-	registerSellerEvent *action.RegisterSellerEvent
+	sellerService model.ISellerService
 }
 
-func NewGinRegisterSeller(registerSellerEvent *action.RegisterSellerEvent) *GinRegisterSeller {
-	return &GinRegisterSeller{registerSellerEvent: registerSellerEvent}
+func NewGinRegisterSeller(sellerService model.ISellerService) *GinRegisterSeller {
+	return &GinRegisterSeller{sellerService: sellerService}
 }
 
 // Execute Register Seller
@@ -40,7 +40,7 @@ func (handler GinRegisterSeller) Execute(c *gin.Context) {
 		return
 	}
 
-	id, err := handler.registerSellerEvent.Execute(&requestedSeller)
+	id, err := handler.sellerService.Register(&requestedSeller)
 	if err != nil {
 		application.MeliGinHandlerError{}.Execute(err, c)
 		return

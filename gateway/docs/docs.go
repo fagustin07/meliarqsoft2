@@ -609,9 +609,7 @@ const docTemplate = `{
                 "category",
                 "description",
                 "id_seller",
-                "name",
-                "price",
-                "stock"
+                "name"
             ],
             "properties": {
                 "category": {

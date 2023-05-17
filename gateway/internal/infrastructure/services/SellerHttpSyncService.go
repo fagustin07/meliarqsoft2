@@ -13,29 +13,32 @@ import (
 	"net/http"
 )
 
-type UserHttpSyncService struct {
+type SellerHttpSyncService struct {
 	BasePath string
 }
 
-func (s UserHttpSyncService) Register(user *model.User) (uuid.UUID, error) {
+func (s SellerHttpSyncService) Register(seller *model.Seller) (uuid.UUID, error) {
 	client := &http.Client{}
 
-	data, _ := json.Marshal(dto.MapUserToJSON(user))
+	data, err := json.Marshal(dto.CreateSellerRequest{Email: seller.Email.Address, BusinessName: seller.BusinessName})
+	if err != nil {
+		return uuid.Nil, err
+	}
 
-	request, err := http.NewRequest("POST", fmt.Sprintf("%s/users", s.BasePath), bytes.NewBuffer(data))
+	request, err := http.NewRequest("POST", fmt.Sprintf("%s/sellers", s.BasePath), bytes.NewBuffer(data))
 	if err != nil {
 		return uuid.Nil, err
 	}
 
 	resp, err := client.Do(request)
-	if err != nil {
-		return uuid.Nil, err
+	if err != nil || resp.StatusCode >= 500 {
+		return uuid.Nil, model2.ServiceUnavailable{}
 	}
 
 	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusCreated {
-		var id dto.UserID
+		var id dto.SellerID
 
 		uuidResp, err := io.ReadAll(resp.Body)
 		if err != nil {
@@ -66,29 +69,28 @@ func (s UserHttpSyncService) Register(user *model.User) (uuid.UUID, error) {
 	}
 
 	if resp.StatusCode == 409 {
-		return uuid.Nil, model2.UserAlreadyExistError{}
+		return uuid.Nil, model2.SellerAlreadyExist{}
 	}
 
 	return uuid.Nil, errors.New("unhandled response from service")
 }
 
-func (s UserHttpSyncService) Update(ID uuid.UUID, name string, surname string, email string) error {
+func (s SellerHttpSyncService) Update(id uuid.UUID, businessName string, email string) error {
 	client := &http.Client{}
 
-	data, _ := json.Marshal(dto.UpdateUserRequest{
-		Name:    name,
-		Surname: surname,
-		Email:   email,
+	data, _ := json.Marshal(dto.UpdateSellerRequest{
+		BusinessName: businessName,
+		Email:        email,
 	})
 
-	request, err := http.NewRequest("PUT", fmt.Sprintf("%s/users/%s", s.BasePath, ID.String()), bytes.NewBuffer(data))
+	request, err := http.NewRequest("PUT", fmt.Sprintf("%s/sellers/%s", s.BasePath, id.String()), bytes.NewBuffer(data))
 	if err != nil {
 		return err
 	}
 
 	resp, err := client.Do(request)
-	if err != nil {
-		return err
+	if err != nil || resp.StatusCode >= 500 {
+		return model2.ServiceUnavailable{}
 	}
 
 	defer resp.Body.Close()
@@ -98,7 +100,7 @@ func (s UserHttpSyncService) Update(ID uuid.UUID, name string, surname string, e
 	}
 
 	if resp.StatusCode == 404 {
-		return model2.UserNotFoundError{Id: ID.String()}
+		return model2.SellerNotFoundError{Id: id.String()}
 	}
 
 	if resp.StatusCode == 400 {
@@ -117,40 +119,14 @@ func (s UserHttpSyncService) Update(ID uuid.UUID, name string, surname string, e
 	}
 
 	if resp.StatusCode == 409 {
-		return model2.UserAlreadyExistError{}
+		return model2.SellerAlreadyExist{}
 	}
 
 	return nil
 }
 
-func (s UserHttpSyncService) Delete(ID uuid.UUID) error {
-	client := &http.Client{}
-
-	request, err := http.NewRequest("DELETE", fmt.Sprintf("%s/users/%s", s.BasePath, ID.String()), nil)
-	if err != nil {
-		return err
-	}
-
-	resp, err := client.Do(request)
-	if err != nil {
-		return err
-	}
-
-	defer resp.Body.Close()
-
-	if resp.StatusCode == 204 {
-		return nil
-	}
-
-	if resp.StatusCode == 404 {
-		return model2.UserNotFoundError{Id: ID.String()}
-	}
-
-	return model2.ServiceUnavailable{}
-}
-
-func (s UserHttpSyncService) Find(emailPattern string) ([]model.Customer, error) {
-	url := fmt.Sprintf("%s/users?email=%s", s.BasePath, emailPattern)
+func (s SellerHttpSyncService) Find(businessName string) ([]model.SellerJSON, error) {
+	url := fmt.Sprintf("%s/sellers?business_name=%s", s.BasePath, businessName)
 	resp, err := http.Get(url)
 	if err != nil || resp.StatusCode >= 500 {
 		return nil, model2.ServiceUnavailable{}
@@ -173,7 +149,7 @@ func (s UserHttpSyncService) Find(emailPattern string) ([]model.Customer, error)
 
 	defer resp.Body.Close()
 
-	var arr []model.Customer
+	var arr []model.SellerJSON
 	all, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
@@ -182,10 +158,6 @@ func (s UserHttpSyncService) Find(emailPattern string) ([]model.Customer, error)
 	err = json.Unmarshal(all, &arr)
 	if err != nil {
 		return nil, err
-	}
-
-	for _, elem := range arr {
-		print(elem.Name)
 	}
 
 	return arr, nil
