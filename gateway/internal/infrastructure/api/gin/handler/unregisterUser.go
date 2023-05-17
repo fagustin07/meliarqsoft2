@@ -3,17 +3,17 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/domain/application/action"
+	"meliarqsoft2/internal/domain/model"
 	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
 type GinUnregisterUser struct {
-	UnregisterUserEvent *action.UnregisterUserEvent
+	UserService model.IUserService
 }
 
-func NewGinUnregisterUser(unregisterUserEvent *action.UnregisterUserEvent) *GinUnregisterUser {
-	return &GinUnregisterUser{UnregisterUserEvent: unregisterUserEvent}
+func NewGinUnregisterUser(userService model.IUserService) *GinUnregisterUser {
+	return &GinUnregisterUser{UserService: userService}
 }
 
 // Execute Unregister User
@@ -35,7 +35,7 @@ func (handler GinUnregisterUser) Execute(c *gin.Context) {
 		return
 	}
 
-	err = handler.UnregisterUserEvent.Execute(id)
+	err = handler.UserService.Delete(id)
 
 	if err != nil {
 		application.MeliGinHandlerError{}.Execute(err, c)

@@ -6,7 +6,7 @@ import (
 )
 
 type UserID struct {
-	ID uuid.UUID `json:"user_id" bson:"seller_id"`
+	ID uuid.UUID `json:"user_id" bson:"user_id"`
 }
 
 type UserDTO struct {

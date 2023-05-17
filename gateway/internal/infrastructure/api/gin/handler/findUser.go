@@ -2,18 +2,17 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"meliarqsoft2/internal/domain/application/query"
-	"meliarqsoft2/internal/infrastructure/api/dto"
+	"meliarqsoft2/internal/domain/model"
 	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
 type GinFindUser struct {
-	FindUserEvent *query.FindUserEvent
+	UserService model.IUserService
 }
 
-func NewGinFindUser(findUserEvent *query.FindUserEvent) *GinFindUser {
-	return &GinFindUser{FindUserEvent: findUserEvent}
+func NewGinFindUser(userService model.IUserService) *GinFindUser {
+	return &GinFindUser{UserService: userService}
 }
 
 // Execute Find User
@@ -30,16 +29,11 @@ func NewGinFindUser(findUserEvent *query.FindUserEvent) *GinFindUser {
 func (handler GinFindUser) Execute(c *gin.Context) {
 	emailPattern := c.Query("email")
 
-	resp, err := handler.FindUserEvent.Execute(emailPattern)
+	resp, err := handler.UserService.Find(emailPattern)
 	if err != nil {
 		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 
-	var res []dto.UserDTO
-	for _, elem := range resp {
-		res = append(res, dto.MapUserToJSON(elem))
-	}
-
-	c.JSON(http.StatusOK, res)
+	c.JSON(http.StatusOK, resp)
 }

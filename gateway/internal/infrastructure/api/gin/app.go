@@ -6,20 +6,23 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"meliarqsoft2/docs"
+	"meliarqsoft2/internal/domain/model"
 	"meliarqsoft2/internal/infrastructure/api"
 	"meliarqsoft2/internal/infrastructure/api/gin/handler"
 	"strconv"
 )
 
 type MeliGinApp struct {
-	port   int
-	events *api.Events
+	port        int
+	events      *api.Events
+	userService model.IUserService
 }
 
-func NewMeliAPI(port int, events *api.Events) *MeliGinApp {
+func NewMeliAPI(port int, events *api.Events, userService model.IUserService) *MeliGinApp {
 	return &MeliGinApp{
-		port:   port,
-		events: events,
+		port:        port,
+		events:      events,
+		userService: userService,
 	}
 }
 
@@ -36,12 +39,11 @@ func (app MeliGinApp) Run() error {
 	docs.SwaggerInfo.BasePath = "/api/v1"
 
 	basePath := route.Group("/api/v1")
-
 	userRoute := basePath.Group("/users")
-	userRoute.POST("", handler.NewGinUserRegister(app.events.RegisterUserEvent).Execute)
-	userRoute.GET("", handler.NewGinFindUser(app.events.FindUserEvent).Execute)
-	userRoute.PUT("/:id", handler.NewGinUpdateUser(app.events.UpdateUserEvent).Execute)
-	userRoute.DELETE("/:id", handler.NewGinUnregisterUser(app.events.UnregisterUserEvent).Execute)
+	userRoute.POST("", handler.NewGinUserRegister(app.userService).Execute)
+	userRoute.GET("", handler.NewGinFindUser(app.userService).Execute)
+	userRoute.PUT("/:id", handler.NewGinUpdateUser(app.userService).Execute)
+	userRoute.DELETE("/:id", handler.NewGinUnregisterUser(app.userService).Execute)
 
 	sellerRoute := basePath.Group("/sellers")
 	sellerRoute.POST("", handler.NewGinRegisterSeller(app.events.RegisterSellerEvent).Execute)

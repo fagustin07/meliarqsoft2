@@ -3,18 +3,18 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/domain/application/action"
+	"meliarqsoft2/internal/domain/model"
 	"meliarqsoft2/internal/infrastructure/api/dto"
 	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
 type GinUpdateUser struct {
-	UpdateUserEvent *action.UpdateUserEvent
+	UserService model.IUserService
 }
 
-func NewGinUpdateUser(unregisterUserEvent *action.UpdateUserEvent) *GinUpdateUser {
-	return &GinUpdateUser{UpdateUserEvent: unregisterUserEvent}
+func NewGinUpdateUser(userService model.IUserService) *GinUpdateUser {
+	return &GinUpdateUser{UserService: userService}
 }
 
 // Execute Update
@@ -41,7 +41,7 @@ func (handler GinUpdateUser) Execute(c *gin.Context) {
 		return
 	}
 
-	err = handler.UpdateUserEvent.Execute(id, dataToUpdate.Name, dataToUpdate.Surname, dataToUpdate.Email)
+	err = handler.UserService.Update(id, dataToUpdate.Name, dataToUpdate.Surname, dataToUpdate.Email)
 
 	if err != nil {
 		application.MeliGinHandlerError{}.Execute(err, c)

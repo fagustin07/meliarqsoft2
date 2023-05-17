@@ -12,9 +12,17 @@ import (
 	"meliarqsoft2/internal/infrastructure/repository/mongo/purchase"
 	"meliarqsoft2/internal/infrastructure/repository/mongo/seller"
 	"meliarqsoft2/internal/infrastructure/repository/mongo/user"
+	"meliarqsoft2/internal/infrastructure/services"
 	"os"
 	"strconv"
 )
+
+type Post struct {
+	id     int
+	userId int
+	title  string
+	body   string
+}
 
 func main() {
 	err := godotenv.Load(".env")
@@ -92,6 +100,7 @@ func main() {
 			makePurchaseEvent,
 			findPurchasesFromProductEvent,
 		),
+		services.UserHttpSyncService{BasePath: os.Getenv("USER_URL")},
 	)
 
 	err = newAPI.Run()
