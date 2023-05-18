@@ -103,6 +103,7 @@ func main() {
 		services.UserHttpSyncService{BasePath: os.Getenv("USER_URL")},
 		services.SellerHttpSyncService{BasePath: os.Getenv("USER_URL")},
 		services.ProductHttpSyncService{BasePath: os.Getenv("PRODUCT_URL")},
+		services.FindPurchaseHttpSyncService{BasePath: os.Getenv("PURCHASE_URL")},
 	)
 
 	err = newAPI.Run()

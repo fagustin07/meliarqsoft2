@@ -3,18 +3,17 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/domain/application/query"
-	"meliarqsoft2/internal/infrastructure/api/dto"
+	"meliarqsoft2/internal/domain/model"
 	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
 
 type GinFindPurchases struct {
-	FindPurchasesFromProductEvent *query.FindPurchasesFromProductEvent
+	findPurchaseService model.IFindPurchaseService
 }
 
-func NewGinFindPurchases(findPurchasesFromProductEvent *query.FindPurchasesFromProductEvent) *GinFindPurchases {
-	return &GinFindPurchases{FindPurchasesFromProductEvent: findPurchasesFromProductEvent}
+func NewGinFindPurchases(findPurchaseService model.IFindPurchaseService) *GinFindPurchases {
+	return &GinFindPurchases{findPurchaseService: findPurchaseService}
 }
 
 // Execute Find
@@ -33,16 +32,11 @@ func (handler GinFindPurchases) Execute(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	resp, err := handler.FindPurchasesFromProductEvent.Execute(id)
+	resp, err := handler.findPurchaseService.Execute(id)
 	if err != nil {
 		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 
-	var res []dto.PurchaseDTO
-	for _, elem := range resp {
-		res = append(res, dto.MapPurchaseToJSON(elem))
-	}
-
-	c.JSON(http.StatusOK, res)
+	c.JSON(http.StatusOK, resp)
 }

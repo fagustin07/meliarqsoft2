@@ -31,7 +31,7 @@ func (repo MongoRepository) Update(ID uuid.UUID, name string, surname string, em
 		fieldsToUpdate = append(fieldsToUpdate, bson.E{Key: "email", Value: email})
 	}
 
-	res, err := repo.collection.UpdateOne(
+	_, err = repo.collection.UpdateOne(
 		context.Background(),
 		bson.M{"_id": ID},
 		bson.D{{"$set", fieldsToUpdate}},

@@ -51,5 +51,5 @@ func (handler GinMakePurchase) Execute(c *gin.Context) {
 	}
 	toModel.Total = newTotal
 
-	c.JSON(http.StatusCreated, dto2.MapPurchaseToJSON(&toModel))
+	c.JSON(http.StatusCreated, model.MapPurchaseToJSON(&toModel))
 }
