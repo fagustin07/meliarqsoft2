@@ -8,7 +8,6 @@ import (
 	"github.com/google/uuid"
 	"io"
 	"meliarqsoft2/internal/domain/model"
-	"meliarqsoft2/internal/infrastructure/api/dto"
 	model2 "meliarqsoft2/pkg/exceptions/model"
 	"net/http"
 )
@@ -17,10 +16,10 @@ type SellerHttpSyncService struct {
 	BasePath string
 }
 
-func (s SellerHttpSyncService) Register(seller *model.Seller) (uuid.UUID, error) {
+func (s SellerHttpSyncService) Register(seller model.CreateSellerRequest) (uuid.UUID, error) {
 	client := &http.Client{}
 
-	data, err := json.Marshal(dto.CreateSellerRequest{Email: seller.Email.Address, BusinessName: seller.BusinessName})
+	data, err := json.Marshal(seller)
 	if err != nil {
 		return uuid.Nil, err
 	}
@@ -38,7 +37,7 @@ func (s SellerHttpSyncService) Register(seller *model.Seller) (uuid.UUID, error)
 	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusCreated {
-		var id dto.SellerID
+		var id model.SellerID
 
 		uuidResp, err := io.ReadAll(resp.Body)
 		if err != nil {
@@ -68,6 +67,21 @@ func (s SellerHttpSyncService) Register(seller *model.Seller) (uuid.UUID, error)
 		return uuid.Nil, badReqErr
 	}
 
+	if resp.StatusCode == 406 {
+		var notAcceptableErr model2.NotAcceptableError
+		msg, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return uuid.Nil, err
+		}
+
+		err = json.Unmarshal(msg, &notAcceptableErr)
+		if err != nil {
+			return uuid.Nil, err
+		}
+
+		return uuid.Nil, notAcceptableErr
+	}
+
 	if resp.StatusCode == 409 {
 		return uuid.Nil, model2.SellerAlreadyExist{}
 	}
@@ -78,7 +92,7 @@ func (s SellerHttpSyncService) Register(seller *model.Seller) (uuid.UUID, error)
 func (s SellerHttpSyncService) Update(id uuid.UUID, businessName string, email string) error {
 	client := &http.Client{}
 
-	data, _ := json.Marshal(dto.UpdateSellerRequest{
+	data, _ := json.Marshal(model.UpdateSellerRequest{
 		BusinessName: businessName,
 		Email:        email,
 	})
@@ -118,6 +132,21 @@ func (s SellerHttpSyncService) Update(id uuid.UUID, businessName string, email s
 		return badReqErr
 	}
 
+	if resp.StatusCode == 406 {
+		var notAcceptableErr model2.NotAcceptableError
+		msg, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return err
+		}
+
+		err = json.Unmarshal(msg, &notAcceptableErr)
+		if err != nil {
+			return err
+		}
+
+		return notAcceptableErr
+	}
+
 	if resp.StatusCode == 409 {
 		return model2.SellerAlreadyExist{}
 	}
@@ -125,7 +154,7 @@ func (s SellerHttpSyncService) Update(id uuid.UUID, businessName string, email s
 	return nil
 }
 
-func (s SellerHttpSyncService) Find(businessName string) ([]model.SellerJSON, error) {
+func (s SellerHttpSyncService) Find(businessName string) ([]model.Seller, error) {
 	url := fmt.Sprintf("%s/sellers?business_name=%s", s.BasePath, businessName)
 	resp, err := http.Get(url)
 	if err != nil || resp.StatusCode >= 500 {
@@ -149,7 +178,7 @@ func (s SellerHttpSyncService) Find(businessName string) ([]model.SellerJSON, er
 
 	defer resp.Body.Close()
 
-	var arr []model.SellerJSON
+	var arr []model.Seller
 	all, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err

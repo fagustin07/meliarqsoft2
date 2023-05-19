@@ -9,8 +9,8 @@ import (
 type CreatePurchaseRequest struct {
 	IDProduct uuid.UUID `json:"id_product" bson:"id_product,omitempty" binding:"required"`
 	IDUser    uuid.UUID `json:"id_user" bson:"id_user,omitempty" binding:"required"`
-	Units     int       `json:"units" bson:"units" binding:"required,gt=0"`
-	Total     float32   `json:"total" bson:"total" binding:"required,gt=0"`
+	Units     int       `json:"units" bson:"units" binding:"required"`
+	Total     float32   `json:"total" bson:"total" binding:"required"`
 }
 
 func (dto CreatePurchaseRequest) MapToModel() (model.Purchase, error) {

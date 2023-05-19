@@ -22,7 +22,7 @@ func NewGinFindSeller(sellerService model.ISellerService) *GinFindSeller {
 // @Produce json
 // @Tags Sellers
 // @Param business_name	query string  false "find name"
-// @Success 200 {object} []dto.SellerDTO
+// @Success 200 {object} []model.Seller
 // @Failure 400
 // @Failure 500
 // @Router /sellers [get]

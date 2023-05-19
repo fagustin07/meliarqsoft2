@@ -16,6 +16,176 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/customers": {
+            "get": {
+                "description": "Find customer with given id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Find customer",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "find name",
+                        "name": "email",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Customer"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "post": {
+                "description": "Create customer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Create a customer",
+                "parameters": [
+                    {
+                        "description": "Register",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreateCustomerRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.CustomerID"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
+                    }
+                }
+            }
+        },
+        "/customers/{id}": {
+            "put": {
+                "description": "Update customer from a customer",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Update a customer",
+                "parameters": [
+                    {
+                        "description": "Update",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateCustomerRequest"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID from customer to update",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Unregister customer from a customer",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "Unregister a customer",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID from customer to unregister",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
+                    }
+                }
+            }
+        },
         "/products": {
             "get": {
                 "description": "Find products that contains given name string and category string",
@@ -49,7 +219,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/dto.ProductDTO"
+                                "$ref": "#/definitions/model.Product"
                             }
                         }
                     },
@@ -80,7 +250,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.CreateProductRequest"
+                            "$ref": "#/definitions/model.CreateProductRequest"
                         }
                     }
                 ],
@@ -88,14 +258,23 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dto.ProductID"
+                            "$ref": "#/definitions/model.ProductID"
                         }
                     },
                     "400": {
                         "description": "Bad Request"
                     },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
                     "500": {
                         "description": "Internal Server Error"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
                     }
                 }
             }
@@ -135,7 +314,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/dto.ProductDTO"
+                                "$ref": "#/definitions/model.Product"
                             }
                         }
                     },
@@ -168,7 +347,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.CreatePurchaseRequest"
+                            "$ref": "#/definitions/model.CreatePurchaseRequest"
                         }
                     }
                 ],
@@ -178,7 +357,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/dto.PurchaseDTO"
+                                "$ref": "#/definitions/model.Purchase"
                             }
                         }
                     },
@@ -188,8 +367,14 @@ const docTemplate = `{
                     "404": {
                         "description": "Not Found"
                     },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
                     "500": {
                         "description": "Internal Server Error"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
                     }
                 }
             }
@@ -214,7 +399,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.UpdateProductRequest"
+                            "$ref": "#/definitions/model.UpdateProductRequest"
                         }
                     },
                     {
@@ -232,8 +417,17 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request"
                     },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
                     "500": {
                         "description": "Internal Server Error"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
                     }
                 }
             },
@@ -289,7 +483,13 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Purchase"
+                            }
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -327,7 +527,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/dto.SellerDTO"
+                                "$ref": "#/definitions/model.Seller"
                             }
                         }
                     },
@@ -358,7 +558,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.CreateSellerRequest"
+                            "$ref": "#/definitions/model.CreateSellerRequest"
                         }
                     }
                 ],
@@ -366,14 +566,20 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/dto.SellerID"
+                            "$ref": "#/definitions/model.SellerID"
                         }
                     },
                     "400": {
                         "description": "Bad Request"
                     },
+                    "409": {
+                        "description": "Conflict"
+                    },
                     "500": {
                         "description": "Internal Server Error"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
                     }
                 }
             }
@@ -398,7 +604,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.UpdateSellerRequest"
+                            "$ref": "#/definitions/model.UpdateSellerRequest"
                         }
                     },
                     {
@@ -416,8 +622,17 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request"
                     },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
                     "500": {
                         "description": "Internal Server Error"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
                     }
                 }
             },
@@ -448,169 +663,34 @@ const docTemplate = `{
                     },
                     "404": {
                         "description": "Not Found"
-                    }
-                }
-            }
-        },
-        "/users": {
-            "get": {
-                "description": "Find user with given id",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Find user",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "find name",
-                        "name": "email",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/dto.UserDTO"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
                     },
                     "500": {
                         "description": "Internal Server Error"
-                    }
-                }
-            },
-            "post": {
-                "description": "Create user",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Create a user",
-                "parameters": [
-                    {
-                        "description": "Register",
-                        "name": "Body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.CreateUserRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/dto.UserID"
-                        }
                     },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "500": {
-                        "description": "Internal Server Error"
-                    }
-                }
-            }
-        },
-        "/users/{id}": {
-            "put": {
-                "description": "Update user from a user",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Update a user",
-                "parameters": [
-                    {
-                        "description": "Register",
-                        "name": "Body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.UpdateUserRequest"
-                        }
-                    },
-                    {
-                        "type": "string",
-                        "description": "ID from user to update",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    }
-                }
-            },
-            "delete": {
-                "description": "Unregister user from a user",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Unregister a user",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "ID from user to unregister",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "Not Found"
+                    "503": {
+                        "description": "Service Unavailable"
                     }
                 }
             }
         }
     },
     "definitions": {
-        "dto.CreateProductRequest": {
+        "model.CreateCustomerRequest": {
             "type": "object",
-            "required": [
-                "category",
-                "description",
-                "id_seller",
-                "name"
-            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "surname": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.CreateProductRequest": {
+            "type": "object",
             "properties": {
                 "category": {
                     "type": "string"
@@ -632,13 +712,8 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.CreatePurchaseRequest": {
+        "model.CreatePurchaseRequest": {
             "type": "object",
-            "required": [
-                "id_product",
-                "id_user",
-                "units"
-            ],
             "properties": {
                 "id_product": {
                     "type": "string"
@@ -646,17 +721,16 @@ const docTemplate = `{
                 "id_user": {
                     "type": "string"
                 },
+                "total": {
+                    "type": "number"
+                },
                 "units": {
                     "type": "integer"
                 }
             }
         },
-        "dto.CreateSellerRequest": {
+        "model.CreateSellerRequest": {
             "type": "object",
-            "required": [
-                "business_name",
-                "email"
-            ],
             "properties": {
                 "business_name": {
                     "type": "string"
@@ -666,14 +740,12 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.CreateUserRequest": {
+        "model.Customer": {
             "type": "object",
-            "required": [
-                "email",
-                "name",
-                "surname"
-            ],
             "properties": {
+                "customer_id": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
@@ -685,7 +757,15 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.ProductDTO": {
+        "model.CustomerID": {
+            "type": "object",
+            "properties": {
+                "customer_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.Product": {
             "type": "object",
             "properties": {
                 "category": {
@@ -712,7 +792,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.ProductID": {
+        "model.ProductID": {
             "type": "object",
             "properties": {
                 "product_id": {
@@ -720,7 +800,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.PurchaseDTO": {
+        "model.Purchase": {
             "type": "object",
             "properties": {
                 "date": {
@@ -729,10 +809,10 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
-                "id_product": {
+                "idproduct": {
                     "type": "string"
                 },
-                "id_user": {
+                "iduser": {
                     "type": "string"
                 },
                 "total": {
@@ -743,7 +823,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.SellerDTO": {
+        "model.Seller": {
             "type": "object",
             "properties": {
                 "businessName": {
@@ -757,7 +837,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.SellerID": {
+        "model.SellerID": {
             "type": "object",
             "properties": {
                 "seller_id": {
@@ -765,7 +845,21 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.UpdateProductRequest": {
+        "model.UpdateCustomerRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "surname": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateProductRequest": {
             "type": "object",
             "properties": {
                 "category": {
@@ -785,61 +879,13 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.UpdateSellerRequest": {
+        "model.UpdateSellerRequest": {
             "type": "object",
-            "required": [
-                "business_name",
-                "email"
-            ],
             "properties": {
                 "business_name": {
                     "type": "string"
                 },
                 "email": {
-                    "type": "string"
-                }
-            }
-        },
-        "dto.UpdateUserRequest": {
-            "type": "object",
-            "required": [
-                "email",
-                "name",
-                "surname"
-            ],
-            "properties": {
-                "email": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "surname": {
-                    "type": "string"
-                }
-            }
-        },
-        "dto.UserDTO": {
-            "type": "object",
-            "properties": {
-                "email": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "surname": {
-                    "type": "string"
-                },
-                "user_id": {
-                    "type": "string"
-                }
-            }
-        },
-        "dto.UserID": {
-            "type": "object",
-            "properties": {
-                "user_id": {
                     "type": "string"
                 }
             }

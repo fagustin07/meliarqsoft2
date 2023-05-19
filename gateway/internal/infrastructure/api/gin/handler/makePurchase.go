@@ -2,20 +2,15 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"meliarqsoft2/internal/domain/application/action"
-	"meliarqsoft2/internal/domain/model"
-	dto2 "meliarqsoft2/internal/infrastructure/api/dto"
-	"meliarqsoft2/pkg/exceptions/application"
-	"net/http"
 )
 
 type GinMakePurchase struct {
-	MakePurchaseEvent *action.MakePurchaseEvent
+	//MakePurchaseEvent *action.MakePurchaseEvent
 }
 
-func NewGinMakePurchase(makePurchaseEvent *action.MakePurchaseEvent) *GinMakePurchase {
-	return &GinMakePurchase{MakePurchaseEvent: makePurchaseEvent}
-}
+//func NewGinMakePurchase(makePurchaseEvent *action.MakePurchaseEvent) *GinMakePurchase {
+//	return &GinMakePurchase{MakePurchaseEvent: makePurchaseEvent}
+//}
 
 // Execute Create
 // @Summary Make a purchase.
@@ -23,33 +18,35 @@ func NewGinMakePurchase(makePurchaseEvent *action.MakePurchaseEvent) *GinMakePur
 // @Accept json
 // @Produce json
 // @Tags Purchases
-// @Param 	Body body dto.CreatePurchaseRequest true "Register"
-// @Success 201 {object} []dto.PurchaseDTO
+// @Param 	Body body model.CreatePurchaseRequest true "Register"
+// @Success 201 {object} []model.Purchase
 // @Failure 400
 // @Failure 404
+// @Failure 406
 // @Failure 500
+// @Failure 503
 // @Router /products/purchases [POST]
 func (handler GinMakePurchase) Execute(c *gin.Context) {
-	var purchaseDTO dto2.CreatePurchaseRequest
-	if err := c.BindJSON(&purchaseDTO); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	toModel, err := purchaseDTO.MapToModel()
-	if err != nil {
-		application.MeliGinHandlerError{}.Execute(err, c)
-		return
-	}
-	id, total, err := handler.MakePurchaseEvent.Execute(&toModel)
-
-	toModel.ID = id
-	newTotal, err := model.NewTotal(total)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	toModel.Total = newTotal
-
-	c.JSON(http.StatusCreated, model.MapPurchaseToJSON(&toModel))
+	//var purchaseDTO model.CreatePurchaseRequest
+	//if err := c.BindJSON(&purchaseDTO); err != nil {
+	//	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	//	return
+	//}
+	//
+	//toModel, err := purchaseDTO.MapToModel()
+	//if err != nil {
+	//	application.MeliGinHandlerError{}.Execute(err, c)
+	//	return
+	//}
+	//id, total, err := handler.MakePurchaseEvent.Execute(&toModel)
+	//
+	//toModel.ID = id
+	//newTotal, err := model.NewTotal(total)
+	//if err != nil {
+	//	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	//	return
+	//}
+	//toModel.Total = newTotal
+	//
+	//c.JSON(http.StatusCreated, model.MapPurchaseToJSON(&toModel))
 }

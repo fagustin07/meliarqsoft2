@@ -5,7 +5,7 @@ import "meliarqsoft2/internal/domain/model"
 type CreateCustomerRequest struct {
 	Name    string `json:"name" bson:"name" binding:"required"`
 	Surname string `json:"surname" bson:"surname" binding:"required"`
-	Email   string `json:"email" bson:"email" binding:"required,email"`
+	Email   string `json:"email" bson:"email" binding:"required"`
 }
 
 func (dto CreateCustomerRequest) MapToModel() (model.Customer, error) {
@@ -24,5 +24,5 @@ func (dto CreateCustomerRequest) MapToModel() (model.Customer, error) {
 type UpdateCustomerRequest struct {
 	Name    string `json:"name" bson:"name" binding:"required"`
 	Surname string `json:"surname" bson:"surname" binding:"required"`
-	Email   string `json:"email" bson:"email" binding:"required,email"`
+	Email   string `json:"email" bson:"email" binding:"required"`
 }

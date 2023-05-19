@@ -25,3 +25,11 @@ type BadRequestError struct {
 func (s BadRequestError) Error() string {
 	return s.Message
 }
+
+type NotAcceptableError struct {
+	Message string `json:"error"`
+}
+
+func (s NotAcceptableError) Error() string {
+	return s.Message
+}

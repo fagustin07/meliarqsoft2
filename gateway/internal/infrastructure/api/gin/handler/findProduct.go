@@ -23,7 +23,7 @@ func NewGinFindProduct(productService model.IProductService) *GinFindProduct {
 // @Tags Products
 // @Param name 	 	query string  false "find name"
 // @Param category  query string  false "find category"
-// @Success 200 {object} []dto.ProductDTO
+// @Success 200 {object} []model.Product
 // @Failure 400
 // @Failure 500
 // @Router /products [get]

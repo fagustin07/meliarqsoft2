@@ -40,20 +40,20 @@ func (handlerErr MeliGinHandlerError) Execute(err error, c *gin.Context) {
 }
 
 func isNotFoundError(err error) bool {
-	_, user := err.(model.UserNotFoundError)
+	_, customer := err.(model.CustomerNotFoundError)
 	_, purchase := err.(model.PurchaseNotFoundError)
 	_, seller := err.(model.SellerNotFoundError)
 	_, product := err.(model.ProductNotFound)
 
-	return user || purchase || seller || product
+	return customer || purchase || seller || product
 }
 
 func isAlreadyExistError(err error) bool {
-	_, user := err.(model.UserAlreadyExistError)
+	_, customer := err.(model.CustomerAlreadyExistError)
 	_, seller := err.(model.SellerAlreadyExist)
 	_, product := err.(model.ProductAlreadyExist)
 
-	return user || seller || product
+	return customer || seller || product
 }
 
 func isBusinessError(err error) bool {
@@ -68,6 +68,7 @@ func isBusinessError(err error) bool {
 
 func isNotAcceptableError(err error) bool {
 	_, filterPrice := err.(model.MinAndMaxPriceCombinationError)
+	_, notAcceptable := err.(model.NotAcceptableError)
 
-	return filterPrice
+	return filterPrice || notAcceptable
 }

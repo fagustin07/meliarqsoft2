@@ -22,7 +22,7 @@ func NewGinFindPurchases(findPurchaseService model.IFindPurchaseService) *GinFin
 // @Produce json
 // @Tags Purchases
 // @Param 	id 	path  string true "ID from product"
-// @Success 200
+// @Success 200 {object} []model.Purchase
 // @Failure 404
 // @Failure 400
 // @Router /products/{id}/purchases [GET]

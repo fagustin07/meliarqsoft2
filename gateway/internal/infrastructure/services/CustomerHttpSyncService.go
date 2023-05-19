@@ -8,21 +8,20 @@ import (
 	"github.com/google/uuid"
 	"io"
 	"meliarqsoft2/internal/domain/model"
-	"meliarqsoft2/internal/infrastructure/api/dto"
 	model2 "meliarqsoft2/pkg/exceptions/model"
 	"net/http"
 )
 
-type UserHttpSyncService struct {
+type CustomerHttpSyncService struct {
 	BasePath string
 }
 
-func (s UserHttpSyncService) Register(user *model.User) (uuid.UUID, error) {
+func (s CustomerHttpSyncService) Register(customer model.CreateCustomerRequest) (uuid.UUID, error) {
 	client := &http.Client{}
 
-	data, _ := json.Marshal(dto.MapUserToJSON(user))
+	data, _ := json.Marshal(customer)
 
-	request, err := http.NewRequest("POST", fmt.Sprintf("%s/users", s.BasePath), bytes.NewBuffer(data))
+	request, err := http.NewRequest("POST", fmt.Sprintf("%s/customers", s.BasePath), bytes.NewBuffer(data))
 	if err != nil {
 		return uuid.Nil, err
 	}
@@ -35,7 +34,7 @@ func (s UserHttpSyncService) Register(user *model.User) (uuid.UUID, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusCreated {
-		var id dto.UserID
+		var id model.CustomerID
 
 		uuidResp, err := io.ReadAll(resp.Body)
 		if err != nil {
@@ -65,23 +64,38 @@ func (s UserHttpSyncService) Register(user *model.User) (uuid.UUID, error) {
 		return uuid.Nil, badReqErr
 	}
 
+	if resp.StatusCode == 406 {
+		var notAcceptableErr model2.NotAcceptableError
+		msg, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return uuid.Nil, err
+		}
+
+		err = json.Unmarshal(msg, &notAcceptableErr)
+		if err != nil {
+			return uuid.Nil, err
+		}
+
+		return uuid.Nil, notAcceptableErr
+	}
+
 	if resp.StatusCode == 409 {
-		return uuid.Nil, model2.UserAlreadyExistError{}
+		return uuid.Nil, model2.CustomerAlreadyExistError{}
 	}
 
 	return uuid.Nil, errors.New("unhandled response from service")
 }
 
-func (s UserHttpSyncService) Update(ID uuid.UUID, name string, surname string, email string) error {
+func (s CustomerHttpSyncService) Update(ID uuid.UUID, name string, surname string, email string) error {
 	client := &http.Client{}
 
-	data, _ := json.Marshal(dto.UpdateUserRequest{
+	data, _ := json.Marshal(model.UpdateCustomerRequest{
 		Name:    name,
 		Surname: surname,
 		Email:   email,
 	})
 
-	request, err := http.NewRequest("PUT", fmt.Sprintf("%s/users/%s", s.BasePath, ID.String()), bytes.NewBuffer(data))
+	request, err := http.NewRequest("PUT", fmt.Sprintf("%s/customers/%s", s.BasePath, ID.String()), bytes.NewBuffer(data))
 	if err != nil {
 		return err
 	}
@@ -98,7 +112,7 @@ func (s UserHttpSyncService) Update(ID uuid.UUID, name string, surname string, e
 	}
 
 	if resp.StatusCode == 404 {
-		return model2.UserNotFoundError{Id: ID.String()}
+		return model2.CustomerNotFoundError{Id: ID.String()}
 	}
 
 	if resp.StatusCode == 400 {
@@ -116,17 +130,32 @@ func (s UserHttpSyncService) Update(ID uuid.UUID, name string, surname string, e
 		return badReqErr
 	}
 
+	if resp.StatusCode == 406 {
+		var notAcceptableErr model2.NotAcceptableError
+		msg, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return err
+		}
+
+		err = json.Unmarshal(msg, &notAcceptableErr)
+		if err != nil {
+			return err
+		}
+
+		return notAcceptableErr
+	}
+
 	if resp.StatusCode == 409 {
-		return model2.UserAlreadyExistError{}
+		return model2.CustomerAlreadyExistError{}
 	}
 
 	return nil
 }
 
-func (s UserHttpSyncService) Delete(ID uuid.UUID) error {
+func (s CustomerHttpSyncService) Delete(ID uuid.UUID) error {
 	client := &http.Client{}
 
-	request, err := http.NewRequest("DELETE", fmt.Sprintf("%s/users/%s", s.BasePath, ID.String()), nil)
+	request, err := http.NewRequest("DELETE", fmt.Sprintf("%s/customers/%s", s.BasePath, ID.String()), nil)
 	if err != nil {
 		return err
 	}
@@ -143,14 +172,14 @@ func (s UserHttpSyncService) Delete(ID uuid.UUID) error {
 	}
 
 	if resp.StatusCode == 404 {
-		return model2.UserNotFoundError{Id: ID.String()}
+		return model2.CustomerNotFoundError{Id: ID.String()}
 	}
 
 	return model2.ServiceUnavailable{}
 }
 
-func (s UserHttpSyncService) Find(emailPattern string) ([]model.Customer, error) {
-	url := fmt.Sprintf("%s/users?email=%s", s.BasePath, emailPattern)
+func (s CustomerHttpSyncService) Find(emailPattern string) ([]model.Customer, error) {
+	url := fmt.Sprintf("%s/customers?email=%s", s.BasePath, emailPattern)
 	resp, err := http.Get(url)
 	if err != nil || resp.StatusCode >= 500 {
 		return nil, model2.ServiceUnavailable{}
@@ -182,10 +211,6 @@ func (s UserHttpSyncService) Find(emailPattern string) ([]model.Customer, error)
 	err = json.Unmarshal(all, &arr)
 	if err != nil {
 		return nil, err
-	}
-
-	for _, elem := range arr {
-		print(elem.Name)
 	}
 
 	return arr, nil
