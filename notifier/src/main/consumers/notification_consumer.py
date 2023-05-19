@@ -16,16 +16,16 @@ class NotificationConsumer(BasicClient):
     def callback(self, ch, method, properties, body):
         try:
             data = json.loads(body)
-            type_msg = data['type']
-            to = data['to']
-            name = data['name']
-            if type_msg == 'purchase':
+            type_msg = data['Key']
+            to = data['Email']
+            name = data['Name']
+            if type_msg == 'Purchase':
                 body = purchase_html\
                     .replace("{user}", name)\
-                    .replace("{product}", data['product'])\
-                    .replace("{amount}", data['amount'])
+                    .replace("{product}", data['Product'])\
+                    .replace("{amount}", data['Amount'])
                 self.email_service.send_email(to=to, body=body, title="Notificacion de compra")
-            if type_msg == 'register':
+            if type_msg == 'Register':
                 body = register_html\
                     .replace("{user}", name)
                 self.email_service.send_email(to=to, body=body, title="Bienvenido a Meli")
