@@ -1,4 +1,4 @@
-package user
+package customer
 
 import (
 	"context"
@@ -10,24 +10,24 @@ import (
 )
 
 func (repo MongoRepository) Delete(ID uuid.UUID) error {
-	user, err := repo.FindById(ID)
+	customer, err := repo.FindById(ID)
 	if err != nil {
 		return err
 	}
 
-	if user == nil {
-		return model.UserNotFoundError{}
+	if customer == nil {
+		return model.CustomerNotFoundError{}
 	}
 
 	res, err := repo.collection.DeleteOne(context.Background(), bson.M{"_id": ID})
 
 	if res.DeletedCount == 0 {
-		return errors.New("cannot delete user " + ID.String())
+		return errors.New("cannot delete customer " + ID.String())
 	}
 
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			return model.UserNotFoundError{Id: ID.String()}
+			return model.CustomerNotFoundError{Id: ID.String()}
 		}
 		return err
 	}

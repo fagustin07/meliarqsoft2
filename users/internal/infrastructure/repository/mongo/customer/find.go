@@ -1,14 +1,13 @@
-package user
+package customer
 
 import (
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"log"
 	"meliarqsoft2/internal/domain/model"
 )
 
-func (repo MongoRepository) Find(emailPattern string) ([]*model.User, error) {
+func (repo MongoRepository) Find(emailPattern string) ([]*model.Customer, error) {
 	var filter = bson.D{{
 		Key: "email", Value: primitive.Regex{
 			Pattern: ".*" + emailPattern + ".*",
@@ -17,19 +16,17 @@ func (repo MongoRepository) Find(emailPattern string) ([]*model.User, error) {
 
 	cursor, err := repo.collection.Find(context.Background(), filter)
 	if err != nil {
-		log.Print(err)
 		return nil, err
 	}
 
-	var dbResult []*UserModel
+	var dbResult []*Model
 	if err = cursor.All(context.TODO(), &dbResult); err != nil {
-		log.Print(err)
 		return nil, err
 	}
 
-	var res []*model.User
+	var res []*model.Customer
 	for _, elem := range dbResult {
-		user, err := MapToUserDomain(elem)
+		user, err := MapToCustomerDomain(elem)
 		if err != nil {
 			return nil, err
 		}

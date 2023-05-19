@@ -1,4 +1,4 @@
-package user
+package customer
 
 import (
 	"context"
@@ -8,19 +8,19 @@ import (
 	model2 "meliarqsoft2/pkg/exceptions/model"
 )
 
-func (repo MongoRepository) Create(user *model.User) (uuid.UUID, error) {
+func (repo MongoRepository) Create(customer *model.Customer) (uuid.UUID, error) {
 	newUUID, err := uuid.NewUUID()
 	if err != nil {
 		return uuid.Nil, model2.CreateUUIDError{}
 	}
 
-	user.ID = newUUID
+	customer.ID = newUUID
 
-	userDb := MapUserToMongoModel(user)
-	_, err = repo.collection.InsertOne(context.Background(), userDb)
+	customerDb := MapCustomerToMongoModel(customer)
+	_, err = repo.collection.InsertOne(context.Background(), customerDb)
 	if err != nil {
 		if mongo.IsDuplicateKeyError(err) {
-			return uuid.Nil, model2.UserAlreadyExistError{}
+			return uuid.Nil, model2.CustomerAlreadyExistError{}
 		}
 		return uuid.Nil, err
 	}

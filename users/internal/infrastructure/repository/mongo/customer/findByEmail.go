@@ -1,4 +1,4 @@
-package user
+package customer
 
 import (
 	"context"
@@ -8,12 +8,12 @@ import (
 	model2 "meliarqsoft2/pkg/exceptions/model"
 )
 
-func (repo MongoRepository) FindByEmail(email string) (*model.User, error) {
+func (repo MongoRepository) FindByEmail(email string) (*model.Customer, error) {
 	filter := bson.M{"email": email}
-	var user model.User
+	var user model.Customer
 	if err := repo.collection.FindOne(context.Background(), filter).Decode(&user); err != nil {
 		if err == mongo.ErrNoDocuments {
-			return nil, model2.UserNotFoundError{Id: ""}
+			return nil, model2.CustomerNotFoundError{Id: ""}
 		}
 		return nil, err
 	}

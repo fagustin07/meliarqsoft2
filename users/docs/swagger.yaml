@@ -1,15 +1,5 @@
 definitions:
-  dto.CreateSellerRequest:
-    properties:
-      business_name:
-        type: string
-      email:
-        type: string
-    required:
-    - business_name
-    - email
-    type: object
-  dto.CreateUserRequest:
+  dto.CreateCustomerRequest:
     properties:
       email:
         type: string
@@ -21,6 +11,32 @@ definitions:
     - email
     - name
     - surname
+    type: object
+  dto.CreateSellerRequest:
+    properties:
+      business_name:
+        type: string
+      email:
+        type: string
+    required:
+    - business_name
+    - email
+    type: object
+  dto.CustomerDTO:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      surname:
+        type: string
+      user_id:
+        type: string
+    type: object
+  dto.CustomerID:
+    properties:
+      user_id:
+        type: string
     type: object
   dto.SellerDTO:
     properties:
@@ -36,17 +52,7 @@ definitions:
       seller_id:
         type: string
     type: object
-  dto.UpdateSellerRequest:
-    properties:
-      business_name:
-        type: string
-      email:
-        type: string
-    required:
-    - business_name
-    - email
-    type: object
-  dto.UpdateUserRequest:
+  dto.UpdateCustomerRequest:
     properties:
       email:
         type: string
@@ -59,25 +65,117 @@ definitions:
     - name
     - surname
     type: object
-  dto.UserDTO:
+  dto.UpdateSellerRequest:
     properties:
+      business_name:
+        type: string
       email:
         type: string
-      name:
-        type: string
-      surname:
-        type: string
-      user_id:
-        type: string
-    type: object
-  dto.UserID:
-    properties:
-      user_id:
-        type: string
+    required:
+    - business_name
+    - email
     type: object
 info:
   contact: {}
 paths:
+  /customers:
+    get:
+      consumes:
+      - application/json
+      description: Find customer with given id
+      parameters:
+      - description: find name
+        in: query
+        name: email
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.CustomerDTO'
+            type: array
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Find customer
+      tags:
+      - Customers
+    post:
+      consumes:
+      - application/json
+      description: Create customer
+      parameters:
+      - description: Register
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateCustomerRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CustomerID'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create a customer
+      tags:
+      - Customers
+  /customers/{id}:
+    delete:
+      description: Unregister customer from a customer
+      parameters:
+      - description: ID from customer to unregister
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Unregister a customer
+      tags:
+      - Customers
+    put:
+      description: Update customer from a customer
+      parameters:
+      - description: Register
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateCustomerRequest'
+      - description: ID from customer to update
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Update a customer
+      tags:
+      - Customers
   /sellers:
     get:
       consumes:
@@ -178,102 +276,4 @@ paths:
       summary: Update a seller
       tags:
       - Sellers
-  /users:
-    get:
-      consumes:
-      - application/json
-      description: Find user with given id
-      parameters:
-      - description: find name
-        in: query
-        name: email
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/dto.UserDTO'
-            type: array
-        "400":
-          description: Bad Request
-        "500":
-          description: Internal Server Error
-      summary: Find user
-      tags:
-      - Users
-    post:
-      consumes:
-      - application/json
-      description: Create user
-      parameters:
-      - description: Register
-        in: body
-        name: Body
-        required: true
-        schema:
-          $ref: '#/definitions/dto.CreateUserRequest'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/dto.UserID'
-        "400":
-          description: Bad Request
-        "500":
-          description: Internal Server Error
-      summary: Create a user
-      tags:
-      - Users
-  /users/{id}:
-    delete:
-      description: Unregister user from a user
-      parameters:
-      - description: ID from user to unregister
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-        "400":
-          description: Bad Request
-        "404":
-          description: Not Found
-      summary: Unregister a user
-      tags:
-      - Users
-    put:
-      description: Update user from a user
-      parameters:
-      - description: Register
-        in: body
-        name: Body
-        required: true
-        schema:
-          $ref: '#/definitions/dto.UpdateUserRequest'
-      - description: ID from user to update
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-        "400":
-          description: Bad Request
-        "404":
-          description: Not Found
-      summary: Update a user
-      tags:
-      - Users
 swagger: "2.0"

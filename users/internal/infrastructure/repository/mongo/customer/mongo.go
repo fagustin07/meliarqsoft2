@@ -1,4 +1,4 @@
-package user
+package customer
 
 import (
 	"context"
@@ -16,7 +16,7 @@ type MongoRepository struct {
 
 func NewMongoRepository(client *mongo.Client) *MongoRepository {
 	DbName := os.Getenv("DB_NAME")
-	const DbCollection = "users"
+	const DbCollection = "customers"
 
 	repo := &MongoRepository{
 		client:     client,
@@ -32,7 +32,7 @@ func NewMongoRepository(client *mongo.Client) *MongoRepository {
 	})
 
 	if err != nil {
-		panic("Failed creating user restrictions.")
+		panic("Failed creating customer restrictions.")
 	}
 
 	return repo

@@ -1,4 +1,4 @@
-package user
+package customer
 
 import (
 	"context"
@@ -9,14 +9,14 @@ import (
 	model2 "meliarqsoft2/pkg/exceptions/model"
 )
 
-func (repo MongoRepository) FindById(ID uuid.UUID) (*model.User, error) {
-	var userDb UserModel
+func (repo MongoRepository) FindById(ID uuid.UUID) (*model.Customer, error) {
+	var userDb Model
 	err := repo.collection.FindOne(context.Background(), bson.M{"_id": ID}).Decode(&userDb)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			return nil, model2.UserNotFoundError{Id: ID.String()}
+			return nil, model2.CustomerNotFoundError{Id: ID.String()}
 		}
 		return nil, err
 	}
-	return MapToUserDomain(&userDb)
+	return MapToCustomerDomain(&userDb)
 }

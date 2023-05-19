@@ -1,4 +1,4 @@
-package user
+package customer
 
 import (
 	"context"
@@ -15,7 +15,7 @@ func (repo MongoRepository) Update(ID uuid.UUID, name string, surname string, em
 	}
 
 	if user == nil {
-		return model2.UserNotFoundError{}
+		return model2.CustomerNotFoundError{}
 	}
 
 	var fieldsToUpdate bson.D
@@ -39,10 +39,10 @@ func (repo MongoRepository) Update(ID uuid.UUID, name string, surname string, em
 
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			return model2.UserNotFoundError{Id: ID.String()}
+			return model2.CustomerNotFoundError{Id: ID.String()}
 		}
 		if mongo.IsDuplicateKeyError(err) {
-			return model2.UserAlreadyExistError{}
+			return model2.CustomerAlreadyExistError{}
 		}
 		return err
 	}
