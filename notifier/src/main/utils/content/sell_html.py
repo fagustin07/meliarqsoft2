@@ -1,4 +1,4 @@
-purchase_html = """
+sell_html = """
 <!doctype html>
 <html>
   <head>
@@ -334,7 +334,7 @@ purchase_html = """
     </style>
   </head>
   <body>
-    <span class="preheader">Realizaste una compra</span>
+    <span class="preheader">Alguien compro uno de tus productos.</span>
     <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
       <tr>
         <td>&nbsp;</td>
@@ -351,7 +351,7 @@ purchase_html = """
                     <tr>
                       <td>
                         <p>Hola {user},</p>
-                        <p>Se realizo satisfactoriamente tu compra de "{product}".</p>
+                        <p>Se registro una compra de tu producto "{product}".</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
                             <tr>
