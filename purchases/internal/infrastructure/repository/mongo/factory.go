@@ -28,7 +28,7 @@ func (factory *Factory) InitMongoDB() *mongo.Client {
 	ctx, cancelFunc := context.WithTimeout(context.Background(), ClientTimeout*time.Second)
 	defer cancelFunc()
 
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv("MONGODB_URI")))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv("MONGODB_PURCHASES_URI")))
 	if err != nil {
 		log.Fatal(err)
 	}

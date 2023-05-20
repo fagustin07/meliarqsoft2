@@ -20,7 +20,7 @@ func (p ProductHttpSyncService) Update(ID uuid.UUID, prodReq model.UpdateProduct
 
 	data, _ := json.Marshal(prodReq)
 
-	request, err := http.NewRequest("PUT", fmt.Sprintf("%s/%s", p.BasePath, ID.String()), bytes.NewBuffer(data))
+	request, err := http.NewRequest("PUT", fmt.Sprintf("%s/products/%s", p.BasePath, ID.String()), bytes.NewBuffer(data))
 	if err != nil {
 		return err
 	}
@@ -78,7 +78,7 @@ func (p ProductHttpSyncService) Update(ID uuid.UUID, prodReq model.UpdateProduct
 }
 
 func (p ProductHttpSyncService) Find(name string, category string) ([]model.Product, error) {
-	url := fmt.Sprintf("%s?name=%s&category=%s", p.BasePath, name, category)
+	url := fmt.Sprintf("%s/products?name=%s&category=%s", p.BasePath, name, category)
 	resp, err := http.Get(url)
 	if err != nil || resp.StatusCode >= 500 {
 		return nil, model2.ServiceUnavailable{}
@@ -116,7 +116,7 @@ func (p ProductHttpSyncService) Find(name string, category string) ([]model.Prod
 }
 
 func (p ProductHttpSyncService) Filter(minPrice float32, maxPrice float32) ([]model.Product, error) {
-	url := fmt.Sprintf("%s/prices?min_price=%f&max_price=%f", p.BasePath, minPrice, maxPrice)
+	url := fmt.Sprintf("%s/products/prices?min_price=%f&max_price=%f", p.BasePath, minPrice, maxPrice)
 	resp, err := http.Get(url)
 	if err != nil || resp.StatusCode >= 500 {
 		return nil, model2.ServiceUnavailable{}

@@ -369,31 +369,6 @@ paths:
       summary: Update a product
       tags:
       - Products
-  /products/{id}/purchases:
-    get:
-      description: Find purchases from product
-      parameters:
-      - description: ID from product
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/model.Purchase'
-            type: array
-        "400":
-          description: Bad Request
-        "404":
-          description: Not Found
-      summary: Find purchases from product.
-      tags:
-      - Purchases
   /products/prices:
     get:
       consumes:
@@ -458,6 +433,31 @@ paths:
         "503":
           description: Service Unavailable
       summary: Make a purchase.
+      tags:
+      - Purchases
+  /purchases/products/{id}:
+    get:
+      description: Find purchases from product
+      parameters:
+      - description: ID from product
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Purchase'
+            type: array
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Find purchases from product.
       tags:
       - Purchases
   /sellers:

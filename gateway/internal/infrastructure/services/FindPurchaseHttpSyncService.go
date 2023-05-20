@@ -15,7 +15,7 @@ type FindPurchaseHttpSyncService struct {
 }
 
 func (f FindPurchaseHttpSyncService) Execute(productID uuid.UUID) ([]model.Purchase, error) {
-	url := fmt.Sprintf("%s/products/%s/purchases", f.BasePath, productID.String())
+	url := fmt.Sprintf("%s/purchases/products/%s", f.BasePath, productID.String())
 	resp, err := http.Get(url)
 	if err != nil || resp.StatusCode >= 500 {
 		return nil, model2.ServiceUnavailable{}

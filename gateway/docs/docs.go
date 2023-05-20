@@ -462,7 +462,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/products/{id}/purchases": {
+        "/purchases/products/{id}": {
             "get": {
                 "description": "Find purchases from product",
                 "produces": [

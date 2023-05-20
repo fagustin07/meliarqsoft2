@@ -1,26 +1,39 @@
 version: '3'
 
 services:
-  api:
+  api-gateway:
     build:
-      context: ./gateway/
-      dockerfile: Dockerfile
-    env_file:
-      .env
+      context: .
+      dockerfile: gateway/Dockerfile
     ports:
-      - ${APP_PORT}:${APP_PORT}
-    profiles: ["service"]
-  postman:
-    image: postman/newman
-    container_name: postmanTests
-    command:
-      run meli_collection.json -e meli_env.json
-      -r cli,json
-      --reporter-json-export="reports/fastRestAPITests.json"
-    volumes:
-      - ./integration_tests:/etc/newman
-    profiles: ["testing"]
+      - ${API_GATEWAY_APP_PORT}:${API_GATEWAY_APP_PORT}
+    container_name: meli_api_gateway
     depends_on:
-      - "api"
+      - users-service
+      - products-service
+      - purchases-service
     links:
-      - "api"
+      - products-service
+      - users-service
+      - purchases-service
+  users-service:
+    build:
+      context: .
+      dockerfile: users/Dockerfile
+    container_name: meli_users_service
+  products-service:
+    build:
+      context: .
+      dockerfile: products/Dockerfile
+    container_name: meli_products_service
+    depends_on:
+      - users-service
+  purchases-service:
+    build:
+      context: .
+      dockerfile: purchases/Dockerfile
+    container_name: meli_purchases_service
+    depends_on:
+      - products-service
+#  TODO purchase-orchestator:
+#  TODO notifier-service:

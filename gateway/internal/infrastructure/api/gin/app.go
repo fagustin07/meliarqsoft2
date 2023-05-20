@@ -9,6 +9,7 @@ import (
 	"meliarqsoft2/internal/domain/model"
 	"meliarqsoft2/internal/infrastructure/api/gin/handler"
 	"meliarqsoft2/internal/infrastructure/services"
+	"net/http"
 	"strconv"
 )
 
@@ -49,6 +50,7 @@ func (app MeliGinGateway) Run() error {
 	docs.SwaggerInfo.BasePath = "/api/v1"
 
 	basePath := route.Group("/api/v1")
+	basePath.GET("/heartbeat", heartbeat)
 
 	customerRoute := basePath.Group("/customers")
 	customerRoute.POST("", handler.NewGinCustomerRegister(app.userService).Execute)
@@ -72,10 +74,15 @@ func (app MeliGinGateway) Run() error {
 	productRoute.PUT("/:id", handler.NewGinUpdateProduct(app.productService).Execute)
 	// TODO productRoute.DELETE("/:id", handler.NewGinDeleteProduct(app.events.DeleteProductEvent).Execute)
 
+	purchaseRoute := basePath.Group("/purchases")
 	// TODO: COMPRA DISTRIBUIDA, modelar el orquestador
-	// productRoute.POST("/purchases", handler.NewGinMakePurchase(app.events.MakePurchaseEvent).Execute)
-	productRoute.GET("/:id/purchases", handler.NewGinFindPurchases(app.findPurchaseService).Execute)
+	//productRoute.POST("/products", handler.NewGinMakePurchase(app.events.MakePurchaseEvent).Execute)
+	purchaseRoute.GET("/products/:id", handler.NewGinFindPurchases(app.findPurchaseService).Execute)
 	// TODO "delete" purchases
 
 	return route.Run(fmt.Sprintf(":%d", app.port))
+}
+
+func heartbeat(context *gin.Context) {
+	context.JSON(http.StatusOK, "API GATEWAY IS WORKING!")
 }

@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: gateway/Dockerfile
+    ports:
+      - ${API_GATEWAY_APP_PORT}:${API_GATEWAY_APP_PORT}
+    container_name: meli_api_gateway
+    depends_on:
+      - users-service
+      - products-service
+      - purchases-service
+    links:
+      - products-service
+      - users-service
+      - purchases-service
+    profiles: ["service"]
+  users-service:
+    build:
+      context: .
+      dockerfile: users/Dockerfile
+    container_name: meli_users_service
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    profiles: ["service"]
+  products-service:
+    build:
+      context: .
+      dockerfile: products/Dockerfile
+    container_name: meli_products_service
+    depends_on:
+      - users-service
+      - mongo
+    links:
+      - mongo
+    profiles: ["service"]
+  purchases-service:
+    build:
+      context: .
+      dockerfile: purchases/Dockerfile
+    container_name: meli_purchases_service
+    depends_on:
+      - products-service
+      - mongo
+    links:
+      - mongo
+    profiles: ["service"]
+  #  TODO purchase-orchestator:
+  #  TODO notifier-service:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: meli
+      MONGO_INITDB_ROOT_PASSWORD: meli
+      MONGO_INITDB_DATABASE: meli
+    profiles: ["service"]
+  postman:
+    image: postman/newman
+    container_name: postmanTests
+    command:
+      run meli_collection.json -e meli_env.json
+      -r cli,json
+      --reporter-json-export="reports/fastRestAPITests.json"
+    volumes:
+      - ./integration_tests:/etc/newman
+    profiles: ["tests"]
+    depends_on:
+      - api-gateway
+    links:
+      - api-gateway

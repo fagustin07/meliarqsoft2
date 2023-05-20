@@ -10,7 +10,7 @@
 		},
 		{
 			"key": "HOST",
-			"value": "api",
+			"value": "api-gateway",
 			"type": "default",
 			"enabled": true
 		},

@@ -8,6 +8,7 @@ import (
 	"meliarqsoft2/docs"
 	"meliarqsoft2/internal/infrastructure/api"
 	"meliarqsoft2/internal/infrastructure/api/gin/handler"
+	"net/http"
 )
 
 type MeliGinApp struct {
@@ -35,10 +36,16 @@ func (app MeliGinApp) Run() error {
 	docs.SwaggerInfo.BasePath = "/api/v1"
 
 	basePath := route.Group("/api/v1")
-	productRoute := basePath.Group("/products")
+	basePath.GET("/heartbeat", heartbeat)
+
+	productRoute := basePath.Group("/purchases")
 	productRoute.DELETE("/:id", handler.NewGinDeleteFromProduct(app.events.UndoPurchasesFromProductEvent).Execute)
 	productRoute.POST("/purchases", handler.NewGinMakePurchase(app.events.MakePurchaseEvent).Execute)
-	productRoute.GET("/:id/purchases", handler.NewGinFindPurchases(app.events.FindPurchasesFromProductEvent).Execute)
+	productRoute.GET("/products/:id", handler.NewGinFindPurchases(app.events.FindPurchasesFromProductEvent).Execute)
 
 	return route.Run(fmt.Sprintf(":%d", app.port))
+}
+
+func heartbeat(context *gin.Context) {
+	context.JSON(http.StatusOK, "PURCHASES SERVICE IS WORKING!")
 }

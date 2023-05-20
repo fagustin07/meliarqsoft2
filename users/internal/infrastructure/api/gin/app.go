@@ -8,6 +8,7 @@ import (
 	"meliarqsoft2/docs"
 	"meliarqsoft2/internal/infrastructure/api"
 	"meliarqsoft2/internal/infrastructure/api/gin/handler"
+	"net/http"
 	"strconv"
 )
 
@@ -36,7 +37,7 @@ func (app MeliGinApp) Run() error {
 	docs.SwaggerInfo.BasePath = "/api/v1"
 
 	basePath := route.Group("/api/v1")
-
+	basePath.GET("/heartbeat", heartbeat)
 	customerRoute := basePath.Group("/customers")
 	customerRoute.POST("", handler.NewGinCustomerRegister(app.events.RegisterCustomerEvent).Execute)
 	customerRoute.GET("", handler.NewGinFindCustomer(app.events.FindCustomerEvent).Execute)
@@ -50,4 +51,8 @@ func (app MeliGinApp) Run() error {
 	sellerRoute.DELETE("/:id", handler.NewGinUnregisterSeller(app.events.UnregisterSellerEvent).Execute)
 
 	return route.Run(fmt.Sprintf(":%d", app.port))
+}
+
+func heartbeat(context *gin.Context) {
+	context.JSON(http.StatusOK, "USER SERVICE IS WORKING!")
 }

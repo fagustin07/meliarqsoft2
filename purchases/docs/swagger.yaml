@@ -54,27 +54,6 @@ paths:
       summary: Delete all purchases from product
       tags:
       - Purchases
-  /products/{id}/purchases:
-    get:
-      description: Find purchases from product
-      parameters:
-      - description: ID from product
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-        "400":
-          description: Bad Request
-        "404":
-          description: Not Found
-      summary: Find purchases from product.
-      tags:
-      - Purchases
   /products/purchases:
     post:
       consumes:
@@ -103,6 +82,27 @@ paths:
         "500":
           description: Internal Server Error
       summary: Make a purchase.
+      tags:
+      - Purchases
+  /purchases/products/{id}:
+    get:
+      description: Find purchases from product
+      parameters:
+      - description: ID from product
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Find purchases from product.
       tags:
       - Purchases
 swagger: "2.0"

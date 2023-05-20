@@ -15,7 +15,7 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	port, err := strconv.Atoi(os.Getenv("APP_PORT"))
+	port, err := strconv.Atoi(os.Getenv("API_GATEWAY_APP_PORT"))
 	if err != nil {
 		panic(err.Error())
 	}
