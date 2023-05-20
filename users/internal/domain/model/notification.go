@@ -25,6 +25,7 @@ func NewNotification(name string, email string) (*Notification, error) {
 	}
 }
 
+//go:generate mockgen -destination=../mock/notificationRepository.go -package=mock -source=notification.go
 type INotificationRepository interface {
 	Send(notification *Notification) error
 }

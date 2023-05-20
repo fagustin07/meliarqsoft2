@@ -24,5 +24,5 @@ go.work
 
 # Notifier
 notifier/.idea
-notifier/src/main/config/__pycache
-notifier/src/main/consumers/__pycache
+notifier/src/main/config/__pycache__
+notifier/src/main/consumers/__pycache__
