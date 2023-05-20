@@ -9,11 +9,15 @@ import (
 )
 
 type GinMakePurchase struct {
-	MakePurchaseEvent *action.MakePurchaseEvent
+	MakePurchaseEvent     *action.MakePurchaseEvent
+	SendNotificationEvent *action.SendNotificationEvent
 }
 
-func NewGinMakePurchase(makePurchaseEvent *action.MakePurchaseEvent) *GinMakePurchase {
-	return &GinMakePurchase{MakePurchaseEvent: makePurchaseEvent}
+func NewGinMakePurchase(makePurchaseEvent *action.MakePurchaseEvent, sendNotificationEvent *action.SendNotificationEvent) *GinMakePurchase {
+	return &GinMakePurchase{
+		MakePurchaseEvent:     makePurchaseEvent,
+		SendNotificationEvent: sendNotificationEvent,
+	}
 }
 
 // Execute Create
@@ -35,17 +39,34 @@ func (handler GinMakePurchase) Execute(c *gin.Context) {
 		return
 	}
 
-	toModel, err := purchaseDTO.MapToModel()
+	purchase, sellerNotification, buyerNotification, err := purchaseDTO.MapToModel()
 	if err != nil {
 		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
-	_, err = handler.MakePurchaseEvent.Execute(&toModel)
+
+	_, err = handler.MakePurchaseEvent.Execute(&purchase)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, dto2.MapPurchaseToJSON(&toModel))
+	// TODO: Enviar notificaciones
+
+	errSeller := handler.SendNotificationEvent.Execute(&sellerNotification)
+
+	if errSeller != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	errBuyer := handler.SendNotificationEvent.Execute(&buyerNotification)
+
+	if errBuyer != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, dto2.MapPurchaseToJSON(&purchase))
 }

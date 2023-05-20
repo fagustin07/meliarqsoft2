@@ -13,14 +13,24 @@ func Test_MakePurchaseSuccessfully(t *testing.T) {
 	makePurchaseEvent, mocks := setUpMakePurchase(t)
 	idProd, _ := uuid.NewUUID()
 	idUser, _ := uuid.NewUUID()
+	ProductName := ""
+	SellerName := ""
+	SellerEmail := ""
+	BuyerName := ""
+	BuyerEmail := ""
 	idPurch, _ := uuid.NewUUID()
 	units := 10
 
-	purchase, _ := dto.CreatePurchaseRequest{
-		IDProduct: idProd,
-		IDUser:    idUser,
-		Units:     units,
-		Total:     32.2,
+	purchase, _, _, _ := dto.CreatePurchaseRequest{
+		IDProduct:   idProd,
+		IDUser:      idUser,
+		ProductName: ProductName,
+		SellerName:  SellerName,
+		SellerEmail: SellerEmail,
+		BuyerName:   BuyerName,
+		BuyerEmail:  BuyerEmail,
+		Units:       units,
+		Total:       32.2,
 	}.MapToModel()
 
 	mocks.PurchaseRepository.EXPECT().Create(&purchase).Return(idPurch, nil)
@@ -35,13 +45,23 @@ func Test_MakePurchaseReturnErrorWhenFailOnCreatePurchase(t *testing.T) {
 	makePurchaseEvent, mocks := setUpMakePurchase(t)
 	idProd, _ := uuid.NewUUID()
 	idUser, _ := uuid.NewUUID()
+	ProductName := ""
+	SellerName := ""
+	SellerEmail := ""
+	BuyerName := ""
+	BuyerEmail := ""
 	units := 10
 
-	purchase, _ := dto.CreatePurchaseRequest{
-		IDProduct: idProd,
-		IDUser:    idUser,
-		Units:     units,
-		Total:     32.2,
+	purchase, _, _, _ := dto.CreatePurchaseRequest{
+		IDProduct:   idProd,
+		IDUser:      idUser,
+		ProductName: ProductName,
+		SellerName:  SellerName,
+		SellerEmail: SellerEmail,
+		BuyerName:   BuyerName,
+		BuyerEmail:  BuyerEmail,
+		Units:       units,
+		Total:       32.2,
 	}.MapToModel()
 
 	mocks.PurchaseRepository.EXPECT().Create(&purchase).Return(uuid.Nil, errors.New(""))

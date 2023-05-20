@@ -9,6 +9,8 @@ import (
 	"meliarqsoft2/internal/infrastructure/api/gin"
 	"meliarqsoft2/internal/infrastructure/repository/mongo"
 	"meliarqsoft2/internal/infrastructure/repository/mongo/purchase"
+	"meliarqsoft2/internal/infrastructure/repository/rabbitmq"
+	"meliarqsoft2/internal/infrastructure/repository/rabbitmq/notification"
 	"os"
 	"strconv"
 )
@@ -29,6 +31,10 @@ func main() {
 
 	makePurchaseEvent := action.NewMakePurchaseEvent(purchaseRepository)
 
+	// RabbitMQ
+	clientMQ := rabbitmq.NewFactory().InitRabbitMQ()
+	notificationRepository := notification.NewRabbitMQRepository(clientMQ)
+
 	undoPurchasesFromProductEvent := action.NewUndoPurchasesByProductEvent(
 		query.NewFindPurchasesFromProductEvent(purchaseRepository),
 		action.NewUndoPurchaseCommand(purchaseRepository),
@@ -36,12 +42,16 @@ func main() {
 
 	findFromProductsEvent := query.NewFindPurchasesFromProductEvent(purchaseRepository)
 
+	// Notification
+	sendNotificationEvent := action.NewSendNotificationEvent(notificationRepository)
+
 	purchaseAPI := gin.NewMeliAPI(
 		port,
 		api.NewPurchaseEvents(
 			undoPurchasesFromProductEvent,
 			makePurchaseEvent,
 			findFromProductsEvent,
+			sendNotificationEvent,
 		),
 	)
 
