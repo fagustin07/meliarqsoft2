@@ -26,7 +26,7 @@ func NewGinFindPurchases(findPurchasesFromProductEvent *query.FindPurchasesFromP
 // @Success 200
 // @Failure 404
 // @Failure 400
-// @Router /products/{id}/purchases [GET]
+// @Router /purchases/products/{id} [GET]
 func (handler GinFindPurchases) Execute(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
 	if err != nil {

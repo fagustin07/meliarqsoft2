@@ -14,8 +14,8 @@ type FindPurchaseHttpSyncService struct {
 	BasePath string
 }
 
-func (f FindPurchaseHttpSyncService) Execute(productID uuid.UUID) ([]model.PurchaseDTO, error) {
-	url := fmt.Sprintf("%s/products/%s/purchases", f.BasePath, productID.String())
+func (f FindPurchaseHttpSyncService) Execute(productID uuid.UUID) ([]model.Purchase, error) {
+	url := fmt.Sprintf("%s/purchases/products/%s", f.BasePath, productID.String())
 	resp, err := http.Get(url)
 	if err != nil || resp.StatusCode >= 500 {
 		return nil, model2.ServiceUnavailable{}
@@ -38,7 +38,7 @@ func (f FindPurchaseHttpSyncService) Execute(productID uuid.UUID) ([]model.Purch
 
 	defer resp.Body.Close()
 
-	var arr []model.PurchaseDTO
+	var arr []model.Purchase
 	all, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err

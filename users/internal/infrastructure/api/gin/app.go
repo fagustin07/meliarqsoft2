@@ -8,6 +8,7 @@ import (
 	"meliarqsoft2/docs"
 	"meliarqsoft2/internal/infrastructure/api"
 	"meliarqsoft2/internal/infrastructure/api/gin/handler"
+	"net/http"
 	"strconv"
 )
 
@@ -37,11 +38,12 @@ func (app MeliGinApp) Run() error {
 
 	basePath := route.Group("/api/v1")
 
-	userRoute := basePath.Group("/users")
-	userRoute.POST("", handler.NewGinUserRegister(app.events.RegisterUserEvent, app.events.SendNotificationEvent).Execute)
-	userRoute.GET("", handler.NewGinFindUser(app.events.FindUserEvent).Execute)
-	userRoute.PUT("/:id", handler.NewGinUpdateUser(app.events.UpdateUserEvent).Execute)
-	userRoute.DELETE("/:id", handler.NewGinUnregisterUser(app.events.UnregisterUserEvent).Execute)
+	basePath.GET("/heartbeat", heartbeat)
+	customerRoute := basePath.Group("/customers")
+	customerRoute.POST("", handler.NewGinCustomerRegister(app.events.RegisterCustomerEvent, app.events.SendNotificationEvent).Execute)
+	customerRoute.GET("", handler.NewGinFindCustomer(app.events.FindCustomerEvent).Execute)
+	customerRoute.PUT("/:id", handler.NewGinUpdateCustomer(app.events.UpdateCustomerEvent).Execute)
+	customerRoute.DELETE("/:id", handler.NewGinUnregisterCustomer(app.events.UnregisterCustomerEvent).Execute)
 
 	sellerRoute := basePath.Group("/sellers")
 	sellerRoute.POST("", handler.NewGinRegisterSeller(app.events.RegisterSellerEvent, app.events.SendNotificationEvent).Execute)
@@ -50,4 +52,8 @@ func (app MeliGinApp) Run() error {
 	sellerRoute.DELETE("/:id", handler.NewGinUnregisterSeller(app.events.UnregisterSellerEvent).Execute)
 
 	return route.Run(fmt.Sprintf(":%d", app.port))
+}
+
+func heartbeat(context *gin.Context) {
+	context.JSON(http.StatusOK, "USER SERVICE IS WORKING!")
 }

@@ -6,8 +6,8 @@ import (
 )
 
 type RepositoriesMock struct {
-	UserRepository   *MockIUserRepository
-	SellerRepository *MockISellerRepository
+	CustomerRepository *MockICustomerRepository
+	SellerRepository   *MockISellerRepository
 }
 
 func NewMockRepositories(t *testing.T) *RepositoriesMock {
@@ -15,7 +15,7 @@ func NewMockRepositories(t *testing.T) *RepositoriesMock {
 	defer ctrl.Finish()
 
 	return &RepositoriesMock{
-		UserRepository:   NewMockIUserRepository(ctrl),
-		SellerRepository: NewMockISellerRepository(ctrl),
+		CustomerRepository: NewMockICustomerRepository(ctrl),
+		SellerRepository:   NewMockISellerRepository(ctrl),
 	}
 }

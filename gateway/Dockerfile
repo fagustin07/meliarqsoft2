@@ -5,17 +5,17 @@ FROM golang:1.20.3-alpine3.17
 WORKDIR /app
 
 # copiar archivos necesarios
-COPY cmd ./cmd
-COPY internal ./internal
-COPY pkg ./pkg
-COPY docs ./docs
-COPY go.mod ./
-COPY go.sum ./
+COPY gateway/cmd ./cmd
+COPY gateway/internal ./internal
+COPY gateway/pkg ./pkg
+COPY gateway/docs ./docs
+COPY gateway/go.mod ./
+COPY gateway/go.sum ./
 
 RUN go mod download
 
 # copiar código fuente
-COPY cmd cmd/
+COPY gateway/cmd cmd/
 
 # compilar la aplicación
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app ./cmd/
@@ -28,9 +28,6 @@ WORKDIR /app
 
 COPY .env .
 COPY --from=0 /app .
-
-# exponer el puerto 8080
-EXPOSE 8080
 
 # comando de inicio
 CMD ["./app"]

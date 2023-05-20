@@ -12,16 +12,16 @@ type Events struct {
 	FindSellerEvent       *query.FindSellerEvent
 	ExistSellerEvent      *query.ExistSeller
 
-	RegisterUserEvent   *action.RegisterUserEvent
-	UpdateUserEvent     *action.UpdateUserEvent
-	UnregisterUserEvent *action.UnregisterUserEvent
-	FindUserEvent       *query.FindUserEvent
-	ExistUserEvent      *query.ExistUser
+	RegisterCustomerEvent   *action.RegisterCustomerEvent
+	UpdateCustomerEvent     *action.UpdateCustomerEvent
+	UnregisterCustomerEvent *action.UnregisterCustomerEvent
+	FindCustomerEvent       *query.FindCustomerEvent
+	ExistCustomerEvent      *query.ExistCustomer
 
 	SendNotificationEvent *action.SendNotificationEvent
 }
 
-func NewEvents(registerSellerEvent *action.RegisterSellerEvent, updateSellerEvent *action.UpdateSellerEvent, unregisterSellerEvent *action.UnregisterSellerEvent, findSellerEvent *query.FindSellerEvent, existSeller *query.ExistSeller, registerUserEvent *action.RegisterUserEvent, updateUserEvent *action.UpdateUserEvent, unregisterUserEvent *action.UnregisterUserEvent, findUserEvent *query.FindUserEvent, existUser *query.ExistUser, sendNotificationEvent *action.SendNotificationEvent) *Events {
+func NewEvents(registerSellerEvent *action.RegisterSellerEvent, updateSellerEvent *action.UpdateSellerEvent, unregisterSellerEvent *action.UnregisterSellerEvent, findSellerEvent *query.FindSellerEvent, existSeller *query.ExistSeller, registerCustomerEvent *action.RegisterCustomerEvent, updateCustomerEvent *action.UpdateCustomerEvent, unregisterCustomerEvent *action.UnregisterCustomerEvent, findCustomerEvent *query.FindCustomerEvent, existCustomer *query.ExistCustomer, sendNotificationEvent *action.SendNotificationEvent) *Events {
 	return &Events{
 		RegisterSellerEvent:   registerSellerEvent,
 		UpdateSellerEvent:     updateSellerEvent,
@@ -29,11 +29,11 @@ func NewEvents(registerSellerEvent *action.RegisterSellerEvent, updateSellerEven
 		FindSellerEvent:       findSellerEvent,
 		ExistSellerEvent:      existSeller,
 
-		RegisterUserEvent:   registerUserEvent,
-		UpdateUserEvent:     updateUserEvent,
-		UnregisterUserEvent: unregisterUserEvent,
-		FindUserEvent:       findUserEvent,
-		ExistUserEvent:      existUser,
+		RegisterCustomerEvent:   registerCustomerEvent,
+		UpdateCustomerEvent:     updateCustomerEvent,
+		UnregisterCustomerEvent: unregisterCustomerEvent,
+		FindCustomerEvent:       findCustomerEvent,
+		ExistCustomerEvent:      existCustomer,
 
 		SendNotificationEvent: sendNotificationEvent,
 	}

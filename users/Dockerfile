@@ -5,17 +5,17 @@ FROM golang:1.20.3-alpine3.17
 WORKDIR /app
 
 # copiar archivos necesarios
-COPY cmd ./cmd
-COPY internal ./internal
-COPY pkg ./pkg
-COPY docs ./docs
-COPY go.mod ./
-COPY go.sum ./
+COPY users/cmd ./cmd
+COPY users/internal ./internal
+COPY users/pkg ./pkg
+COPY users/docs ./docs
+COPY users/go.mod ./
+COPY users/go.sum ./
 
 RUN go mod download
 
 # copiar código fuente
-COPY cmd cmd/
+COPY users/cmd cmd/
 
 # compilar la aplicación
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app ./cmd/

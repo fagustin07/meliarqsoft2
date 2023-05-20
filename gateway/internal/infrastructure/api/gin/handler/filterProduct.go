@@ -3,7 +3,6 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"meliarqsoft2/internal/domain/model"
-	"meliarqsoft2/internal/infrastructure/api/dto"
 	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
 )
@@ -24,12 +23,12 @@ func NewGinFilterProduct(productService model.IProductService) *GinFilterProduct
 // @Tags Products
 // @Param min_price query number  false "starting price" minimum(0)
 // @Param max_price query number  false "limit price"    minimum(0)
-// @Success 200 {object} []dto.ProductDTO
+// @Success 200 {object} []model.Product
 // @Failure 400
 // @Failure 500
 // @Router /products/prices [GET]
 func (handler GinFilterProduct) Execute(c *gin.Context) {
-	var filterQuery dto.FilterProductQuery
+	var filterQuery model.FilterProductQuery
 	if err := c.ShouldBindQuery(&filterQuery); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

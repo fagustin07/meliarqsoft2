@@ -8,6 +8,7 @@ import (
 	"meliarqsoft2/docs"
 	"meliarqsoft2/internal/infrastructure/api"
 	"meliarqsoft2/internal/infrastructure/api/gin/handler"
+	"net/http"
 	"strconv"
 )
 
@@ -35,7 +36,10 @@ func (app MeliGinApp) Run() error {
 	docs.SwaggerInfo.Host = "localhost:" + strconv.Itoa(app.port)
 	docs.SwaggerInfo.BasePath = "/api/v1"
 
+	route.GET("/api/v1/heartbeat", heartbeat)
+
 	productRoute := route.Group("/api/v1/products")
+
 	productRoute.POST("", handler.NewGinCreateProduct(app.events.CreateProductEvent).Execute)
 	productRoute.GET("", handler.NewGinFindProduct(app.events.FindProductEvent).Execute)
 	productRoute.PUT("/:id", handler.NewGinUpdateProduct(app.events.UpdateProductEvent).Execute)
@@ -43,4 +47,8 @@ func (app MeliGinApp) Run() error {
 	productRoute.GET("/prices", handler.NewGinFilterProduct(app.events.FilterProductEvent).Execute)
 
 	return route.Run(fmt.Sprintf(":%d", app.port))
+}
+
+func heartbeat(context *gin.Context) {
+	context.JSON(http.StatusOK, "PRODUCTS SERVICE IS WORKING!")
 }

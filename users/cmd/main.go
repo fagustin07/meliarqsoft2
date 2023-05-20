@@ -8,8 +8,8 @@ import (
 	"meliarqsoft2/internal/infrastructure/api"
 	"meliarqsoft2/internal/infrastructure/api/gin"
 	"meliarqsoft2/internal/infrastructure/repository/mongo"
+	"meliarqsoft2/internal/infrastructure/repository/mongo/customer"
 	"meliarqsoft2/internal/infrastructure/repository/mongo/seller"
-	"meliarqsoft2/internal/infrastructure/repository/mongo/user"
 	"meliarqsoft2/internal/infrastructure/repository/rabbitmq"
 	"meliarqsoft2/internal/infrastructure/repository/rabbitmq/notification"
 	"os"
@@ -21,15 +21,16 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	port, err := strconv.Atoi(os.Getenv("APP_PORT"))
+	port, err := strconv.Atoi(os.Getenv("USERS_APP_PORT"))
 	if err != nil {
 		panic(err.Error())
 	}
 
-	client := mongo.NewFactory().InitMongoDB()
+	sellerClient := mongo.NewFactory().InitMongoDB(os.Getenv("MONGODB_SELLERS_URI"))
+	customerClient := mongo.NewFactory().InitMongoDB(os.Getenv("MONGODB_CUSTOMERS_URI"))
 
-	sellerRepository := seller.NewMongoRepository(client)
-	userRepository := user.NewMongoRepository(client)
+	sellerRepository := seller.NewMongoRepository(sellerClient)
+	customerRepository := customer.NewMongoRepository(customerClient)
 
 	// RabbitMQ
 
@@ -45,11 +46,11 @@ func main() {
 	findSellerEvent := query.NewFindSellerEvent(sellerRepository)
 
 	// user
-	existUser := query.NewExistUserCommand(userRepository)
-	registerUserEvent := action.NewRegisterUserEvent(userRepository)
-	updateUserEvent := action.NewUpdateUserEvent(userRepository)
-	findUserEvent := query.NewFindUserEvent(userRepository)
-	unregisterUserEvent := action.NewUnregisterUserEvent(userRepository)
+	existUser := query.NewExistCustomerCommand(customerRepository)
+	registerCustomerEvent := action.NewRegisterCustomerEvent(customerRepository)
+	updateCustomerEvent := action.NewUpdateCustomerEvent(customerRepository)
+	findCustomerEvent := query.NewFindCustomerEvent(customerRepository)
+	unregisterCustomerEvent := action.NewUnregisterCustomerEvent(customerRepository)
 
 	// Notification
 	sendNotification := action.NewSendNotificationEvent(notificationRepository)
@@ -63,10 +64,10 @@ func main() {
 			findSellerEvent,
 			existSeller,
 
-			registerUserEvent,
-			updateUserEvent,
-			unregisterUserEvent,
-			findUserEvent,
+			registerCustomerEvent,
+			updateCustomerEvent,
+			unregisterCustomerEvent,
+			findCustomerEvent,
 			existUser,
 
 			sendNotification,

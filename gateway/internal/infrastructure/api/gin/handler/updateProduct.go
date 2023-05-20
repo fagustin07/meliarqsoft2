@@ -22,11 +22,14 @@ func NewGinUpdateProduct(productService model.IProductService) *GinUpdateProduct
 // @Accept 	json
 // @Produce json
 // @Tags 	Products
-// @Param 	Body body dto.UpdateProductRequest true "Register"
+// @Param 	Body body model.UpdateProductRequest true "Register"
 // @Param 	id 	path  string true "ID from product to update"
 // @Success 204
 // @Failure 400
+// @Failure 404
+// @Failure 409
 // @Failure 500
+// @Failure 503
 // @Router /products/{id} [PUT]
 func (handler GinUpdateProduct) Execute(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
