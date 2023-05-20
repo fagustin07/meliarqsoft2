@@ -9,11 +9,15 @@ import (
 )
 
 type GinRegisterUser struct {
-	RegisterUserEvent *action.RegisterUserEvent
+	RegisterUserEvent     *action.RegisterUserEvent
+	SendNotificationEvent *action.SendNotificationEvent
 }
 
-func NewGinUserRegister(registerUserEvent *action.RegisterUserEvent) *GinRegisterUser {
-	return &GinRegisterUser{RegisterUserEvent: registerUserEvent}
+func NewGinUserRegister(registerUserEvent *action.RegisterUserEvent, sendNotificationEvent *action.SendNotificationEvent) *GinRegisterUser {
+	return &GinRegisterUser{
+		RegisterUserEvent:     registerUserEvent,
+		SendNotificationEvent: sendNotificationEvent,
+	}
 }
 
 // Execute Register User
@@ -45,5 +49,11 @@ func (handler GinRegisterUser) Execute(c *gin.Context) {
 		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
+
+	errNotification := handler.SendNotificationEvent.Execute(toModel.Name, toModel.Email.Address)
+	if errNotification != nil {
+		application.MeliGinHandlerError{}.Execute(errNotification, c)
+	}
+
 	c.JSON(http.StatusCreated, dto2.UserID{ID: id})
 }

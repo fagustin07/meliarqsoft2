@@ -10,6 +10,8 @@ import (
 	"meliarqsoft2/internal/infrastructure/repository/mongo"
 	"meliarqsoft2/internal/infrastructure/repository/mongo/seller"
 	"meliarqsoft2/internal/infrastructure/repository/mongo/user"
+	"meliarqsoft2/internal/infrastructure/repository/rabbitmq"
+	"meliarqsoft2/internal/infrastructure/repository/rabbitmq/notification"
 	"os"
 	"strconv"
 )
@@ -29,6 +31,12 @@ func main() {
 	sellerRepository := seller.NewMongoRepository(client)
 	userRepository := user.NewMongoRepository(client)
 
+	// RabbitMQ
+
+	clientMQ := rabbitmq.NewFactory().InitRabbitMQ()
+
+	notificationRepository := notification.NewRabbitMQRepository(clientMQ)
+
 	// seller
 	registerSellerEvent := action.NewRegisterSellerEvent(sellerRepository)
 	updateSellerEvent := action.NewUpdateSellerEvent(sellerRepository)
@@ -42,6 +50,9 @@ func main() {
 	updateUserEvent := action.NewUpdateUserEvent(userRepository)
 	findUserEvent := query.NewFindUserEvent(userRepository)
 	unregisterUserEvent := action.NewUnregisterUserEvent(userRepository)
+
+	// Notification
+	sendNotification := action.NewSendNotificationEvent(notificationRepository)
 
 	newAPI := gin.NewMeliAPI(
 		port,
@@ -57,6 +68,8 @@ func main() {
 			unregisterUserEvent,
 			findUserEvent,
 			existUser,
+
+			sendNotification,
 		),
 	)
 

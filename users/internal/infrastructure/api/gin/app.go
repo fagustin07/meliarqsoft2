@@ -38,13 +38,13 @@ func (app MeliGinApp) Run() error {
 	basePath := route.Group("/api/v1")
 
 	userRoute := basePath.Group("/users")
-	userRoute.POST("", handler.NewGinUserRegister(app.events.RegisterUserEvent).Execute)
+	userRoute.POST("", handler.NewGinUserRegister(app.events.RegisterUserEvent, app.events.SendNotificationEvent).Execute)
 	userRoute.GET("", handler.NewGinFindUser(app.events.FindUserEvent).Execute)
 	userRoute.PUT("/:id", handler.NewGinUpdateUser(app.events.UpdateUserEvent).Execute)
 	userRoute.DELETE("/:id", handler.NewGinUnregisterUser(app.events.UnregisterUserEvent).Execute)
 
 	sellerRoute := basePath.Group("/sellers")
-	sellerRoute.POST("", handler.NewGinRegisterSeller(app.events.RegisterSellerEvent).Execute)
+	sellerRoute.POST("", handler.NewGinRegisterSeller(app.events.RegisterSellerEvent, app.events.SendNotificationEvent).Execute)
 	sellerRoute.GET("", handler.NewGinFindSeller(app.events.FindSellerEvent).Execute)
 	sellerRoute.PUT("/:id", handler.NewGinUpdateSeller(app.events.UpdateSellerEvent).Execute)
 	sellerRoute.DELETE("/:id", handler.NewGinUnregisterSeller(app.events.UnregisterSellerEvent).Execute)

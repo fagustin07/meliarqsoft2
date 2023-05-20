@@ -17,9 +17,11 @@ type Events struct {
 	UnregisterUserEvent *action.UnregisterUserEvent
 	FindUserEvent       *query.FindUserEvent
 	ExistUserEvent      *query.ExistUser
+
+	SendNotificationEvent *action.SendNotificationEvent
 }
 
-func NewEvents(registerSellerEvent *action.RegisterSellerEvent, updateSellerEvent *action.UpdateSellerEvent, unregisterSellerEvent *action.UnregisterSellerEvent, findSellerEvent *query.FindSellerEvent, existSeller *query.ExistSeller, registerUserEvent *action.RegisterUserEvent, updateUserEvent *action.UpdateUserEvent, unregisterUserEvent *action.UnregisterUserEvent, findUserEvent *query.FindUserEvent, existUser *query.ExistUser) *Events {
+func NewEvents(registerSellerEvent *action.RegisterSellerEvent, updateSellerEvent *action.UpdateSellerEvent, unregisterSellerEvent *action.UnregisterSellerEvent, findSellerEvent *query.FindSellerEvent, existSeller *query.ExistSeller, registerUserEvent *action.RegisterUserEvent, updateUserEvent *action.UpdateUserEvent, unregisterUserEvent *action.UnregisterUserEvent, findUserEvent *query.FindUserEvent, existUser *query.ExistUser, sendNotificationEvent *action.SendNotificationEvent) *Events {
 	return &Events{
 		RegisterSellerEvent:   registerSellerEvent,
 		UpdateSellerEvent:     updateSellerEvent,
@@ -32,6 +34,8 @@ func NewEvents(registerSellerEvent *action.RegisterSellerEvent, updateSellerEven
 		UnregisterUserEvent: unregisterUserEvent,
 		FindUserEvent:       findUserEvent,
 		ExistUserEvent:      existUser,
+
+		SendNotificationEvent: sendNotificationEvent,
 	}
 
 }

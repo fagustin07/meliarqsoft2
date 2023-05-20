@@ -9,11 +9,15 @@ import (
 )
 
 type GinRegisterSeller struct {
-	registerSellerEvent *action.RegisterSellerEvent
+	registerSellerEvent   *action.RegisterSellerEvent
+	SendNotificationEvent *action.SendNotificationEvent
 }
 
-func NewGinRegisterSeller(registerSellerEvent *action.RegisterSellerEvent) *GinRegisterSeller {
-	return &GinRegisterSeller{registerSellerEvent: registerSellerEvent}
+func NewGinRegisterSeller(registerSellerEvent *action.RegisterSellerEvent, sendNotificationEvent *action.SendNotificationEvent) *GinRegisterSeller {
+	return &GinRegisterSeller{
+		registerSellerEvent:   registerSellerEvent,
+		SendNotificationEvent: sendNotificationEvent,
+	}
 }
 
 // Execute Register Seller
@@ -40,10 +44,18 @@ func (handler GinRegisterSeller) Execute(c *gin.Context) {
 		return
 	}
 
-	id, err := handler.registerSellerEvent.Execute(&requestedSeller)
-	if err != nil {
-		application.MeliGinHandlerError{}.Execute(err, c)
-		return
+	/*
+		id, err := handler.registerSellerEvent.Execute(&requestedSeller)
+		if err != nil {
+			application.MeliGinHandlerError{}.Execute(err, c)
+			return
+		}
+	*/
+
+	errNotification := handler.SendNotificationEvent.Execute(requestedSeller.BusinessName, requestedSeller.Email.Address)
+	if errNotification != nil {
+		application.MeliGinHandlerError{}.Execute(errNotification, c)
 	}
-	c.JSON(http.StatusCreated, dto2.SellerID{ID: id})
+
+	//c.JSON(http.StatusCreated, dto2.SellerID{ID: id})
 }
