@@ -48,6 +48,7 @@ func (app MeliGinApp) Run() error {
 	sellerRoute := basePath.Group("/sellers")
 	sellerRoute.POST("", handler.NewGinRegisterSeller(app.events.RegisterSellerEvent, app.events.SendNotificationEvent).Execute)
 	sellerRoute.GET("", handler.NewGinFindSeller(app.events.FindSellerEvent).Execute)
+	sellerRoute.GET("/:id", handler.NewGinFindByIdSeller(app.events.FindSellerByIdEvent).Execute)
 	sellerRoute.PUT("/:id", handler.NewGinUpdateSeller(app.events.UpdateSellerEvent).Execute)
 	sellerRoute.DELETE("/:id", handler.NewGinUnregisterSeller(app.events.UnregisterSellerEvent).Execute)
 

@@ -4,7 +4,6 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
-	"meliarqsoft2/internal/domain/application/query"
 	"meliarqsoft2/internal/domain/mock"
 	"meliarqsoft2/internal/domain/model"
 	"testing"
@@ -36,5 +35,5 @@ func Test_UnregisterSeller_ThrowsErrorWhenDeleteSellerFails(t *testing.T) {
 func setUpUnregisterSeller(t *testing.T) (*UnregisterSellerEvent, *mock.RepositoriesMock) {
 	mocks := mock.NewMockRepositories(t)
 
-	return NewUnregisterSellerEvent(mocks.SellerRepository, query.NewExistSellerCommand(mocks.SellerRepository)), mocks
+	return NewUnregisterSellerEvent(mocks.SellerRepository), mocks
 }

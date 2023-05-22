@@ -2,7 +2,6 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/domain/application/query"
 	"meliarqsoft2/internal/domain/model"
 )
 
@@ -10,7 +9,7 @@ type UnregisterSellerEvent struct {
 	sellerRepository model.ISellerRepository
 }
 
-func NewUnregisterSellerEvent(sellerRepository model.ISellerRepository, existSeller *query.ExistSeller) *UnregisterSellerEvent {
+func NewUnregisterSellerEvent(sellerRepository model.ISellerRepository) *UnregisterSellerEvent {
 	return &UnregisterSellerEvent{
 		sellerRepository: sellerRepository,
 	}

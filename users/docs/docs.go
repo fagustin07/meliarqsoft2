@@ -244,6 +244,39 @@ const docTemplate = `{
             }
         },
         "/sellers/{id}": {
+            "get": {
+                "description": "FindById seller",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sellers"
+                ],
+                "summary": "FindById a seller",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID from seller",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
             "put": {
                 "description": "Update seller from a seller",
                 "consumes": [

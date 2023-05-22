@@ -41,9 +41,9 @@ func main() {
 	// seller
 	registerSellerEvent := action.NewRegisterSellerEvent(sellerRepository)
 	updateSellerEvent := action.NewUpdateSellerEvent(sellerRepository)
-	existSeller := query.NewExistSellerCommand(sellerRepository)
-	unregisterSellerEvent := action.NewUnregisterSellerEvent(sellerRepository, existSeller)
+	unregisterSellerEvent := action.NewUnregisterSellerEvent(sellerRepository)
 	findSellerEvent := query.NewFindSellerEvent(sellerRepository)
+	findSellerByIdEvent := query.NewFindSellerByIdEvent(sellerRepository)
 
 	// user
 	existUser := query.NewExistCustomerCommand(customerRepository)
@@ -62,7 +62,7 @@ func main() {
 			updateSellerEvent,
 			unregisterSellerEvent,
 			findSellerEvent,
-			existSeller,
+			findSellerByIdEvent,
 
 			registerCustomerEvent,
 			updateCustomerEvent,
