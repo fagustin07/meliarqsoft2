@@ -24,18 +24,18 @@ definitions:
     type: object
   dto.CustomerDTO:
     properties:
+      customer_id:
+        type: string
       email:
         type: string
       name:
         type: string
       surname:
         type: string
-      user_id:
-        type: string
     type: object
   dto.CustomerID:
     properties:
-      user_id:
+      customer_id:
         type: string
     type: object
   dto.SellerDTO:

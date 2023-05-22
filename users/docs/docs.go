@@ -356,6 +356,9 @@ const docTemplate = `{
         "dto.CustomerDTO": {
             "type": "object",
             "properties": {
+                "customer_id": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
@@ -364,16 +367,13 @@ const docTemplate = `{
                 },
                 "surname": {
                     "type": "string"
-                },
-                "user_id": {
-                    "type": "string"
                 }
             }
         },
         "dto.CustomerID": {
             "type": "object",
             "properties": {
-                "user_id": {
+                "customer_id": {
                     "type": "string"
                 }
             }

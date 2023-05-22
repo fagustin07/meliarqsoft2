@@ -2,6 +2,7 @@ package rabbitmq
 
 import (
 	"github.com/streadway/amqp"
+	"log"
 	"os"
 )
 
@@ -18,6 +19,6 @@ func (factory *Factory) InitRabbitMQ() *amqp.Connection {
 	if err != nil {
 		panic(err.Error())
 	}
-
+	log.Println("connected to RabbitMQ")
 	return conn
 }

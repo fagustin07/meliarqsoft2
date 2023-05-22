@@ -2,19 +2,46 @@ package seller
 
 import (
 	"context"
-	"errors"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
+	"meliarqsoft2/pkg/exceptions/model"
+	"time"
 )
 
 func (repo MongoRepository) Delete(ID uuid.UUID) error {
-	res, err := repo.collection.DeleteOne(context.Background(), bson.M{"_id": ID})
+
+	_, err := repo.FindById(ID)
 	if err != nil {
 		return err
 	}
 
-	if res.DeletedCount == 0 {
-		return errors.New("cannot delete user " + ID.String())
+	filter := bson.M{
+		"_id":        ID,
+		"deleted_at": time.Time{},
+	}
+
+	updater := bson.D{
+		primitive.E{
+			Key: "$set",
+			Value: bson.D{
+				primitive.E{
+					Key:   "deleted_at",
+					Value: time.Now(),
+				},
+			},
+		},
+	}
+
+	_, err = repo.collection.UpdateOne(context.Background(), filter, updater)
+
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return model.SellerNotFoundError{Id: ID.String()}
+		}
+
+		return err
 	}
 
 	return nil
