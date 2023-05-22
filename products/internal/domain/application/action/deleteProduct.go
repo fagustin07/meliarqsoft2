@@ -16,12 +16,10 @@ func NewDeleteProductEvent(prodRepo model.IProductRepository) *DeleteProductEven
 }
 
 func (actionEvent DeleteProductEvent) Execute(id uuid.UUID) error {
-	if _, err := actionEvent.productRepository.FindById(id); err != nil {
-		return err
-	}
 	if err := actionEvent.productRepository.Delete(id); err != nil {
 		return err
 	}
 
+	// TODO: notificarle al servicio de compras que se borro el producto.
 	return nil
 }

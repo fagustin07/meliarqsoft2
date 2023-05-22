@@ -22,7 +22,7 @@ func NewGinCreateProduct(createProductEvent *action.CreateProductEvent) *GinCrea
 // @Accept json
 // @Produce json
 // @Tags Products
-// @Param Body body dto.CreateProductRequest true "Create a product"
+// @Param Product body dto.CreateProductRequest true "Create a product"
 // @Success 200 {object} dto.ProductID
 // @Failure 400
 // @Failure 500

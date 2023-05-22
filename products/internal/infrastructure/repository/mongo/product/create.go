@@ -3,6 +3,7 @@ package product
 import (
 	"context"
 	"github.com/google/uuid"
+	"go.mongodb.org/mongo-driver/mongo"
 	"meliarqsoft2/internal/domain/model"
 	model2 "meliarqsoft2/pkg/exceptions/model"
 	"time"
@@ -15,14 +16,12 @@ func (repo MongoRepository) Create(product model.Product) (uuid.UUID, error) {
 	}
 	product.ID = newUUID
 
-	_, err = repo.FindBySellerAndName(product.IDSeller, product.Name)
-	if _, productNotExist := err.(model2.ProductNotFound); !productNotExist {
-		return uuid.Nil, model2.ProductAlreadyExist{}
-	}
-
 	dbProduct := mapProductToMongoModel(product)
 	_, err = repo.collection.InsertOne(context.Background(), dbProduct)
 	if err != nil {
+		if mongo.IsDuplicateKeyError(err) {
+			return uuid.Nil, model2.ProductAlreadyExist{}
+		}
 		return uuid.Nil, err
 	}
 
@@ -32,7 +31,8 @@ func (repo MongoRepository) Create(product model.Product) (uuid.UUID, error) {
 func mapProductToMongoModel(product model.Product) *ProductModel {
 	return &ProductModel{
 		ID: product.ID, Name: product.Name, Description: product.Description, Category: product.Category,
-		Price: product.Price.Value, Stock: product.Stock.Amount, IDSeller: product.IDSeller, CreatedAt: time.Now(),
+		Price: product.Price.Value, Stock: product.Stock.Amount, IDSeller: product.IDSeller,
+		CreatedAt: time.Now(),
 	}
 }
 

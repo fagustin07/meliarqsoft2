@@ -7,10 +7,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"meliarqsoft2/internal/domain/model"
+	"time"
 )
 
 func (repo MongoRepository) GetFrom(sellerId uuid.UUID) ([]model.Product, error) {
-	var filter = bson.M{"id_seller": sellerId}
+	var filter = bson.M{"id_seller": sellerId, "deleted_at": time.Time{}}
 
 	cursor, err := repo.collection.Find(context.Background(), filter)
 	if err != nil {

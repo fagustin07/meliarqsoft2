@@ -7,11 +7,17 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"meliarqsoft2/internal/domain/model"
 	model2 "meliarqsoft2/pkg/exceptions/model"
+	"time"
 )
 
 func (repo MongoRepository) FindById(ID uuid.UUID) (*model.Product, error) {
+	filter := bson.M{
+		"_id":        ID,
+		"deleted_at": time.Time{},
+	}
+
 	var productDb *ProductModel
-	err := repo.collection.FindOne(context.Background(), bson.M{"_id": ID}).Decode(&productDb)
+	err := repo.collection.FindOne(context.Background(), filter).Decode(&productDb)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
 			return nil, model2.ProductNotFound{Id: ID.String()}

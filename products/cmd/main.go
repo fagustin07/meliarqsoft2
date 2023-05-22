@@ -32,6 +32,9 @@ func main() {
 	findProductEvent := query.NewFindProductEvent(productRepository)
 	filterProductEvent := query.NewFilterProductEvent(productRepository)
 	deleteProductEvent := action.NewDeleteProductEvent(productRepository)
+	restoreProductsEvent := action.NewRestoreProductsEvent(productRepository)
+	deleteProductsBySeller := action.NewDeleteProductsBySellerEvent(productRepository)
+	findById := query.NewFindProductByIdEvent(productRepository)
 
 	newAPI := gin.NewMeliAPI(
 		port,
@@ -41,6 +44,9 @@ func main() {
 			deleteProductEvent,
 			findProductEvent,
 			filterProductEvent,
+			restoreProductsEvent,
+			deleteProductsBySeller,
+			findById,
 		),
 	)
 

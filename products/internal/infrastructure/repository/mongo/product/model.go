@@ -14,4 +14,5 @@ type ProductModel struct {
 	Stock       int       `json:"stock" bson:"stock"`
 	IDSeller    uuid.UUID `json:"id_seller" bson:"id_seller"`
 	CreatedAt   time.Time `json:"created_at" bson:"created_at"`
+	DeletedAt   time.Time `json:"deleted_at" bson:"deleted_at"`
 }

@@ -42,10 +42,12 @@ type IProductRepository interface {
 	Create(product Product) (uuid.UUID, error)
 	Update(ID uuid.UUID, name string, description string, category string, price float32, stock int) (Product, error)
 	Delete(ID uuid.UUID) error
+	DeleteBySeller(sellerID uuid.UUID) ([]uuid.UUID, error)
+	Restore(IDs []uuid.UUID) (int64, error)
 	Find(name string, category string) ([]Product, error)
 	Filter(minPrice float32, maxPrice float32) ([]Product, error)
 	FindById(ID uuid.UUID) (*Product, error)
+	FindIdsBySellerId(sellerId uuid.UUID) ([]uuid.UUID, error)
 	UpdateStock(ID uuid.UUID, stock int) error
 	GetFrom(sellerId uuid.UUID) ([]Product, error)
-	FindBySellerAndName(seller uuid.UUID, name string) (*Product, error)
 }

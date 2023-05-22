@@ -55,6 +55,15 @@ definitions:
       stock:
         type: integer
     type: object
+  handler.ProductsIDs:
+    properties:
+      ids:
+        items:
+          type: string
+        type: array
+    required:
+    - ids
+    type: object
 info:
   contact: {}
 paths:
@@ -95,7 +104,7 @@ paths:
       parameters:
       - description: Create a product
         in: body
-        name: Body
+        name: Product
         required: true
         schema:
           $ref: '#/definitions/dto.CreateProductRequest'
@@ -132,6 +141,30 @@ paths:
         "404":
           description: Not Found
       summary: Delete a product
+      tags:
+      - Products
+    get:
+      consumes:
+      - application/json
+      description: Update product from a seller
+      parameters:
+      - description: ID from product
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ProductDTO'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Update a product
       tags:
       - Products
     put:
@@ -192,6 +225,51 @@ paths:
         "500":
           description: Internal Server Error
       summary: Filter products
+      tags:
+      - Products
+  /products/restore:
+    post:
+      consumes:
+      - application/json
+      description: Restore products
+      parameters:
+      - description: IDs from products to restore
+        in: body
+        name: IDs
+        required: true
+        schema:
+          $ref: '#/definitions/handler.ProductsIDs'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Restore deleted products
+      tags:
+      - Products
+  /products/sellers/{id}:
+    delete:
+      description: Delete products from a seller
+      parameters:
+      - description: ID from seller
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Delete products from a seller
       tags:
       - Products
 swagger: "2.0"

@@ -24,5 +24,5 @@ func Test_FindByIdProductWithResults(t *testing.T) {
 
 func setUpFindByIdProdEvent(t *testing.T) (*FindProductById, *mock.RepositoriesMock) {
 	mocks := mock.NewMockRepositories(t)
-	return NewFindProductCommand(mocks.ProductRepository), mocks
+	return NewFindProductByIdEvent(mocks.ProductRepository), mocks
 }

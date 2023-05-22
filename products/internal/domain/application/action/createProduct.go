@@ -16,6 +16,8 @@ func NewCreateProductEvent(productRepository model.IProductRepository) *CreatePr
 }
 
 func (actionEvent CreateProductEvent) Execute(product model.Product) (uuid.UUID, error) {
+	// TODO: consultar si existe el seller en el user service
+
 	id, err := actionEvent.productRepository.Create(product)
 	if err != nil {
 		return uuid.Nil, err

@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"meliarqsoft2/internal/domain/model"
+	"time"
 )
 
 func (repo MongoRepository) Filter(minPrice float32, maxPrice float32) ([]model.Product, error) {
@@ -14,6 +15,7 @@ func (repo MongoRepository) Filter(minPrice float32, maxPrice float32) ([]model.
 			bson.A{
 				bson.D{{"price", bson.D{{"$gte", minPrice}}}},
 				bson.D{{"price", bson.D{{"$lte", maxPrice}}}},
+				bson.D{{"deleted_at", time.Time{}}},
 			},
 		},
 	}

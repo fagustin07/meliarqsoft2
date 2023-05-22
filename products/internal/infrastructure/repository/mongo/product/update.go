@@ -7,6 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"meliarqsoft2/internal/domain/model"
 	model2 "meliarqsoft2/pkg/exceptions/model"
+	"time"
 )
 
 func (repo MongoRepository) Update(ID uuid.UUID, name string, description string, category string, price float32, stock int) (model.Product, error) {
@@ -39,7 +40,7 @@ func (repo MongoRepository) Update(ID uuid.UUID, name string, description string
 
 	_, err = repo.collection.UpdateOne(
 		context.Background(),
-		bson.M{"_id": ID},
+		bson.M{"_id": ID, "deleted_at": time.Time{}},
 		bson.D{{"$set", fieldsToUpdate}},
 	)
 

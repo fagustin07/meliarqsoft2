@@ -30,5 +30,5 @@ func setUpDeleteProductsBySeller(t *testing.T) (*DeleteProductsBySeller, *mock.R
 	deleteProduct := NewDeleteProductEvent(mocks.ProductRepository)
 	findProductsBySeller := query.NewFindProductsBySellerCommand(mocks.ProductRepository)
 
-	return NewDeleteProductsBySellerCommand(findProductsBySeller, deleteProduct), mocks
+	return NewDeleteProductsBySellerEvent(findProductsBySeller, deleteProduct), mocks
 }

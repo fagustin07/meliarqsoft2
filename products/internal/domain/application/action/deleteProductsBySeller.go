@@ -2,33 +2,25 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/domain/application/query"
+	"meliarqsoft2/internal/domain/model"
 )
 
 type DeleteProductsBySeller struct {
-	findProducts  *query.FindProductsBySeller
-	deleteProduct *DeleteProductEvent
+	productRepository model.IProductRepository
 }
 
-func NewDeleteProductsBySellerCommand(findProducts *query.FindProductsBySeller, deleteProduct *DeleteProductEvent) *DeleteProductsBySeller {
+func NewDeleteProductsBySellerEvent(productRepo model.IProductRepository) *DeleteProductsBySeller {
 	return &DeleteProductsBySeller{
-		findProducts:  findProducts,
-		deleteProduct: deleteProduct,
+		productRepository: productRepo,
 	}
 }
 
-func (actionCommand DeleteProductsBySeller) Execute(sellerID uuid.UUID) error {
-	products, err := actionCommand.findProducts.Execute(sellerID)
+func (actionEvent DeleteProductsBySeller) Execute(sellerID uuid.UUID) ([]uuid.UUID, error) {
+	deletedIds, err := actionEvent.productRepository.DeleteBySeller(sellerID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	for _, product := range products {
-		err := actionCommand.deleteProduct.Execute(product.ID)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
+	// TODO: notificar al servicio de compras los productos borrados
+	return deletedIds, nil
 }

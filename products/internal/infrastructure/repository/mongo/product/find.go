@@ -5,8 +5,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"log"
 	"meliarqsoft2/internal/domain/model"
+	"time"
 )
 
 func (repo MongoRepository) Find(name string, category string) ([]model.Product, error) {
@@ -23,12 +23,13 @@ func (repo MongoRepository) Find(name string, category string) ([]model.Product,
 						Pattern: ".*" + category + ".*",
 						Options: "i",
 					}}},
-			}},
+				bson.D{{
+					Key: "deleted_at", Value: time.Time{}}},
+			},
+		},
 	}
-
 	cursor, err := repo.collection.Find(context.Background(), filter)
 	if err != nil {
-		log.Print(err)
 		if err == mongo.ErrNoDocuments {
 			return nil, nil
 		}
@@ -36,7 +37,6 @@ func (repo MongoRepository) Find(name string, category string) ([]model.Product,
 
 	var dbResult []*ProductModel
 	if err = cursor.All(context.TODO(), &dbResult); err != nil {
-		log.Print(err)
 		return nil, err
 	}
 
