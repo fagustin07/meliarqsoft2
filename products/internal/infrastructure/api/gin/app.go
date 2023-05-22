@@ -48,7 +48,6 @@ func (app MeliGinApp) Run() error {
 	productRoute.GET("/prices", handler.NewGinFilterProduct(app.events.FilterProductEvent).Execute)
 
 	productRoute.DELETE("/sellers/:id", handler.NewGinDeleteProductsBySeller(app.events.DeleteProductsBySeller).Execute)
-	productRoute.POST("/restore", handler.NewGinRestoreProducts(app.events.RestoreProductsEvent).Execute)
 
 	return route.Run(fmt.Sprintf(":%d", app.port))
 }

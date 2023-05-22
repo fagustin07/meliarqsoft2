@@ -148,46 +148,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/products/restore": {
-            "post": {
-                "description": "Restore products",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Products"
-                ],
-                "summary": "Restore deleted products",
-                "parameters": [
-                    {
-                        "description": "IDs from products to restore",
-                        "name": "IDs",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/handler.ProductsIDs"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    },
-                    "500": {
-                        "description": "Internal Server Error"
-                    }
-                }
-            }
-        },
         "/products/sellers/{id}": {
             "delete": {
                 "description": "Delete products from a seller",
@@ -205,8 +165,8 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK"
+                    "204": {
+                        "description": "No Content"
                     },
                     "400": {
                         "description": "Bad Request"
@@ -219,7 +179,7 @@ const docTemplate = `{
         },
         "/products/{id}": {
             "get": {
-                "description": "Update product from a seller",
+                "description": "Find product",
                 "consumes": [
                     "application/json"
                 ],
@@ -229,7 +189,7 @@ const docTemplate = `{
                 "tags": [
                     "Products"
                 ],
-                "summary": "Update a product",
+                "summary": "Find a product",
                 "parameters": [
                     {
                         "type": "string",
@@ -410,20 +370,6 @@ const docTemplate = `{
                 },
                 "stock": {
                     "type": "integer"
-                }
-            }
-        },
-        "handler.ProductsIDs": {
-            "type": "object",
-            "required": [
-                "ids"
-            ],
-            "properties": {
-                "ids": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
                 }
             }
         }

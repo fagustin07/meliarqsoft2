@@ -21,7 +21,7 @@ func NewGinDeleteProductsBySeller(deleteByProducts *action.DeleteProductsBySelle
 // @Description Delete products from a seller
 // @Tags 	Products
 // @Param 	id 	path  string true "ID from seller"
-// @Success 200
+// @Success 204
 // @Failure 400
 // @Failure 500
 // @Router /products/sellers/{id} [DELETE]
@@ -32,11 +32,11 @@ func (handler GinDeleteProductsBySeller) Execute(c *gin.Context) {
 		return
 	}
 
-	ids, err := handler.DeleteProductsBySeller.Execute(id)
+	_, err = handler.DeleteProductsBySeller.Execute(id)
 	if err != nil {
 		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 
-	c.JSON(http.StatusOK, ProductsIDs{IDs: ids})
+	c.Status(http.StatusNoContent)
 }
