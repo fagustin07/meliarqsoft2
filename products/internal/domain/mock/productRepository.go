@@ -64,6 +64,21 @@ func (mr *MockIProductRepositoryMockRecorder) Delete(ID interface{}) *gomock.Cal
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockIProductRepository)(nil).Delete), ID)
 }
 
+// DeleteBySeller mocks base method.
+func (m *MockIProductRepository) DeleteBySeller(sellerID uuid.UUID) ([]uuid.UUID, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteBySeller", sellerID)
+	ret0, _ := ret[0].([]uuid.UUID)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteBySeller indicates an expected call of DeleteBySeller.
+func (mr *MockIProductRepositoryMockRecorder) DeleteBySeller(sellerID interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteBySeller", reflect.TypeOf((*MockIProductRepository)(nil).DeleteBySeller), sellerID)
+}
+
 // Filter mocks base method.
 func (m *MockIProductRepository) Filter(minPrice, maxPrice float32) ([]model.Product, error) {
 	m.ctrl.T.Helper()
@@ -109,19 +124,19 @@ func (mr *MockIProductRepositoryMockRecorder) FindById(ID interface{}) *gomock.C
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindById", reflect.TypeOf((*MockIProductRepository)(nil).FindById), ID)
 }
 
-// FindBySellerAndName mocks base method.
-func (m *MockIProductRepository) FindBySellerAndName(seller uuid.UUID, name string) (*model.Product, error) {
+// FindIdsBySellerId mocks base method.
+func (m *MockIProductRepository) FindIdsBySellerId(sellerId uuid.UUID) ([]uuid.UUID, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "FindBySellerAndName", seller, name)
-	ret0, _ := ret[0].(*model.Product)
+	ret := m.ctrl.Call(m, "FindIdsBySellerId", sellerId)
+	ret0, _ := ret[0].([]uuid.UUID)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// FindBySellerAndName indicates an expected call of FindBySellerAndName.
-func (mr *MockIProductRepositoryMockRecorder) FindBySellerAndName(seller, name interface{}) *gomock.Call {
+// FindIdsBySellerId indicates an expected call of FindIdsBySellerId.
+func (mr *MockIProductRepositoryMockRecorder) FindIdsBySellerId(sellerId interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindBySellerAndName", reflect.TypeOf((*MockIProductRepository)(nil).FindBySellerAndName), seller, name)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindIdsBySellerId", reflect.TypeOf((*MockIProductRepository)(nil).FindIdsBySellerId), sellerId)
 }
 
 // GetFrom mocks base method.
@@ -137,6 +152,21 @@ func (m *MockIProductRepository) GetFrom(sellerId uuid.UUID) ([]model.Product, e
 func (mr *MockIProductRepositoryMockRecorder) GetFrom(sellerId interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFrom", reflect.TypeOf((*MockIProductRepository)(nil).GetFrom), sellerId)
+}
+
+// Restore mocks base method.
+func (m *MockIProductRepository) Restore(IDs []uuid.UUID) (int64, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Restore", IDs)
+	ret0, _ := ret[0].(int64)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Restore indicates an expected call of Restore.
+func (mr *MockIProductRepositoryMockRecorder) Restore(IDs interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Restore", reflect.TypeOf((*MockIProductRepository)(nil).Restore), IDs)
 }
 
 // Update mocks base method.
