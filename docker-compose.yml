@@ -35,5 +35,5 @@ services:
     container_name: meli_purchases_service
     depends_on:
       - products-service
-#  TODO purchase-orchestator:
-#  TODO notifier-service:
+#  TODO purchase-orchestator: AGREGAR
+#  TODO notifier-service: AGREGAR

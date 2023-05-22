@@ -7,11 +7,18 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"meliarqsoft2/internal/domain/model"
+	"time"
 )
 
 func (repository MongoRepository) Find(productID uuid.UUID) ([]*model.Purchase, error) {
-	filter := bson.D{{"id_product", productID}}
-
+	filter := bson.D{
+		{"$and",
+			bson.A{
+				bson.D{{"id_product", productID}},
+				bson.D{{"deleted_at", time.Time{}}},
+			},
+		},
+	}
 	cursor, err := repository.collection.Find(context.Background(), filter)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {

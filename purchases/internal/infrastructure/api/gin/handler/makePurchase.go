@@ -26,12 +26,12 @@ func NewGinMakePurchase(makePurchaseEvent *action.MakePurchaseEvent, sendNotific
 // @Accept json
 // @Produce json
 // @Tags Purchases
-// @Param 	Body body dto.CreatePurchaseRequest true "Register"
+// @Param 	Purchase body dto.CreatePurchaseRequest true "Register"
 // @Success 201 {object} []dto.PurchaseDTO
 // @Failure 400
 // @Failure 404
 // @Failure 500
-// @Router /products/purchases [POST]
+// @Router /purchases [POST]
 func (handler GinMakePurchase) Execute(c *gin.Context) {
 	var purchaseDTO dto2.CreatePurchaseRequest
 	if err := c.BindJSON(&purchaseDTO); err != nil {

@@ -39,8 +39,8 @@ func (app MeliGinApp) Run() error {
 	basePath.GET("/heartbeat", heartbeat)
 
 	productRoute := basePath.Group("/purchases")
-	productRoute.DELETE("/:id", handler.NewGinDeleteFromProduct(app.events.UndoPurchasesFromProductEvent).Execute)
-	productRoute.POST("/purchases", handler.NewGinMakePurchase(app.events.MakePurchaseEvent, app.events.SendNotificationEvent).Execute)
+	productRoute.POST("", handler.NewGinMakePurchase(app.events.MakePurchaseEvent, app.events.SendNotificationEvent).Execute)
+	productRoute.DELETE("", handler.NewGinDeleteFromProduct(app.events.UndoPurchasesFromProductEvent).Execute)
 	productRoute.GET("/products/:id", handler.NewGinFindPurchases(app.events.FindPurchasesFromProductEvent).Execute)
 
 	return route.Run(fmt.Sprintf(":%d", app.port))

@@ -1,17 +1,32 @@
 definitions:
   dto.CreatePurchaseRequest:
     properties:
+      buyer_email:
+        type: string
+      buyer_name:
+        type: string
       id_product:
         type: string
       id_user:
+        type: string
+      product_name:
+        type: string
+      seller_email:
+        type: string
+      seller_name:
         type: string
       total:
         type: number
       units:
         type: integer
     required:
+    - buyer_email
+    - buyer_name
     - id_product
     - id_user
+    - product_name
+    - seller_email
+    - seller_name
     - total
     - units
     type: object
@@ -30,18 +45,26 @@ definitions:
       units:
         type: integer
     type: object
+  handler.ProductsIDs:
+    properties:
+      ids:
+        items:
+          type: string
+        type: array
+    type: object
 info:
   contact: {}
 paths:
-  /products/{id}:
+  /purchases:
     delete:
       description: Delete all purchases from product
       parameters:
-      - description: ID from product to delete purchases
-        in: path
-        name: id
+      - description: Register
+        in: body
+        name: IDs
         required: true
-        type: string
+        schema:
+          $ref: '#/definitions/handler.ProductsIDs'
       produces:
       - application/json
       responses:
@@ -49,12 +72,13 @@ paths:
           description: No Content
         "400":
           description: Bad Request
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
+        "500":
+          description: Internal Server Error
       summary: Delete all purchases from product
       tags:
       - Purchases
-  /products/purchases:
     post:
       consumes:
       - application/json
@@ -62,7 +86,7 @@ paths:
       parameters:
       - description: Register
         in: body
-        name: Body
+        name: Purchase
         required: true
         schema:
           $ref: '#/definitions/dto.CreatePurchaseRequest'

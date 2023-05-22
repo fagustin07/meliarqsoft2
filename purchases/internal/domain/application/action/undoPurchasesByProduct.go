@@ -2,34 +2,24 @@ package action
 
 import (
 	"github.com/google/uuid"
-	"meliarqsoft2/internal/domain/application/query"
+	"meliarqsoft2/internal/domain/model"
 )
 
 type UndoPurchasesByProductEvent struct {
-	findPurchasesFromProduct *query.FindPurchasesFromProductEvent
-	undoPurchase             *UndoPurchase
+	purchaseRepository model.IPurchaseRepository
 }
 
-func NewUndoPurchasesByProductEvent(findPurchase *query.FindPurchasesFromProductEvent,
-	undoPurchase *UndoPurchase) *UndoPurchasesByProductEvent {
-
+func NewUndoPurchasesByProductEvent(purchaseRepository model.IPurchaseRepository) *UndoPurchasesByProductEvent {
 	return &UndoPurchasesByProductEvent{
-		findPurchasesFromProduct: findPurchase,
-		undoPurchase:             undoPurchase,
+		purchaseRepository: purchaseRepository,
 	}
 }
 
-func (actionEvent UndoPurchasesByProductEvent) Execute(productID uuid.UUID) error {
-	purchases, err := actionEvent.findPurchasesFromProduct.Execute(productID)
+func (actionEvent UndoPurchasesByProductEvent) Execute(productsIDs []uuid.UUID) error {
+	err := actionEvent.purchaseRepository.DeleteByProductsIDs(productsIDs)
+
 	if err != nil {
 		return err
-	}
-
-	for _, purchase := range purchases {
-		err := actionEvent.undoPurchase.Execute(purchase.ID)
-		if err != nil {
-			return err
-		}
 	}
 
 	return nil

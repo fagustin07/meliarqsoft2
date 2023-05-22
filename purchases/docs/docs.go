@@ -16,7 +16,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/products/purchases": {
+        "/purchases": {
             "post": {
                 "description": "Make User buy Product by ids.",
                 "consumes": [
@@ -32,7 +32,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Register",
-                        "name": "Body",
+                        "name": "Purchase",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -60,9 +60,7 @@ const docTemplate = `{
                         "description": "Internal Server Error"
                     }
                 }
-            }
-        },
-        "/products/{id}": {
+            },
             "delete": {
                 "description": "Delete all purchases from product",
                 "produces": [
@@ -74,11 +72,13 @@ const docTemplate = `{
                 "summary": "Delete all purchases from product",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "ID from product to delete purchases",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
+                        "description": "Register",
+                        "name": "IDs",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handler.ProductsIDs"
+                        }
                     }
                 ],
                 "responses": {
@@ -88,8 +88,11 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request"
                     },
-                    "404": {
-                        "description": "Not Found"
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
             }
@@ -131,16 +134,36 @@ const docTemplate = `{
         "dto.CreatePurchaseRequest": {
             "type": "object",
             "required": [
+                "buyer_email",
+                "buyer_name",
                 "id_product",
                 "id_user",
+                "product_name",
+                "seller_email",
+                "seller_name",
                 "total",
                 "units"
             ],
             "properties": {
+                "buyer_email": {
+                    "type": "string"
+                },
+                "buyer_name": {
+                    "type": "string"
+                },
                 "id_product": {
                     "type": "string"
                 },
                 "id_user": {
+                    "type": "string"
+                },
+                "product_name": {
+                    "type": "string"
+                },
+                "seller_email": {
+                    "type": "string"
+                },
+                "seller_name": {
                     "type": "string"
                 },
                 "total": {
@@ -171,6 +194,17 @@ const docTemplate = `{
                 },
                 "units": {
                     "type": "integer"
+                }
+            }
+        },
+        "handler.ProductsIDs": {
+            "type": "object",
+            "properties": {
+                "ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         }

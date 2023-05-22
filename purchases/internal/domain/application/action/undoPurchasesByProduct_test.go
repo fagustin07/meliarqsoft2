@@ -4,7 +4,6 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
-	"meliarqsoft2/internal/domain/application/query"
 	"meliarqsoft2/internal/domain/mock"
 	"meliarqsoft2/internal/domain/model"
 	"testing"
@@ -18,11 +17,12 @@ func Test_UndoPurchasesByProduct(t *testing.T) {
 
 	purch := &model.Purchase{ID: idPurch}
 	purchases := []*model.Purchase{purch}
+	ids := []uuid.UUID{idProd}
 
 	mocks.PurchaseRepository.EXPECT().Find(idProd).Return(purchases, nil)
-	mocks.PurchaseRepository.EXPECT().Delete(idPurch).Return(nil)
+	mocks.PurchaseRepository.EXPECT().DeleteByProductsIDs(ids).Return(nil)
 
-	err := undoPurchasesByProduct.Execute(idProd)
+	err := undoPurchasesByProduct.Execute(ids)
 
 	assert.NoError(t, err)
 }
@@ -32,14 +32,15 @@ func Test_UndoPurchasesByProduct_ThrowsErrorWhenUndoPurchaseFails(t *testing.T) 
 
 	idProd, _ := uuid.NewUUID()
 	idPurch, _ := uuid.NewUUID()
+	ids := []uuid.UUID{idProd}
 
 	purch := &model.Purchase{ID: idPurch}
 	purchases := []*model.Purchase{purch}
 
 	mocks.PurchaseRepository.EXPECT().Find(idProd).Return(purchases, nil)
-	mocks.PurchaseRepository.EXPECT().Delete(idPurch).Return(errors.New(""))
+	mocks.PurchaseRepository.EXPECT().DeleteByProductsIDs(ids).Return(errors.New(""))
 
-	err := undoPurchasesByProduct.Execute(idProd)
+	err := undoPurchasesByProduct.Execute(ids)
 
 	assert.Error(t, err)
 }
@@ -47,8 +48,5 @@ func Test_UndoPurchasesByProduct_ThrowsErrorWhenUndoPurchaseFails(t *testing.T) 
 func setUpUndoPurchasesByProduct(t *testing.T) (*UndoPurchasesByProductEvent, *mock.RepositoriesMock) {
 	mocks := mock.NewMockRepositories(t)
 
-	return NewUndoPurchasesByProductEvent(
-		query.NewFindPurchasesFromProductEvent(mocks.PurchaseRepository),
-		NewUndoPurchaseCommand(mocks.PurchaseRepository),
-	), mocks
+	return NewUndoPurchasesByProductEvent(mocks.PurchaseRepository), mocks
 }

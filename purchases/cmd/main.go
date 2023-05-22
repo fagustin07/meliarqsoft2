@@ -35,10 +35,7 @@ func main() {
 	clientMQ := rabbitmq.NewFactory().InitRabbitMQ()
 	notificationRepository := notification.NewRabbitMQRepository(clientMQ)
 
-	undoPurchasesFromProductEvent := action.NewUndoPurchasesByProductEvent(
-		query.NewFindPurchasesFromProductEvent(purchaseRepository),
-		action.NewUndoPurchaseCommand(purchaseRepository),
-	)
+	undoPurchasesFromProductEvent := action.NewUndoPurchasesByProductEvent(purchaseRepository)
 
 	findFromProductsEvent := query.NewFindPurchasesFromProductEvent(purchaseRepository)
 

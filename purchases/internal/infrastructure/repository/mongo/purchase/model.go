@@ -7,22 +7,23 @@ import (
 )
 
 type PurchaseModel struct {
-	ID        uuid.UUID `json:"_id" bson:"_id,omitempty"`
-	IDProduct uuid.UUID `json:"id_product" bson:"id_product,omitempty"`
-	IDUser    uuid.UUID `json:"id_user" bson:"id_user,omitempty"`
-	Date      time.Time `json:"date" bson:"date"`
-	Units     int       `json:"units" bson:"units"`
-	Total     float32   `json:"total" bson:"total"`
+	ID         uuid.UUID `json:"_id" bson:"_id,omitempty"`
+	IDProduct  uuid.UUID `json:"id_product" bson:"id_product,omitempty"`
+	IDCustomer uuid.UUID `json:"id_customer" bson:"id_customer,omitempty"`
+	Date       time.Time `json:"date" bson:"date"`
+	Units      int       `json:"units" bson:"units"`
+	Total      float32   `json:"total" bson:"total"`
+	DeletedAt  time.Time `json:"deleted_at" bson:"deleted_at"`
 }
 
 func MapPurchaseToMongoModel(purchase *model.Purchase) PurchaseModel {
 	return PurchaseModel{
-		ID:        purchase.ID,
-		IDProduct: purchase.IDProduct,
-		IDUser:    purchase.IDUser,
-		Date:      purchase.Date,
-		Units:     purchase.Units.Amount,
-		Total:     purchase.Total.Value,
+		ID:         purchase.ID,
+		IDProduct:  purchase.IDProduct,
+		IDCustomer: purchase.IDCustomer,
+		Date:       purchase.Date,
+		Units:      purchase.Units.Amount,
+		Total:      purchase.Total.Value,
 	}
 }
 
@@ -38,11 +39,11 @@ func MapToPurchaseDomain(elem *PurchaseModel) (*model.Purchase, error) {
 	}
 
 	return &model.Purchase{
-		ID:        elem.ID,
-		IDProduct: elem.IDProduct,
-		IDUser:    elem.IDUser,
-		Date:      time.Now(),
-		Units:     newUnits,
-		Total:     newTotal,
+		ID:         elem.ID,
+		IDProduct:  elem.IDProduct,
+		IDCustomer: elem.IDCustomer,
+		Date:       time.Now(),
+		Units:      newUnits,
+		Total:      newTotal,
 	}, nil
 }
