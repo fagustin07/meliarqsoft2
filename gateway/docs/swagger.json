@@ -234,7 +234,7 @@
                 "parameters": [
                     {
                         "description": "Create a product",
-                        "name": "Body",
+                        "name": "Product",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -243,8 +243,8 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created",
                         "schema": {
                             "$ref": "#/definitions/model.ProductID"
                         }
@@ -254,6 +254,9 @@
                     },
                     "404": {
                         "description": "Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
                     },
                     "409": {
                         "description": "Conflict"

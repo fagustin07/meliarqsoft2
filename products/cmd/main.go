@@ -28,7 +28,8 @@ func main() {
 	client := newFactory.InitMongoDB()
 	productRepository := product.NewMongoRepository(client)
 
-	createProductEvent := action.NewCreateProductEvent(productRepository)
+	findSeller := service.NewSyncHttpFindSellerById(os.Getenv("USER_URL"))
+	createProductEvent := action.NewCreateProductEvent(productRepository, findSeller)
 	updateProductEvent := action.NewUpdateProductEvent(productRepository)
 	findProductEvent := query.NewFindProductEvent(productRepository)
 	filterProductEvent := query.NewFilterProductEvent(productRepository)

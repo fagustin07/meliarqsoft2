@@ -58,6 +58,7 @@ func (filterProdQuery FilterProductQuery) GetMax() float32 {
 }
 
 type IProductService interface {
+	Create(createReq CreateProductRequest) (ProductID, error)
 	Update(ID uuid.UUID, updateReq UpdateProductRequest) error
 	Find(name string, category string) ([]Product, error)
 	Filter(minPrice float32, maxPrice float32) ([]Product, error)

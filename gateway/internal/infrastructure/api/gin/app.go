@@ -65,8 +65,7 @@ func (app MeliGinGateway) Run() error {
 	sellerRoute.DELETE("/:id", handler.NewGinUnregisterSeller(app.sellerService).Execute)
 
 	productRoute := basePath.Group("/products")
-	// TODO: coreo que chequea si existe el productor y luego crea el producto
-	// productRoute.POST("", handler.NewGinCreateProduct(app.events.CreateProductEvent).Execute)
+	productRoute.POST("", handler.NewGinCreateProduct(app.productService).Execute)
 	productRoute.GET("", handler.NewGinFindProduct(app.productService).Execute)
 	productRoute.GET("/prices", handler.NewGinFilterProduct(app.productService).Execute)
 	productRoute.PUT("/:id", handler.NewGinUpdateProduct(app.productService).Execute)
