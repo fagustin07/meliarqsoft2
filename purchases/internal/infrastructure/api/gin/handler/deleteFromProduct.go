@@ -21,20 +21,20 @@ func NewGinDeleteFromProduct(deleteFromProductEvent *action.UndoPurchasesByProdu
 // @Description Delete all purchases from product
 // @Produce json
 // @Tags Purchases
-// @Param 	id 	path  string true "ID from product to delete purchases"
+// @Param 	IDs body ProductsIDs true "Register"
 // @Success 204
-// @Failure 404
+// @Failure 409
 // @Failure 400
-// @Router /products/{id} [DELETE]
+// @Failure 500
+// @Router /purchases [DELETE]
 func (handler GinDeleteFromProduct) Execute(c *gin.Context) {
-	id, err := uuid.Parse(c.Param("id"))
-
-	if err != nil {
+	var productsIDS ProductsIDs
+	if err := c.BindJSON(&productsIDS); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	err = handler.deleteFromProductEvent.Execute(id)
+	err := handler.deleteFromProductEvent.Execute(productsIDS.IDs)
 
 	if err != nil {
 		application.MeliGinHandlerError{}.Execute(err, c)
@@ -42,4 +42,8 @@ func (handler GinDeleteFromProduct) Execute(c *gin.Context) {
 	}
 
 	c.Status(http.StatusNoContent)
+}
+
+type ProductsIDs struct {
+	IDs []uuid.UUID `json:"ids"`
 }

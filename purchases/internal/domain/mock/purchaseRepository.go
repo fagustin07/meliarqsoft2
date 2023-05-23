@@ -50,18 +50,18 @@ func (mr *MockIPurchaseRepositoryMockRecorder) Create(purchase interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockIPurchaseRepository)(nil).Create), purchase)
 }
 
-// Delete mocks base method.
-func (m *MockIPurchaseRepository) Delete(ID uuid.UUID) error {
+// DeleteByProductsIDs mocks base method.
+func (m *MockIPurchaseRepository) DeleteByProductsIDs(productsIDs []uuid.UUID) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Delete", ID)
+	ret := m.ctrl.Call(m, "DeleteByProductsIDs", productsIDs)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// Delete indicates an expected call of Delete.
-func (mr *MockIPurchaseRepositoryMockRecorder) Delete(ID interface{}) *gomock.Call {
+// DeleteByProductsIDs indicates an expected call of DeleteByProductsIDs.
+func (mr *MockIPurchaseRepositoryMockRecorder) DeleteByProductsIDs(productsIDs interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockIPurchaseRepository)(nil).Delete), ID)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteByProductsIDs", reflect.TypeOf((*MockIPurchaseRepository)(nil).DeleteByProductsIDs), productsIDs)
 }
 
 // Find mocks base method.

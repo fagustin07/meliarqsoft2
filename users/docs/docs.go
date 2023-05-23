@@ -95,6 +95,39 @@ const docTemplate = `{
             }
         },
         "/customers/{id}": {
+            "get": {
+                "description": "FindById customer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customers"
+                ],
+                "summary": "FindById a customer",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID from customer",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
             "put": {
                 "description": "Update customer from a customer",
                 "produces": [
@@ -272,8 +305,14 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request"
                     },
+                    "404": {
+                        "description": "Not Found"
+                    },
                     "500": {
                         "description": "Internal Server Error"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
                     }
                 }
             },

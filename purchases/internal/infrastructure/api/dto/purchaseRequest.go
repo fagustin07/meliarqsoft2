@@ -30,12 +30,12 @@ func (dto CreatePurchaseRequest) MapToModel() (model.Purchase, model.Notificatio
 	}
 
 	purchase := model.Purchase{
-		ID:        uuid.UUID{},
-		IDProduct: dto.IDProduct,
-		IDUser:    dto.IDUser,
-		Date:      time.Now(),
-		Units:     newUnits,
-		Total:     newTotal,
+		ID:         uuid.UUID{},
+		IDProduct:  dto.IDProduct,
+		IDCustomer: dto.IDUser,
+		Date:       time.Now(),
+		Units:      newUnits,
+		Total:      newTotal,
 	}
 
 	sellerNotification, errSeller := model.NewNotification(dto.SellerName, dto.SellerEmail, dto.ProductName, "Sell")

@@ -19,7 +19,7 @@ func MapPurchaseToJSON(purchase *model.Purchase) PurchaseDTO {
 	return PurchaseDTO{
 		ID:        purchase.ID,
 		IDProduct: purchase.IDProduct,
-		IDUser:    purchase.IDUser,
+		IDUser:    purchase.IDCustomer,
 		Date:      purchase.Date,
 		Units:     purchase.Units.Amount,
 		Total:     purchase.Total.Value,

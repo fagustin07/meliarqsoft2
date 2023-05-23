@@ -150,6 +150,28 @@ paths:
       summary: Unregister a customer
       tags:
       - Customers
+    get:
+      consumes:
+      - application/json
+      description: FindById customer
+      parameters:
+      - description: ID from customer
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: FindById a customer
+      tags:
+      - Customers
     put:
       description: Update customer from a customer
       parameters:
@@ -265,8 +287,12 @@ paths:
           description: OK
         "400":
           description: Bad Request
+        "404":
+          description: Not Found
         "500":
           description: Internal Server Error
+        "503":
+          description: Service Unavailable
       summary: FindById a seller
       tags:
       - Sellers
