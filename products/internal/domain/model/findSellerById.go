@@ -2,6 +2,7 @@ package model
 
 import "github.com/google/uuid"
 
+//go:generate mockgen -destination=../mock/findSellerService.go -package=mock -source=findSellerById.go
 type IFindSellerByIdService interface {
 	Execute(id uuid.UUID) (SellerDTO, error)
 }
