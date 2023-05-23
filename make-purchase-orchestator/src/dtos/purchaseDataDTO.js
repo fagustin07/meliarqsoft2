@@ -4,7 +4,7 @@ class PurchaseDataDTO {
     constructor(customer, product, seller, units) {
         this.buyer_email = customer.email,
         this.buyer_name = customer.name,
-        this.id_user = customer.id,
+        this.id_user = customer.customer_id,
         this.id_product = product.id,
         this.product_name = product.name,
         this.seller_name = seller.businessName,

@@ -25,8 +25,15 @@ class ResponseError extends APIError {
     }
 }
 
+class PurchaseNotCreated extends APIError {
+    constructor(status, message) {
+        super("Purchase not created", 500, 'ERROR');
+    }
+}
+
 module.exports = {
     InvalidPurchase,
     InvalidUnits,
-    ResponseError
+    ResponseError,
+    PurchaseNotCreated
 };

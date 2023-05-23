@@ -1,16 +1,19 @@
 const { findCustomer, findSeller } = require('../clients/usersClient');
 const { findProduct, updateProduct } = require('../clients/productsClient');
+const { postPurchase } = require('../clients/purchasesClient')
 const PurchaseDTO = require('../dtos/purchaseDTO');
 const PurchaseDataDTO = require('../dtos/purchaseDataDTO');
+const errors = require('../exceptions/APIErrors');
+
 
 const createPurchase = (req, res, next) => {
     const purchaseDTO = new PurchaseDTO(req.body);
     purchaseDTO.validate();
 
-    return processPurchase(purchaseDTO);
+    return processPurchase(purchaseDTO, next);
 }
 
-const processPurchase = (purchaseDTO) => {
+const processPurchase = (purchaseDTO, next) => {
     return getCustomer(purchaseDTO.customer_id)
         .then(customer => {
             return getProduct(purchaseDTO.product_id)
@@ -19,8 +22,16 @@ const processPurchase = (purchaseDTO) => {
                         .then(seller => {
                             return reduceStock(product, purchaseDTO.units)
                                 .then(newProd => {
-                                    const purchaseDataDTO = new PurchaseDataDTO(customer, product, seller, purchaseDTO.units);
-                                    return newProd;//postPurchase(purchaseDataDTO);
+                                    const purchaseDataDTO = new PurchaseDataDTO(customer, newProd, seller, purchaseDTO.units);
+                                    return postPurchase(purchaseDataDTO)
+                                        .then(response => {
+                                            return response
+                                        })
+                                        .catch(err => {
+                                            // Si hubo un error, actualizo el producto con su stock original
+                                            return updateProduct(product)
+                                                .then(res => {throw err;})
+                                        });
                                 })
 
                         })
@@ -50,12 +61,12 @@ const getSeller = (seller_id) => {
 }
 
 const reduceStock = (product, units) => {
-    product.stock =- units;
-    return updateProduct(product)
-        .then(product => {
-            return product;
+    let newProd = { ...product };
+    newProd.stock = product.stock - units;
+    return updateProduct(newProd)
+        .then(res => {
+            return newProd;
         })
-
 }
 
 module.exports = { createPurchase };

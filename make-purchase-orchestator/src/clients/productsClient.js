@@ -13,13 +13,13 @@ const findProduct = (product_id) => {
 
 const updateProduct = (product) => {
     return fetch(process.env.PRODUCT_URL + '/products/' + product.id, {
-        method: 'POST',
+        method: 'PUT',
         body: JSON.stringify(product),
         headers: { "Content-Type": "application/json" }
         }
     ).then(function(response) {
         checkStatus(response);
-        return response.json();
+        return response;
     })
 }
 

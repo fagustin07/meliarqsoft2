@@ -14,4 +14,4 @@ const postPurchase = (purchaseDataDTO) => {
     })
 }
 
-module.exports = postPurchase;
+module.exports = { postPurchase };
