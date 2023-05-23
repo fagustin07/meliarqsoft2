@@ -26,7 +26,9 @@ func NewGinFindByIdSeller(findByIdSellerEvent *query.FindSellerByIdEvent) *GinFi
 // @Param 	id 	path  string true "ID from seller"
 // @Success 200
 // @Failure 400
+// @Failure 404
 // @Failure 500
+// @Failure 503
 // @Router /sellers/{id} [GET]
 func (handler GinFindByIdSeller) Execute(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
