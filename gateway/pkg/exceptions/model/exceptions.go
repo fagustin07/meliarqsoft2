@@ -12,10 +12,12 @@ func (i InvalidEmailError) Error() string {
 	return "invalid email address"
 }
 
-type ServiceUnavailable struct{}
+type ServiceUnavailable struct {
+	Message string `json:"error"`
+}
 
 func (s ServiceUnavailable) Error() string {
-	return "service currently unavailable"
+	return s.Message
 }
 
 type BadRequestError struct {

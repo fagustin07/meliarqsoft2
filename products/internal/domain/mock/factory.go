@@ -7,6 +7,8 @@ import (
 
 type RepositoriesMock struct {
 	ProductRepository *MockIProductRepository
+	FindSellerId      *MockIFindSellerByIdService
+	DeletePurchases   *MockIDeletePurchasesByProductsService
 }
 
 func NewMockRepositories(t *testing.T) *RepositoriesMock {
@@ -15,5 +17,7 @@ func NewMockRepositories(t *testing.T) *RepositoriesMock {
 
 	return &RepositoriesMock{
 		ProductRepository: NewMockIProductRepository(ctrl),
+		FindSellerId:      NewMockIFindSellerByIdService(ctrl),
+		DeletePurchases:   NewMockIDeletePurchasesByProductsService(ctrl),
 	}
 }

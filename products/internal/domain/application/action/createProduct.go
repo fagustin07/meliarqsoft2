@@ -7,16 +7,22 @@ import (
 
 type CreateProductEvent struct {
 	productRepository model.IProductRepository
+	FindSellerById    model.IFindSellerByIdService
 }
 
-func NewCreateProductEvent(productRepository model.IProductRepository) *CreateProductEvent {
+func NewCreateProductEvent(productRepository model.IProductRepository, findSeller model.IFindSellerByIdService) *CreateProductEvent {
 	return &CreateProductEvent{
 		productRepository: productRepository,
+		FindSellerById:    findSeller,
 	}
 }
 
 func (actionEvent CreateProductEvent) Execute(product model.Product) (uuid.UUID, error) {
-	// TODO: consultar si existe el seller en el user service
+	_, err := actionEvent.FindSellerById.Execute(product.IDSeller)
+
+	if err != nil {
+		return uuid.Nil, err
+	}
 
 	id, err := actionEvent.productRepository.Create(product)
 	if err != nil {

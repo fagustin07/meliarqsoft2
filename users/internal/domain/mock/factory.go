@@ -9,6 +9,7 @@ type RepositoriesMock struct {
 	CustomerRepository     *MockICustomerRepository
 	SellerRepository       *MockISellerRepository
 	NotificationRepository *MockINotificationRepository
+	DeleteProductsService  *MockIDeleteProductsBySellerService
 }
 
 func NewMockRepositories(t *testing.T) *RepositoriesMock {
@@ -19,5 +20,6 @@ func NewMockRepositories(t *testing.T) *RepositoriesMock {
 		CustomerRepository:     NewMockICustomerRepository(ctrl),
 		SellerRepository:       NewMockISellerRepository(ctrl),
 		NotificationRepository: NewMockINotificationRepository(ctrl),
+		DeleteProductsService:  NewMockIDeleteProductsBySellerService(ctrl),
 	}
 }

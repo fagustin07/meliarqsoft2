@@ -9,6 +9,7 @@ import (
 	"meliarqsoft2/internal/infrastructure/api/gin"
 	"meliarqsoft2/internal/infrastructure/repository/mongo"
 	"meliarqsoft2/internal/infrastructure/repository/mongo/product"
+	"meliarqsoft2/internal/infrastructure/service"
 	"os"
 	"strconv"
 )
@@ -27,13 +28,16 @@ func main() {
 	client := newFactory.InitMongoDB()
 	productRepository := product.NewMongoRepository(client)
 
-	createProductEvent := action.NewCreateProductEvent(productRepository)
+	findSeller := service.NewSyncHttpFindSellerById(os.Getenv("USER_URL"))
+	createProductEvent := action.NewCreateProductEvent(productRepository, findSeller)
 	updateProductEvent := action.NewUpdateProductEvent(productRepository)
 	findProductEvent := query.NewFindProductEvent(productRepository)
 	filterProductEvent := query.NewFilterProductEvent(productRepository)
-	deleteProductEvent := action.NewDeleteProductEvent(productRepository)
-	deleteProductsBySeller := action.NewDeleteProductsBySellerEvent(productRepository)
 	findById := query.NewFindProductByIdEvent(productRepository)
+
+	deletePurchases := service.NewSyncHttpDeletePurchasesByProducts(os.Getenv("PURCHASE_URL"))
+	deleteProductEvent := action.NewDeleteProductEvent(productRepository, deletePurchases)
+	deleteProductsBySeller := action.NewDeleteProductsBySellerEvent(productRepository, deletePurchases)
 
 	newAPI := gin.NewMeliAPI(
 		port,

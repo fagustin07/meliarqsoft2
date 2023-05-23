@@ -246,7 +246,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Create a product",
-                        "name": "Body",
+                        "name": "Product",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -255,8 +255,8 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created",
                         "schema": {
                             "$ref": "#/definitions/model.ProductID"
                         }
@@ -266,6 +266,9 @@ const docTemplate = `{
                     },
                     "404": {
                         "description": "Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
                     },
                     "409": {
                         "description": "Conflict"
@@ -432,7 +435,7 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "description": "Delete product from a seller",
+                "description": "Delete product",
                 "produces": [
                     "application/json"
                 ],

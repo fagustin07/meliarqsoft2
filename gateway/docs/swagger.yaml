@@ -290,21 +290,23 @@ paths:
       parameters:
       - description: Create a product
         in: body
-        name: Body
+        name: Product
         required: true
         schema:
           $ref: '#/definitions/model.CreateProductRequest'
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
             $ref: '#/definitions/model.ProductID'
         "400":
           description: Bad Request
         "404":
           description: Not Found
+        "406":
+          description: Not Acceptable
         "409":
           description: Conflict
         "500":
@@ -316,7 +318,7 @@ paths:
       - Products
   /products/{id}:
     delete:
-      description: Delete product from a seller
+      description: Delete product
       parameters:
       - description: ID from product to delete
         in: path

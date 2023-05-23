@@ -2,15 +2,18 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"meliarqsoft2/internal/domain/model"
+	"meliarqsoft2/pkg/exceptions/application"
+	"net/http"
 )
 
 type GinCreateProduct struct {
-	//CreateProductEvent *action.CreateProductEvent
+	prodService model.IProductService
 }
 
-//func NewGinCreateProduct(createProductEvent *action.CreateProductEvent) *GinCreateProduct {
-//	return &GinCreateProduct{CreateProductEvent: createProductEvent}
-//}
+func NewGinCreateProduct(prodService model.IProductService) *GinCreateProduct {
+	return &GinCreateProduct{prodService: prodService}
+}
 
 // Execute Create
 // @Summary Create a product
@@ -18,31 +21,27 @@ type GinCreateProduct struct {
 // @Accept json
 // @Produce json
 // @Tags Products
-// @Param Body body model.CreateProductRequest true "Create a product"
-// @Success 200 {object} model.ProductID
+// @Param Product body model.CreateProductRequest true "Create a product"
+// @Success 201 {object} model.ProductID
 // @Failure 400
 // @Failure 404
+// @Failure 406
 // @Failure 409
 // @Failure 500
 // @Failure 503
 // @Router /products [post]
 func (handler GinCreateProduct) Execute(c *gin.Context) {
-	//var productDTO dto2.CreateProductRequest
-	//if err := c.BindJSON(&productDTO); err != nil {
-	//	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	//	return
-	//}
-	//
-	//product, err := productDTO.MapToModel()
-	//if err != nil {
-	//	application.MeliGinHandlerError{}.Execute(err, c)
-	//	return
-	//}
+	var productDTO model.CreateProductRequest
+	if err := c.BindJSON(&productDTO); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
-	//createdProductID, err := handler.CreateProductEvent.Execute(product)
-	//if err != nil {
-	//	application.MeliGinHandlerError{}.Execute(err, c)
-	//	return
-	//}
-	//c.JSON(http.StatusCreated, dto2.ProductID{ID: createdProductID})
+	prodId, err := handler.prodService.Create(productDTO)
+
+	if err != nil {
+		application.MeliGinHandlerError{}.Execute(err, c)
+		return
+	}
+	c.JSON(http.StatusCreated, prodId)
 }

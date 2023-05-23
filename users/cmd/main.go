@@ -12,6 +12,7 @@ import (
 	"meliarqsoft2/internal/infrastructure/repository/mongo/seller"
 	"meliarqsoft2/internal/infrastructure/repository/rabbitmq"
 	"meliarqsoft2/internal/infrastructure/repository/rabbitmq/notification"
+	"meliarqsoft2/internal/infrastructure/service"
 	"os"
 	"strconv"
 )
@@ -41,9 +42,10 @@ func main() {
 	// seller
 	registerSellerEvent := action.NewRegisterSellerEvent(sellerRepository)
 	updateSellerEvent := action.NewUpdateSellerEvent(sellerRepository)
-	unregisterSellerEvent := action.NewUnregisterSellerEvent(sellerRepository)
 	findSellerEvent := query.NewFindSellerEvent(sellerRepository)
 	findSellerByIdEvent := query.NewFindSellerByIdEvent(sellerRepository)
+	deleteProdsService := service.NewHttpSyncDeleteProductsBySeller(os.Getenv("PRODUCT_URL"))
+	unregisterSellerEvent := action.NewUnregisterSellerEvent(sellerRepository, deleteProdsService)
 
 	// user
 	findUserById := query.NewFindCustomerByIdEvent(customerRepository)

@@ -24,6 +24,18 @@ func (handlerErr MeliGinHandlerError) Execute(err error, c *gin.Context) {
 		return
 	}
 
+	_, unavailable := err.(model.ServiceUnavailable)
+	if unavailable {
+		c.JSON(http.StatusServiceUnavailable, gin.H{"error": err.Error()})
+		return
+	}
+
+	_, badReq := err.(model.BadRequestError)
+	if badReq {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 }
 
@@ -56,6 +68,7 @@ func isBusinessError(err error) bool {
 
 func isNotAcceptableError(err error) bool {
 	_, filterPrice := err.(model.MinAndMaxPriceCombinationError)
+	_, notAcceptable := err.(model.NotAcceptableError)
 
-	return filterPrice
+	return filterPrice || notAcceptable
 }
