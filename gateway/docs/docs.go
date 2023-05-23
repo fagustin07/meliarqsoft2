@@ -432,7 +432,7 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "description": "Delete product from a seller",
+                "description": "Delete product",
                 "produces": [
                     "application/json"
                 ],

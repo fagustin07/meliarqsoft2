@@ -62,9 +62,7 @@ func (app MeliGinGateway) Run() error {
 	sellerRoute.POST("", handler.NewGinRegisterSeller(app.sellerService).Execute)
 	sellerRoute.GET("", handler.NewGinFindSeller(app.sellerService).Execute)
 	sellerRoute.PUT("/:id", handler.NewGinUpdateSeller(app.sellerService).Execute)
-	// TODO: si hacemos la coreografia de borrar a un vendedor, el borrar un producto con
-	// las compras, quedan encapsulados dentro de la coreografia.
-	// sellerRoute.DELETE("/:id", handler.NewGinUnregisterSeller(app.events.UnregisterSellerEvent).Execute)
+	sellerRoute.DELETE("/:id", handler.NewGinUnregisterSeller(app.sellerService).Execute)
 
 	productRoute := basePath.Group("/products")
 	// TODO: coreo que chequea si existe el productor y luego crea el producto
@@ -72,13 +70,12 @@ func (app MeliGinGateway) Run() error {
 	productRoute.GET("", handler.NewGinFindProduct(app.productService).Execute)
 	productRoute.GET("/prices", handler.NewGinFilterProduct(app.productService).Execute)
 	productRoute.PUT("/:id", handler.NewGinUpdateProduct(app.productService).Execute)
-	// TODO productRoute.DELETE("/:id", handler.NewGinDeleteProduct(app.events.DeleteProductEvent).Execute)
+	productRoute.DELETE("/:id", handler.NewGinDeleteProduct(app.productService).Execute)
 
 	purchaseRoute := basePath.Group("/purchases")
 	// TODO: COMPRA DISTRIBUIDA, modelar el orquestador
 	//productRoute.POST("/products", handler.NewGinMakePurchase(app.events.MakePurchaseEvent).Execute)
 	purchaseRoute.GET("/products/:id", handler.NewGinFindPurchases(app.findPurchaseService).Execute)
-	// TODO "delete" purchases
 
 	return route.Run(fmt.Sprintf(":%d", app.port))
 }

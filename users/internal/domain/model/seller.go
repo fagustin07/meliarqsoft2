@@ -19,3 +19,8 @@ type ISellerRepository interface {
 	Find(businessName string) ([]*Seller, error)
 	FindById(idSeller uuid.UUID) (*Seller, error)
 }
+
+//go:generate mockgen -destination=../mock/deleteProductsService.go -package=mock -source=seller.go
+type IDeleteProductsBySellerService interface {
+	Execute(IDSeller uuid.UUID) error
+}

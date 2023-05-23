@@ -6,12 +6,14 @@ import (
 )
 
 type DeleteProductEvent struct {
-	productRepository model.IProductRepository
+	productRepository      model.IProductRepository
+	deletePurchasesService model.IDeletePurchasesByProductsService
 }
 
-func NewDeleteProductEvent(prodRepo model.IProductRepository) *DeleteProductEvent {
+func NewDeleteProductEvent(prodRepo model.IProductRepository, deletePurchases model.IDeletePurchasesByProductsService) *DeleteProductEvent {
 	return &DeleteProductEvent{
-		productRepository: prodRepo,
+		productRepository:      prodRepo,
+		deletePurchasesService: deletePurchases,
 	}
 }
 
@@ -22,17 +24,16 @@ func (actionEvent DeleteProductEvent) Execute(id uuid.UUID) error {
 		return err
 	}
 
-	// TODO: notificarle al servicio de compras que se borro el producto. si falla, restauro el producto
-	falloBorradoCompras, err := err, nil
+	deletePurchErr := actionEvent.deletePurchasesService.Execute([]uuid.UUID{id})
 
-	if falloBorradoCompras != nil { // si falla borrado de compras, rollback de producto
+	if deletePurchErr != nil { // si falla borrado de compras, rollback de producto
 		_, err2 := actionEvent.productRepository.Restore([]uuid.UUID{id})
 		if err2 != nil {
 			// se le avisa a backoffice el error para restauración manual
 			return err
 		}
 
-		return err // esto responde al servicio de usuarios el error para que haga rollback al vendedor.
+		return deletePurchErr
 	}
 	return nil
 }

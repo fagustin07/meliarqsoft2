@@ -2,7 +2,6 @@ package application
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"meliarqsoft2/pkg/exceptions/model"
 	"net/http"
 )
@@ -10,7 +9,6 @@ import (
 type MeliGinHandlerError struct{}
 
 func (handlerErr MeliGinHandlerError) Execute(err error, c *gin.Context) {
-	log.Println(err.Error())
 	if isNotFoundError(err) {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
@@ -23,6 +21,12 @@ func (handlerErr MeliGinHandlerError) Execute(err error, c *gin.Context) {
 
 	if isBusinessError(err) || isNotAcceptableError(err) {
 		c.JSON(http.StatusNotAcceptable, gin.H{"error": err.Error()})
+		return
+	}
+
+	_, unavailable := err.(model.ServiceUnavailable)
+	if unavailable {
+		c.JSON(http.StatusServiceUnavailable, gin.H{"error": err.Error()})
 		return
 	}
 

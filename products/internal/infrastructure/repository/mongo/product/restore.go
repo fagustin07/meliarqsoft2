@@ -9,6 +9,10 @@ import (
 )
 
 func (repo MongoRepository) Restore(IDs []uuid.UUID) (int64, error) {
+	if IDs == nil {
+		return 0, nil
+	}
+
 	filter := bson.M{"_id": bson.M{"$in": IDs}}
 
 	updater := bson.D{

@@ -6,12 +6,14 @@ import (
 )
 
 type UnregisterSellerEvent struct {
-	sellerRepository model.ISellerRepository
+	sellerRepository      model.ISellerRepository
+	DeleteProductsService model.IDeleteProductsBySellerService
 }
 
-func NewUnregisterSellerEvent(sellerRepository model.ISellerRepository) *UnregisterSellerEvent {
+func NewUnregisterSellerEvent(sellerRepository model.ISellerRepository, deleteProdService model.IDeleteProductsBySellerService) *UnregisterSellerEvent {
 	return &UnregisterSellerEvent{
-		sellerRepository: sellerRepository,
+		sellerRepository:      sellerRepository,
+		DeleteProductsService: deleteProdService,
 	}
 }
 
@@ -21,17 +23,16 @@ func (actionEvent UnregisterSellerEvent) Execute(id uuid.UUID) error {
 		return err
 	}
 
-	// TODO: notificar al servicio de productos que se elimino al vendedor. si falla, restaurar vendedor
-	falloBorradoProds, err := err, nil
+	failErr := actionEvent.DeleteProductsService.Execute(id)
 
-	if falloBorradoProds != nil { // rollback vendedor
+	if failErr != nil { // rollback vendedor
 		err2 := actionEvent.sellerRepository.Restore(id)
 		if err2 != nil {
 			// notificar a un back office el error para restauracion manual
 			return err
 		}
 
-		return err // envia el motivo por el que ha fallado la coreografia
+		return failErr
 	}
 
 	return nil

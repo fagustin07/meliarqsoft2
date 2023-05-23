@@ -2,15 +2,19 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+	"meliarqsoft2/internal/domain/model"
+	"meliarqsoft2/pkg/exceptions/application"
+	"net/http"
 )
 
 type GinUnregisterSeller struct {
-	//UnregisterSellerEvent *action.UnregisterSellerEvent
+	sellerService model.ISellerService
 }
 
-//func NewGinUnregisterSeller(unregisterSellerEvent *action.UnregisterSellerEvent) *GinUnregisterSeller {
-//	return &GinUnregisterSeller{UnregisterSellerEvent: unregisterSellerEvent}
-//}
+func NewGinUnregisterSeller(sellerService model.ISellerService) *GinUnregisterSeller {
+	return &GinUnregisterSeller{sellerService: sellerService}
+}
 
 // Execute Unregister a seller
 // @Summary Unregister a seller
@@ -25,19 +29,19 @@ type GinUnregisterSeller struct {
 // @Failure 503
 // @Router /sellers/{id} [DELETE]
 func (handler GinUnregisterSeller) Execute(c *gin.Context) {
-	//id, err := uuid.Parse(c.Param("id"))
-	//
-	//if err != nil {
-	//	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	//	return
-	//}
-	//
-	//err = handler.UnregisterSellerEvent.Execute(id)
-	//
-	//if err != nil {
-	//	application.MeliGinHandlerError{}.Execute(err, c)
-	//	return
-	//}
-	//
-	//c.Status(http.StatusNoContent)
+	id, err := uuid.Parse(c.Param("id"))
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	err = handler.sellerService.Delete(id)
+
+	if err != nil {
+		application.MeliGinHandlerError{}.Execute(err, c)
+		return
+	}
+
+	c.Status(http.StatusNoContent)
 }

@@ -316,7 +316,7 @@ paths:
       - Products
   /products/{id}:
     delete:
-      description: Delete product from a seller
+      description: Delete product
       parameters:
       - description: ID from product to delete
         in: path

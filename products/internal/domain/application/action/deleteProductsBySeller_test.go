@@ -26,5 +26,5 @@ func Test_DeleteProductsBySeller(t *testing.T) {
 func setUpDeleteProductsBySeller(t *testing.T) (*DeleteProductsBySeller, *mock.RepositoriesMock) {
 	mocks := mock.NewMockRepositories(t)
 
-	return NewDeleteProductsBySellerEvent(mocks.ProductRepository), mocks
+	return NewDeleteProductsBySellerEvent(mocks.ProductRepository, nil), mocks
 }

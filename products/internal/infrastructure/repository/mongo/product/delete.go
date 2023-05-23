@@ -11,6 +11,11 @@ import (
 )
 
 func (repo MongoRepository) Delete(ID uuid.UUID) error {
+	_, err := repo.FindById(ID)
+	if err != nil {
+		return err
+	}
+
 	filter := bson.M{
 		"_id":        ID,
 		"deleted_at": time.Time{},
@@ -28,7 +33,7 @@ func (repo MongoRepository) Delete(ID uuid.UUID) error {
 		},
 	}
 
-	_, err := repo.collection.UpdateOne(context.Background(), filter, updater)
+	_, err = repo.collection.UpdateOne(context.Background(), filter, updater)
 
 	if err != nil {
 		if err == mongo.ErrNoDocuments {

@@ -28,8 +28,5 @@ type ISellerService interface {
 	Register(seller CreateSellerRequest) (uuid.UUID, error)
 	Update(id uuid.UUID, businessName string, email string) error
 	Find(businessName string) ([]Seller, error)
-}
-
-type IDeleteSellerService interface {
 	Delete(ID uuid.UUID) error
 }
