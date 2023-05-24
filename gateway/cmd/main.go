@@ -26,6 +26,7 @@ func main() {
 		services.SellerHttpSyncService{BasePath: os.Getenv("USER_URL")},
 		services.ProductHttpSyncService{BasePath: os.Getenv("PRODUCT_URL")},
 		services.FindPurchaseHttpSyncService{BasePath: os.Getenv("PURCHASE_URL")},
+		services.MakePurchaseHttpSyncService{BasePath: os.Getenv("PURCHASES_ORCHESTRATOR_URL")},
 	)
 
 	err = newAPI.Run()

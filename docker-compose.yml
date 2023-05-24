@@ -12,10 +12,12 @@ services:
       - users-service
       - products-service
       - purchases-service
+      - purchases-orchestrator-service
     links:
       - products-service
       - users-service
       - purchases-service
+      - purchases-orchestrator-service
   users-service:
     build:
       context: .
@@ -39,6 +41,8 @@ services:
     build:
       context: .
       dockerfile: make-purchase-orchestator/Dockerfile
+    ports:
+      - ${ORCHESTATOR_PORT}:${ORCHESTATOR_PORT}
     container_name: meli_purchase_orchestrator_service
     depends_on:
       - users-service

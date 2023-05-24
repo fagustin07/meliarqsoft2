@@ -19,6 +19,7 @@ type MeliGinGateway struct {
 	sellerService       model.ISellerService
 	productService      model.IProductService
 	findPurchaseService model.IFindPurchaseService
+	makePurchaseService model.IMakePurchaseService
 }
 
 func NewMeliAPIGateway(
@@ -27,6 +28,7 @@ func NewMeliAPIGateway(
 	sellerService services.SellerHttpSyncService,
 	productService services.ProductHttpSyncService,
 	findPurchaseService services.FindPurchaseHttpSyncService,
+	makePurchaseService services.MakePurchaseHttpSyncService,
 ) *MeliGinGateway {
 	return &MeliGinGateway{
 		port:                port,
@@ -34,6 +36,7 @@ func NewMeliAPIGateway(
 		sellerService:       sellerService,
 		productService:      productService,
 		findPurchaseService: findPurchaseService,
+		makePurchaseService: makePurchaseService,
 	}
 }
 
@@ -73,7 +76,7 @@ func (app MeliGinGateway) Run() error {
 
 	purchaseRoute := basePath.Group("/purchases")
 	// TODO: COMPRA DISTRIBUIDA, modelar el orquestador
-	//productRoute.POST("/products", handler.NewGinMakePurchase(app.events.MakePurchaseEvent).Execute)
+	productRoute.POST("/products", handler.NewGinMakePurchase(app.makePurchaseService).Execute)
 	purchaseRoute.GET("/products/:id", handler.NewGinFindPurchases(app.findPurchaseService).Execute)
 
 	return route.Run(fmt.Sprintf(":%d", app.port))

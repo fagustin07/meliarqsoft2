@@ -15,12 +15,15 @@ type Purchase struct {
 }
 
 type CreatePurchaseRequest struct {
-	IDProduct uuid.UUID `json:"id_product" bson:"id_product,omitempty"`
-	IDUser    uuid.UUID `json:"id_user" bson:"id_user,omitempty"`
+	IDProduct uuid.UUID `json:"product_id" bson:"id_product,omitempty"`
+	IDUser    uuid.UUID `json:"customer_id" bson:"id_user,omitempty"`
 	Units     int       `json:"units" bson:"units"`
-	Total     float32   `json:"total" bson:"total"`
 }
 
 type IFindPurchaseService interface {
 	Execute(productID uuid.UUID) ([]Purchase, error)
+}
+
+type IMakePurchaseService interface {
+	Execute(purchase CreatePurchaseRequest) (Purchase, error)
 }
