@@ -41,8 +41,6 @@ services:
     build:
       context: .
       dockerfile: make-purchase-orchestator/Dockerfile
-    ports:
-      - ${ORCHESTATOR_PORT}:${ORCHESTATOR_PORT}
     container_name: meli_purchase_orchestrator_service
     depends_on:
       - users-service

@@ -50,8 +50,20 @@ services:
     links:
       - mongo
     profiles: ["service"]
-  #  TODO purchase-orchestator:
-  #  TODO notifier-service: podria no ponerse ya que encolamos los mensajes en un rabbit de dev
+  purchases-orchestrator-service:
+    build:
+      context: .
+      dockerfile: make-purchase-orchestator/Dockerfile
+    container_name: meli_purchase_orchestrator_service
+    depends_on:
+      - users-service
+      - products-service
+      - purchases-service
+    links:
+      - products-service
+      - users-service
+      - purchases-service
+    profiles: ["service"]
   mongo:
     image: mongo
     ports:

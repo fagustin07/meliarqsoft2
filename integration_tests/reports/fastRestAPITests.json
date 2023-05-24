@@ -5,7 +5,7 @@
     },
     "item": [
       {
-        "id": "da002fce-3aae-4a21-b50a-4b15bf440d78",
+        "id": "dea1c7b6-bb5e-49b2-bb67-098717265fea",
         "name": "Iniciamos con un vendedor",
         "request": {
           "url": {
@@ -29,7 +29,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "4d033502-90e9-4f51-a817-f36937ffa940",
+              "id": "133dbca0-0e84-42c7-8ec9-2af3e059b7af",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
@@ -54,13 +54,13 @@
                 "",
                 "});"
               ],
-              "_lastExecutionId": "6e2e9737-0696-44a6-b904-a74211104245"
+              "_lastExecutionId": "f1724e0b-9208-4da9-9403-43d806956be7"
             }
           }
         ]
       },
       {
-        "id": "d876ed36-7bb1-450a-8b7c-66933ccc851d",
+        "id": "0e22113c-f005-4cca-8b77-c85b7a0d758f",
         "name": "Crear vendedor",
         "request": {
           "url": {
@@ -93,7 +93,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "7a5f3e69-a437-4f27-9b75-fcb349e2082a",
+              "id": "74a55747-352c-410d-8d4b-7b91fee0e72e",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 201 CREATED como respuesta positiva\", function () {",
@@ -105,13 +105,13 @@
                 "    pm.expect(response.seller_id).not.eql(null);",
                 "});"
               ],
-              "_lastExecutionId": "6dcbacfa-c6c8-4355-895b-603641e38813"
+              "_lastExecutionId": "23ebcf7c-15b3-42ae-b9c8-106305f7c4f3"
             }
           }
         ]
       },
       {
-        "id": "1459b026-520c-42a1-8eeb-bc194e4f3283",
+        "id": "b2dd0347-116e-40e4-b019-ca266d9f3c35",
         "name": "Obtener el vendedor creado buscado por nombre",
         "request": {
           "url": {
@@ -140,7 +140,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "98c19e1c-c1a2-4f46-bcd9-f714da71c5d1",
+              "id": "de513e88-0a18-4e25-9774-b877d5a86184",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -158,13 +158,13 @@
                 "",
                 "});"
               ],
-              "_lastExecutionId": "705e66cf-0de5-4621-af61-dc4b6a37cadf"
+              "_lastExecutionId": "f71ab021-c12e-437a-8b92-e4ea20916fef"
             }
           }
         ]
       },
       {
-        "id": "afd8dd60-c4f1-4b24-b6e8-57b9b838f27d",
+        "id": "c04c65b8-76bb-42cd-8db2-2e98b7596000",
         "name": "Editamos el vendedor del sistema",
         "request": {
           "url": {
@@ -198,7 +198,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "1d58a3fa-f92e-4772-8e1d-c406881c7827",
+              "id": "84fc6cca-b791-4806-aa61-fe53308bd431",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
@@ -206,13 +206,13 @@
                 "});",
                 ""
               ],
-              "_lastExecutionId": "6b12e9a8-199d-4211-b4c0-4a6b8f33f225"
+              "_lastExecutionId": "3b868c5e-017f-4397-896f-b18e3329eec1"
             }
           }
         ]
       },
       {
-        "id": "813d92fc-81a5-4ea4-9e38-2caaf926d6d6",
+        "id": "f018c0c6-2f19-4a6e-a298-d1f2ddfb98aa",
         "name": "Obtenemos al vendedor y tiene su nuevo informacion",
         "request": {
           "url": {
@@ -241,7 +241,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "bf077df6-c953-4f13-b9ec-1638fbee4625",
+              "id": "efb424ac-c5f1-47b7-b898-908284111d0e",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -259,13 +259,13 @@
                 "",
                 "});"
               ],
-              "_lastExecutionId": "e9feaba7-86eb-4888-b1db-c62cd4222aa4"
+              "_lastExecutionId": "2f6f6d3d-4100-424d-b020-615fc828aa00"
             }
           }
         ]
       },
       {
-        "id": "f2bbdf45-5fbe-4cf4-8e08-9acd494e4700",
+        "id": "4fef2f52-a41b-4718-ad34-5b45f88812e4",
         "name": "Contamos con dos vendedores en el sistema",
         "request": {
           "url": {
@@ -289,7 +289,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "3faa2247-5613-47b1-b1af-06b6dae30b8c",
+              "id": "efec999c-0655-4a49-9626-587fcdb49f11",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
@@ -304,13 +304,13 @@
                 "",
                 "});"
               ],
-              "_lastExecutionId": "32ae2c62-97c9-46c2-97eb-c85aad1918c7"
+              "_lastExecutionId": "854921b8-6ce9-478b-801a-0ecd38eefda9"
             }
           }
         ]
       },
       {
-        "id": "f871b420-fe32-4bff-a7ff-6c569739b790",
+        "id": "15d94237-8814-41ed-91a2-609bffae4a99",
         "name": "Iniciamos con un cliente",
         "request": {
           "url": {
@@ -334,7 +334,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "55d7ba31-8bf0-4428-93fd-11cf3e8fa817",
+              "id": "3b061b25-50ea-4c3e-81d5-e6edfe58940f",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
@@ -359,13 +359,13 @@
                 "    pm.expect(response[0].email).to.eql(\"cliente@prueba.com\");",
                 "});"
               ],
-              "_lastExecutionId": "2e1a463c-b50d-4773-8508-30d01df5fb41"
+              "_lastExecutionId": "d69eaa58-57ac-4e28-9232-5622215c2f3d"
             }
           }
         ]
       },
       {
-        "id": "f0b9f88c-8c34-4aa0-8be0-ee213467e85a",
+        "id": "1b0a7b9e-ecf6-48d6-9488-94f0dadf0fde",
         "name": "Crear cliente",
         "request": {
           "url": {
@@ -398,7 +398,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "056aa06b-60bc-46e5-ad62-0394c4213975",
+              "id": "778cb554-b664-4e72-a662-59541c576ba0",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 201 CREATED como respuesta positiva\", function () {",
@@ -411,13 +411,13 @@
                 "    pm.expect(response.customer_id).not.equal(null);",
                 "});"
               ],
-              "_lastExecutionId": "9862d31d-ab61-455c-97d3-38f3010a4f1c"
+              "_lastExecutionId": "38737d1b-904a-4f56-8102-df4a09c53122"
             }
           }
         ]
       },
       {
-        "id": "fe69d4cb-98e5-4566-b33e-cc1758e00edc",
+        "id": "49138225-4143-42c7-8819-97a42f7fc186",
         "name": "Obtener el cliente creado buscado por correo",
         "request": {
           "url": {
@@ -446,7 +446,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "171409d2-e190-4bd4-875c-20b3871591fd",
+              "id": "32f64964-f261-4670-92b8-a1511bb2aebd",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -464,13 +464,13 @@
                 "    pm.expect(response[0].email).to.eql(\"nuevocliente@gmail.com\");",
                 "});"
               ],
-              "_lastExecutionId": "c6604130-3ed1-45d9-97cd-32143c3c9213"
+              "_lastExecutionId": "bca3008a-97c0-4b9c-92e5-68dd2cae678a"
             }
           }
         ]
       },
       {
-        "id": "c082cebe-d79b-4eda-aa92-0aa72723740f",
+        "id": "f7b537c7-6631-4fb3-bffb-6b54c5325e22",
         "name": "Editamos el cliente del sistema",
         "request": {
           "url": {
@@ -504,7 +504,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "4d51b804-b9fb-4a1e-a111-9c26cfc6a7a5",
+              "id": "dd943927-47f9-4d92-a7b3-dda6489ffee0",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
@@ -512,13 +512,13 @@
                 "});",
                 ""
               ],
-              "_lastExecutionId": "f5bc10b2-9cce-4050-b898-e74e966194af"
+              "_lastExecutionId": "66fbd984-4186-4cb7-a832-174a46334b89"
             }
           }
         ]
       },
       {
-        "id": "e41b551d-ea62-4ebf-a7c4-d528eb1116fe",
+        "id": "db9164fd-f0a4-4edc-948b-50ef7a549cfe",
         "name": "Obtenemos al cliente y tiene su nueva informacion",
         "request": {
           "url": {
@@ -547,7 +547,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "f22e4c68-6105-4f27-984f-aee56b872aa5",
+              "id": "37115116-ea68-4e93-a567-993804be31cb",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -566,13 +566,13 @@
                 "",
                 "});"
               ],
-              "_lastExecutionId": "94b5e353-8f2b-48eb-9061-2d4b8a0f2016"
+              "_lastExecutionId": "c8b2057a-0250-4ce6-ae82-b64d6cdf0b00"
             }
           }
         ]
       },
       {
-        "id": "997473ce-a8bd-4674-9a4e-133bc442238b",
+        "id": "0c54f9a5-3369-4c30-bbc0-1657d398a2e6",
         "name": "Contamos con dos clientes en el sistema",
         "request": {
           "url": {
@@ -596,7 +596,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "1b035540-e6ff-4511-824c-dab224269845",
+              "id": "25427ef0-3781-4977-be01-4228ace3f23d",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
@@ -611,13 +611,13 @@
                 "",
                 "});"
               ],
-              "_lastExecutionId": "e23139c5-c7c1-45af-a30b-c70455e52afb"
+              "_lastExecutionId": "ea45cbe7-5ba9-4c9f-932c-e41855bc6705"
             }
           }
         ]
       },
       {
-        "id": "6d42a723-e57b-4fe8-baaa-af115cee9fa7",
+        "id": "200757cd-dc19-486c-b706-3e05d5d4d1ff",
         "name": "Iniciamos con un producto",
         "request": {
           "url": {
@@ -641,7 +641,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "28e2c43c-2943-4d38-b50e-1942e4fc319a",
+              "id": "5fbef1db-5105-46a5-a2dc-b7e1ae290ae1",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
@@ -669,13 +669,13 @@
                 "    pm.expect(response[0].id_seller).to.eql(expectedId);",
                 "});"
               ],
-              "_lastExecutionId": "53d47368-ea7a-42d0-80b0-742dc4be8a8a"
+              "_lastExecutionId": "527afa94-4490-407e-bae2-272052cf5e66"
             }
           }
         ]
       },
       {
-        "id": "8c82060e-18af-4e3f-9e6a-a554b06e30ec",
+        "id": "93f5bc49-46ed-431b-9b75-ef37bf8706f8",
         "name": "Creamos un producto",
         "request": {
           "url": {
@@ -708,7 +708,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "7460266d-e164-4ebe-8062-156db093e6ec",
+              "id": "c9b0a323-57c3-4cbb-9d14-bd108b95ca2c",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 201 CREATED como respuesta positiva\", function () {",
@@ -721,13 +721,13 @@
                 "    pm.expect(response.product_id).not.eql(null);",
                 "});"
               ],
-              "_lastExecutionId": "3c8306c3-5cfa-44d3-9eb8-05deb4b54492"
+              "_lastExecutionId": "ca41b2ee-e6d4-4f2b-8ba7-b14768334b8d"
             }
           }
         ]
       },
       {
-        "id": "5ed08cb3-1b7a-4e8b-918a-81d101a25b4b",
+        "id": "f40e1ee4-6963-4238-a72c-5cc46b83c787",
         "name": "Obtenemos el producto por nombre y categoria",
         "request": {
           "url": {
@@ -760,7 +760,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "d8ea5d66-bf38-42d5-94f4-1be368ab08c0",
+              "id": "bb218e0c-d338-4be2-bf11-f281633c3eb7",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -788,13 +788,13 @@
                 "    pm.expect(response[0].id_seller).to.eql(expectedId);",
                 "});"
               ],
-              "_lastExecutionId": "f97113c9-79fe-481e-bc47-ed7fd56ec3e7"
+              "_lastExecutionId": "74e46eb5-e1f4-447c-8881-1cccaf614525"
             }
           }
         ]
       },
       {
-        "id": "7556ead4-087b-4fd3-af6e-65fcd5f09c16",
+        "id": "2f0fa292-1f54-418e-a05d-2a6b4db50f36",
         "name": "Filtramos el producto por rango de precio",
         "request": {
           "url": {
@@ -828,7 +828,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "f9fd78ef-2537-4625-927f-127b12f6c54c",
+              "id": "21db15b1-4d87-4113-af9b-d6785f34e89d",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -857,13 +857,13 @@
                 "    pm.expect(response[0].id_seller).to.eql(expectedId);",
                 "});"
               ],
-              "_lastExecutionId": "7de45dc2-37b4-4797-8b53-7093965e3339"
+              "_lastExecutionId": "1319f5db-25fa-4c69-aa09-84e8325c1622"
             }
           }
         ]
       },
       {
-        "id": "629b0709-0019-47dd-aaa8-46593822ea16",
+        "id": "963b4254-dd04-4cc6-b9b7-badd2369e03d",
         "name": "Editamos el producto del sistema",
         "request": {
           "url": {
@@ -897,7 +897,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "10acae22-9c06-4fab-bddf-88dd0ecb0c59",
+              "id": "c82730df-2ebb-4c67-8ec3-965d2d2f3986",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
@@ -905,13 +905,13 @@
                 "});",
                 ""
               ],
-              "_lastExecutionId": "9d8746a8-8853-4200-8377-ba3a22df0ba6"
+              "_lastExecutionId": "e47ddf25-d162-42f9-8230-b3940016ddf2"
             }
           }
         ]
       },
       {
-        "id": "3cc44c82-d897-4a9e-973e-cbe9f9ab733f",
+        "id": "fceb0fb9-f334-4a96-b2ef-9aa0f139f458",
         "name": "Obtenemos al producto y tiene su nueva informacion",
         "request": {
           "url": {
@@ -944,7 +944,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "9bfa12de-ca16-49fe-921c-da7d86433cb4",
+              "id": "104aaf27-b68b-443d-b8cc-06e11a051360",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -967,13 +967,13 @@
                 "",
                 "});"
               ],
-              "_lastExecutionId": "4a95742b-e051-4215-9183-82402ab5c3c8"
+              "_lastExecutionId": "bb922dfa-0f8e-4400-b2fb-3b6a90ba971b"
             }
           }
         ]
       },
       {
-        "id": "d2390a37-7779-4fa6-b212-e7c24ae54661",
+        "id": "a8f7e2dc-593d-4333-93c9-f42df49cb8bf",
         "name": "Contamos con dos productos en el sistema",
         "request": {
           "url": {
@@ -997,7 +997,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "807f6aed-f5a8-416e-9437-9333f491d4d5",
+              "id": "5fbf41ce-2213-4698-9c7a-f8bed886c850",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
@@ -1012,13 +1012,122 @@
                 "",
                 "});"
               ],
-              "_lastExecutionId": "96d16caf-29ec-4d38-bc2a-ae492d2dbc0d"
+              "_lastExecutionId": "8b0d2dd4-5ce1-4e7e-a240-4ccd4ceea70b"
             }
           }
         ]
       },
       {
-        "id": "9b2bf701-3fba-41ac-8693-762c0b0ce951",
+        "id": "9bbe9463-8ec3-495c-840d-e4f885392d03",
+        "name": "Realizamos una compra",
+        "request": {
+          "url": {
+            "protocol": "{{PROTOCOL}}",
+            "port": "{{PORT}}",
+            "path": [
+              "api",
+              "v1",
+              "purchases",
+              "products"
+            ],
+            "host": [
+              "{{HOST}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"customer_id\": \"9d032089-9223-4c98-9196-f97c6f792473\",\n  \"product_id\": \"9d032089-9223-4c98-9196-f97c6f792473\",\n  \"units\": 5\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "4bdba50e-f8c0-4899-a099-a1a1db791479",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test(\"Se retorna un 201 CREATED como respuesta positiva\", function () {",
+                "    pm.response.to.have.status(201);",
+                "});",
+                "",
+                "pm.test(\"Al realizar una compra obtenemos la informacion resultante de la misma\", function () {",
+                "    var response = pm.response.json();",
+                "    var expectedId = environment[\"GLOBAL_ID\"];",
+                "",
+                "    pm.expect(response.id).not.eql(null);",
+                "    pm.expect(response.id_product).eql(expectedId);",
+                "    pm.expect(response.id_user).eql(expectedId);",
+                "    pm.expect(response.units).eql(5);",
+                "    pm.expect(response.total).eql(3000*5);",
+                "});"
+              ],
+              "_lastExecutionId": "cfc1b582-5360-4267-9fad-5231175df3bb"
+            }
+          }
+        ]
+      },
+      {
+        "id": "0c5cd90b-8136-41ce-b3b3-d62c5a18819f",
+        "name": "Obtenemos las compras de un producto",
+        "request": {
+          "url": {
+            "protocol": "{{PROTOCOL}}",
+            "port": "{{PORT}}",
+            "path": [
+              "api",
+              "v1",
+              "purchases",
+              "products",
+              "{{GLOBAL_ID}}"
+            ],
+            "host": [
+              "{{HOST}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "c164aba3-497f-41da-a14e-a5278a42b50a",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test(\"Se retorna un 200 OK\", function () {",
+                "    pm.response.to.have.status(200);",
+                "});",
+                "",
+                "pm.test(\"Obtenemos las compras realizadas sobre un producto especifico, y es la compra que acabamos de realizar\", function () {",
+                "    var response = pm.response.json();",
+                "    var expectedId = environment[\"GLOBAL_ID\"];",
+                "",
+                "    pm.expect(response).to.be.an(\"array\");",
+                "    pm.expect(response.length).to.eql(1);",
+                "    pm.expect(response[0].id_product).eql(expectedId);",
+                "    pm.expect(response[0].id_user).eql(expectedId);",
+                "    pm.expect(response[0].units).eql(5);",
+                "    pm.expect(response[0].total).eql(3000*5);",
+                "});"
+              ],
+              "_lastExecutionId": "26fe0443-b420-4585-84c2-71c8f0a4bbbd"
+            }
+          }
+        ]
+      },
+      {
+        "id": "6d15fbeb-2d9d-4d99-b0aa-c51910c9b713",
         "name": "Eliminamos el cliente del seed",
         "request": {
           "url": {
@@ -1043,7 +1152,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "0c702176-4a20-46c9-a6be-1ff2f17dc451",
+              "id": "7110b0ac-caa2-4efb-a85f-fe6a779138e2",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
@@ -1051,13 +1160,13 @@
                 "});",
                 ""
               ],
-              "_lastExecutionId": "b48e7c85-4053-44ca-93f2-2cbd930a7ef1"
+              "_lastExecutionId": "d89474b4-c851-414f-a263-df669c26f450"
             }
           }
         ]
       },
       {
-        "id": "3a6f55f1-6dc1-4dba-b77f-42cd9a9708d1",
+        "id": "d5ee1457-2825-4f3c-845c-2e8048a1d165",
         "name": "Eliminamos el vendedor del seed",
         "request": {
           "url": {
@@ -1082,7 +1191,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "aa4bf991-4d4f-4033-9025-5e6e03aa3d5e",
+              "id": "916b75af-f0a9-4aa2-bbba-0eb165159652",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
@@ -1090,13 +1199,13 @@
                 "});",
                 ""
               ],
-              "_lastExecutionId": "3c4def1f-38a2-4e16-be36-df9847ff1b79"
+              "_lastExecutionId": "65f46620-c710-4422-a4ec-3a13ad732c41"
             }
           }
         ]
       },
       {
-        "id": "e1b4e591-df54-4d91-83a6-1c7ffbd21112",
+        "id": "0d9530d0-fae7-4502-bb56-2efcade11da2",
         "name": "Intentamos obtener el cliente pero ya no existe",
         "request": {
           "url": {
@@ -1125,7 +1234,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "5942bc22-9028-4191-9619-f83918de6cd6",
+              "id": "45cc7436-89a8-4ac0-b66b-c4cdfe65ae5b",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -1138,13 +1247,13 @@
                 "    pm.expect(response).to.be.null",
                 "});"
               ],
-              "_lastExecutionId": "efea078e-7ca1-4e89-9314-97b7d8992755"
+              "_lastExecutionId": "7f6ff4a9-1d90-44f0-a2dc-05608075c7ca"
             }
           }
         ]
       },
       {
-        "id": "4324fd16-a01d-4f7d-ba57-b98427219b72",
+        "id": "f065c139-f284-4948-ad5b-1ab2f4837d95",
         "name": "Intentamos obtener al vendedor pero ya no existe",
         "request": {
           "url": {
@@ -1173,7 +1282,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "d673f0f0-fc43-45eb-a862-ed0a57610866",
+              "id": "dad80777-9070-4eb7-9734-5e8f22a41599",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -1186,13 +1295,13 @@
                 "    pm.expect(response).to.be.null",
                 "});"
               ],
-              "_lastExecutionId": "e124f84d-db10-41f3-bf45-7f1615640038"
+              "_lastExecutionId": "f9bf4b55-7143-4557-b503-d4130d4cbd31"
             }
           }
         ]
       },
       {
-        "id": "68b39a4d-5209-4a80-9ac2-1cc645137f35",
+        "id": "2b0085e0-71d7-477f-94ae-8c3f988c2e4d",
         "name": "Intentamos obtener los productos pero ya no existen al haber eliminado al vendedor duenio de los mismos",
         "request": {
           "url": {
@@ -1216,7 +1325,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "8ca1d460-ecae-40cf-8eec-9cb99cba9153",
+              "id": "820950ab-f5a9-48c5-9259-68eaca21390d",
               "type": "text/javascript",
               "exec": [
                 "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -1229,7 +1338,52 @@
                 "    pm.expect(response).to.be.null",
                 "});"
               ],
-              "_lastExecutionId": "f2c2953f-a86e-4f5b-8adf-1b0db86febbe"
+              "_lastExecutionId": "25b75f92-633b-4070-bc99-99498b83abe9"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fed7a393-d376-447c-9868-9a76e922e8bc",
+        "name": "Intentamos obtener las compras de un producto",
+        "request": {
+          "url": {
+            "protocol": "{{PROTOCOL}}",
+            "port": "{{PORT}}",
+            "path": [
+              "api",
+              "v1",
+              "purchases",
+              "products",
+              "{{GLOBAL_ID}}"
+            ],
+            "host": [
+              "{{HOST}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "ab98480c-e2d6-4ac8-8cee-4ac0e1eb7734",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test(\"Se retorna un 200 OK\", function () {",
+                "    pm.response.to.have.status(200);",
+                "});",
+                "",
+                "pm.test(\"Al intentar obtener las compras de un producto que fue eliminado no hay ya no hay informacion de la misma\", function () {",
+                "    var response = pm.response.json();",
+                "",
+                "    pm.expect(response).to.be.null",
+                "});"
+              ],
+              "_lastExecutionId": "656bbede-1002-4de1-845e-df338ea36ccc"
             }
           }
         ]
@@ -1275,7 +1429,7 @@
     ]
   },
   "globals": {
-    "id": "0863bc14-9779-4ae7-a55e-79c0e6fcfdbb",
+    "id": "763b27d6-61f5-48a9-becf-75e1c7ca6157",
     "values": []
   },
   "run": {
@@ -1286,37 +1440,37 @@
         "failed": 0
       },
       "items": {
-        "total": 24,
+        "total": 27,
         "pending": 0,
         "failed": 0
       },
       "scripts": {
-        "total": 24,
+        "total": 27,
         "pending": 0,
         "failed": 0
       },
       "prerequests": {
-        "total": 24,
+        "total": 27,
         "pending": 0,
         "failed": 0
       },
       "requests": {
-        "total": 24,
+        "total": 27,
         "pending": 0,
         "failed": 0
       },
       "tests": {
-        "total": 24,
+        "total": 27,
         "pending": 0,
         "failed": 0
       },
       "assertions": {
-        "total": 48,
+        "total": 54,
         "pending": 0,
         "failed": 0
       },
       "testScripts": {
-        "total": 24,
+        "total": 27,
         "pending": 0,
         "failed": 0
       },
@@ -1327,10 +1481,10 @@
       }
     },
     "timings": {
-      "responseAverage": 15.749999999999995,
-      "responseMin": 7,
-      "responseMax": 112,
-      "responseSd": 20.851159040526582,
+      "responseAverage": 12.592592592592593,
+      "responseMin": 4,
+      "responseMax": 88,
+      "responseSd": 20.87042788121821,
       "dnsAverage": 0,
       "dnsMin": 0,
       "dnsMax": 0,
@@ -1339,25 +1493,25 @@
       "firstByteMin": 0,
       "firstByteMax": 0,
       "firstByteSd": 0,
-      "started": 1684889562895,
-      "completed": 1684889563948
+      "started": 1684902035590,
+      "completed": 1684902036453
     },
     "executions": [
       {
         "cursor": {
           "position": 0,
           "iteration": 0,
-          "length": 24,
+          "length": 27,
           "cycles": 1,
           "empty": false,
           "eof": false,
           "bof": true,
           "cr": false,
-          "ref": "a850effc-6c9b-4a36-bb5a-100db69330aa",
-          "httpRequestId": "6b9de6af-36f7-423a-b674-47f2921ea8a3"
+          "ref": "599f847d-2b02-4f90-b99c-44548bfbe9d1",
+          "httpRequestId": "d7774aa8-7961-41f5-9b4c-0beb11a7d6fd"
         },
         "item": {
-          "id": "da002fce-3aae-4a21-b50a-4b15bf440d78",
+          "id": "dea1c7b6-bb5e-49b2-bb67-098717265fea",
           "name": "Iniciamos con un vendedor",
           "request": {
             "url": {
@@ -1381,7 +1535,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "4d033502-90e9-4f51-a817-f36937ffa940",
+                "id": "133dbca0-0e84-42c7-8ec9-2af3e059b7af",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
@@ -1406,7 +1560,7 @@
                   "",
                   "});"
                 ],
-                "_lastExecutionId": "6e2e9737-0696-44a6-b904-a74211104245"
+                "_lastExecutionId": "f1724e0b-9208-4da9-9403-43d806956be7"
               }
             }
           ]
@@ -1444,7 +1598,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "d5779213-8963-43af-bae3-901754a297c3",
+              "value": "8ad4a871-47d2-45f7-894d-0c3cae995ebc",
               "system": true
             },
             {
@@ -1466,7 +1620,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "5a656739-d7d8-4190-9cc6-bd6b19397c93",
+          "id": "0d4f1b22-dffc-46b8-89e9-e9684e9125c0",
           "status": "OK",
           "code": 200,
           "header": [
@@ -1476,7 +1630,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             },
             {
               "key": "Content-Length",
@@ -1604,10 +1758,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 112,
+          "responseTime": 83,
           "responseSize": 115
         },
-        "id": "da002fce-3aae-4a21-b50a-4b15bf440d78",
+        "id": "dea1c7b6-bb5e-49b2-bb67-098717265fea",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK como respuesta positiva",
@@ -1625,15 +1779,15 @@
       },
       {
         "cursor": {
-          "ref": "9d00b2e8-f022-4a44-ab88-dcafb0517f24",
-          "length": 24,
+          "ref": "0ab6007a-3d72-4832-a4a7-8e0836b01069",
+          "length": 27,
           "cycles": 1,
           "position": 1,
           "iteration": 0,
-          "httpRequestId": "58f36821-47ec-43fe-9032-263dfbbedca3"
+          "httpRequestId": "323171a4-8b36-4fc6-a8e3-149d0706f102"
         },
         "item": {
-          "id": "d876ed36-7bb1-450a-8b7c-66933ccc851d",
+          "id": "0e22113c-f005-4cca-8b77-c85b7a0d758f",
           "name": "Crear vendedor",
           "request": {
             "url": {
@@ -1666,7 +1820,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "7a5f3e69-a437-4f27-9b75-fcb349e2082a",
+                "id": "74a55747-352c-410d-8d4b-7b91fee0e72e",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 201 CREATED como respuesta positiva\", function () {",
@@ -1678,7 +1832,7 @@
                   "    pm.expect(response.seller_id).not.eql(null);",
                   "});"
                 ],
-                "_lastExecutionId": "6dcbacfa-c6c8-4355-895b-603641e38813"
+                "_lastExecutionId": "23ebcf7c-15b3-42ae-b9c8-106305f7c4f3"
               }
             }
           ]
@@ -1721,7 +1875,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "517bb0eb-26bf-4c7b-8c48-1247ae10bc27",
+              "value": "dff03bdb-f376-4ba1-8448-93c3460085ed",
               "system": true
             },
             {
@@ -1757,7 +1911,7 @@
           }
         },
         "response": {
-          "id": "86a39cf0-33ba-450d-a875-cf602becc84b",
+          "id": "81fe163f-cbf7-448e-9996-c7ed998b572c",
           "status": "Created",
           "code": 201,
           "header": [
@@ -1767,7 +1921,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             },
             {
               "key": "Content-Length",
@@ -1791,19 +1945,19 @@
               34,
               58,
               34,
-              52,
-              97,
-              55,
               53,
-              48,
               52,
+              98,
               56,
+              53,
+              52,
               57,
+              49,
               45,
               102,
               57,
-              99,
-              100,
+              101,
+              97,
               45,
               49,
               49,
@@ -1811,9 +1965,9 @@
               100,
               45,
               57,
-              55,
-              54,
               48,
+              51,
+              101,
               45,
               48,
               50,
@@ -1823,7 +1977,7 @@
               48,
               97,
               56,
-              57,
+              101,
               48,
               48,
               51,
@@ -1832,10 +1986,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 20,
+          "responseTime": 18,
           "responseSize": 52
         },
-        "id": "d876ed36-7bb1-450a-8b7c-66933ccc851d",
+        "id": "0e22113c-f005-4cca-8b77-c85b7a0d758f",
         "assertions": [
           {
             "assertion": "Se retorna un 201 CREATED como respuesta positiva",
@@ -1849,15 +2003,15 @@
       },
       {
         "cursor": {
-          "ref": "87d61b73-1eec-49dc-92c1-a238d9bdab63",
-          "length": 24,
+          "ref": "c38b4f3d-5c75-4a36-9374-259b3156e480",
+          "length": 27,
           "cycles": 1,
           "position": 2,
           "iteration": 0,
-          "httpRequestId": "5e361a7a-2fe1-4599-b50d-742dda1d0515"
+          "httpRequestId": "ab5653fb-263d-4803-b133-e788cc8eaa8d"
         },
         "item": {
-          "id": "1459b026-520c-42a1-8eeb-bc194e4f3283",
+          "id": "b2dd0347-116e-40e4-b019-ca266d9f3c35",
           "name": "Obtener el vendedor creado buscado por nombre",
           "request": {
             "url": {
@@ -1886,7 +2040,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "98c19e1c-c1a2-4f46-bcd9-f714da71c5d1",
+                "id": "de513e88-0a18-4e25-9774-b877d5a86184",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -1904,7 +2058,7 @@
                   "",
                   "});"
                 ],
-                "_lastExecutionId": "705e66cf-0de5-4621-af61-dc4b6a37cadf"
+                "_lastExecutionId": "f71ab021-c12e-437a-8b92-e4ea20916fef"
               }
             }
           ]
@@ -1947,7 +2101,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "bb468cbb-2be4-4c88-92e0-6946394c2211",
+              "value": "3f04dd27-7957-4f2a-93ba-24281bdda895",
               "system": true
             },
             {
@@ -1969,7 +2123,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "12ee2c3d-00e0-4423-9537-f8393e3ec405",
+          "id": "30c5dae2-8842-4337-aa8f-89f826add5e4",
           "status": "OK",
           "code": 200,
           "header": [
@@ -1979,7 +2133,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             },
             {
               "key": "Content-Length",
@@ -2004,19 +2158,19 @@
               34,
               58,
               34,
-              52,
-              97,
-              55,
               53,
-              48,
               52,
+              98,
               56,
+              53,
+              52,
               57,
+              49,
               45,
               102,
               57,
-              99,
-              100,
+              101,
+              97,
               45,
               49,
               49,
@@ -2024,9 +2178,9 @@
               100,
               45,
               57,
-              55,
-              54,
               48,
+              51,
+              101,
               45,
               48,
               50,
@@ -2036,7 +2190,7 @@
               48,
               97,
               56,
-              57,
+              101,
               48,
               48,
               51,
@@ -2122,10 +2276,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 8,
+          "responseTime": 6,
           "responseSize": 130
         },
-        "id": "1459b026-520c-42a1-8eeb-bc194e4f3283",
+        "id": "b2dd0347-116e-40e4-b019-ca266d9f3c35",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK",
@@ -2139,15 +2293,15 @@
       },
       {
         "cursor": {
-          "ref": "475d3f29-2ccf-4932-873d-3c635bf5a0b0",
-          "length": 24,
+          "ref": "4e01757d-7e69-4564-85fa-7e35b2928699",
+          "length": 27,
           "cycles": 1,
           "position": 3,
           "iteration": 0,
-          "httpRequestId": "1564be2c-11e3-496f-8504-636a092a1a41"
+          "httpRequestId": "eb07b911-e2af-42a1-83e9-b9df6417292e"
         },
         "item": {
-          "id": "afd8dd60-c4f1-4b24-b6e8-57b9b838f27d",
+          "id": "c04c65b8-76bb-42cd-8db2-2e98b7596000",
           "name": "Editamos el vendedor del sistema",
           "request": {
             "url": {
@@ -2181,7 +2335,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "1d58a3fa-f92e-4772-8e1d-c406881c7827",
+                "id": "84fc6cca-b791-4806-aa61-fe53308bd431",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
@@ -2189,7 +2343,7 @@
                   "});",
                   ""
                 ],
-                "_lastExecutionId": "6b12e9a8-199d-4211-b4c0-4a6b8f33f225"
+                "_lastExecutionId": "3b868c5e-017f-4397-896f-b18e3329eec1"
               }
             }
           ]
@@ -2233,7 +2387,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "350da423-a492-430d-b23d-584c3af67510",
+              "value": "8f527f16-1f1b-408f-8609-1da4391f14b0",
               "system": true
             },
             {
@@ -2269,13 +2423,13 @@
           }
         },
         "response": {
-          "id": "e23a76ab-7c78-4eae-a01c-caa751e6ac42",
+          "id": "c8588536-6481-4ab7-bb91-7b5961eeab3e",
           "status": "No Content",
           "code": 204,
           "header": [
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             }
           ],
           "stream": {
@@ -2283,10 +2437,10 @@
             "data": []
           },
           "cookie": [],
-          "responseTime": 13,
+          "responseTime": 7,
           "responseSize": 0
         },
-        "id": "afd8dd60-c4f1-4b24-b6e8-57b9b838f27d",
+        "id": "c04c65b8-76bb-42cd-8db2-2e98b7596000",
         "assertions": [
           {
             "assertion": "Se retorna un 204 NO CONTENT como respuesta positiva",
@@ -2296,15 +2450,15 @@
       },
       {
         "cursor": {
-          "ref": "72042160-5df3-454f-b8c3-6e2547955b71",
-          "length": 24,
+          "ref": "dfd3f7d4-a76f-42ce-9d34-e1978b3444a8",
+          "length": 27,
           "cycles": 1,
           "position": 4,
           "iteration": 0,
-          "httpRequestId": "be0367e6-befc-4011-a9af-1a0911fb1b19"
+          "httpRequestId": "8f1e4889-5ee7-4cab-b8ce-89b941e0546e"
         },
         "item": {
-          "id": "813d92fc-81a5-4ea4-9e38-2caaf926d6d6",
+          "id": "f018c0c6-2f19-4a6e-a298-d1f2ddfb98aa",
           "name": "Obtenemos al vendedor y tiene su nuevo informacion",
           "request": {
             "url": {
@@ -2333,7 +2487,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "bf077df6-c953-4f13-b9ec-1638fbee4625",
+                "id": "efb424ac-c5f1-47b7-b898-908284111d0e",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -2351,7 +2505,7 @@
                   "",
                   "});"
                 ],
-                "_lastExecutionId": "e9feaba7-86eb-4888-b1db-c62cd4222aa4"
+                "_lastExecutionId": "2f6f6d3d-4100-424d-b020-615fc828aa00"
               }
             }
           ]
@@ -2394,7 +2548,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "072b5e58-1480-404c-821f-eb2813b54657",
+              "value": "ae02670a-e1f5-4174-b1a1-403790c62601",
               "system": true
             },
             {
@@ -2416,7 +2570,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "87bf4c7c-ed39-4b53-8870-3367848cd5fe",
+          "id": "f9d8e791-1f84-42e9-b295-183a1088fa2d",
           "status": "OK",
           "code": 200,
           "header": [
@@ -2426,7 +2580,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             },
             {
               "key": "Content-Length",
@@ -2567,10 +2721,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 12,
+          "responseTime": 6,
           "responseSize": 128
         },
-        "id": "813d92fc-81a5-4ea4-9e38-2caaf926d6d6",
+        "id": "f018c0c6-2f19-4a6e-a298-d1f2ddfb98aa",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK",
@@ -2584,15 +2738,15 @@
       },
       {
         "cursor": {
-          "ref": "5bba57f6-fdb2-49be-8215-55c384fb67c3",
-          "length": 24,
+          "ref": "ac7ad1d4-eab2-4711-811b-7f3571e938b9",
+          "length": 27,
           "cycles": 1,
           "position": 5,
           "iteration": 0,
-          "httpRequestId": "8a1de6ea-e4dc-4869-9d01-42bedc3df25d"
+          "httpRequestId": "638e464e-f9f2-4ce9-9ae8-eb15fb875a63"
         },
         "item": {
-          "id": "f2bbdf45-5fbe-4cf4-8e08-9acd494e4700",
+          "id": "4fef2f52-a41b-4718-ad34-5b45f88812e4",
           "name": "Contamos con dos vendedores en el sistema",
           "request": {
             "url": {
@@ -2616,7 +2770,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "3faa2247-5613-47b1-b1af-06b6dae30b8c",
+                "id": "efec999c-0655-4a49-9626-587fcdb49f11",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
@@ -2631,7 +2785,7 @@
                   "",
                   "});"
                 ],
-                "_lastExecutionId": "32ae2c62-97c9-46c2-97eb-c85aad1918c7"
+                "_lastExecutionId": "854921b8-6ce9-478b-801a-0ecd38eefda9"
               }
             }
           ]
@@ -2669,7 +2823,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "3cdf1924-e249-418a-89b8-425155a09b9e",
+              "value": "6831b645-c899-4e00-aa93-b18262e9aaad",
               "system": true
             },
             {
@@ -2691,7 +2845,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "57cb4885-73f0-411d-9a84-6800ab417683",
+          "id": "0cf7b13a-8f55-49e8-b588-b6ab3e0ea9b4",
           "status": "OK",
           "code": 200,
           "header": [
@@ -2701,7 +2855,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             },
             {
               "key": "Content-Length",
@@ -2726,19 +2880,19 @@
               34,
               58,
               34,
-              52,
-              97,
-              55,
               53,
-              48,
               52,
+              98,
               56,
+              53,
+              52,
               57,
+              49,
               45,
               102,
               57,
-              99,
-              100,
+              101,
+              97,
               45,
               49,
               49,
@@ -2746,9 +2900,9 @@
               100,
               45,
               57,
-              55,
-              54,
               48,
+              51,
+              101,
               45,
               48,
               50,
@@ -2758,7 +2912,7 @@
               48,
               97,
               56,
-              57,
+              101,
               48,
               48,
               51,
@@ -2971,10 +3125,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 7,
+          "responseTime": 4,
           "responseSize": 257
         },
-        "id": "f2bbdf45-5fbe-4cf4-8e08-9acd494e4700",
+        "id": "4fef2f52-a41b-4718-ad34-5b45f88812e4",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK como respuesta positiva",
@@ -2988,15 +3142,15 @@
       },
       {
         "cursor": {
-          "ref": "eed78587-1d87-4eb2-9422-e8b3d157720c",
-          "length": 24,
+          "ref": "ec87105e-3603-4c4c-a024-5af58d1e8565",
+          "length": 27,
           "cycles": 1,
           "position": 6,
           "iteration": 0,
-          "httpRequestId": "b7ddd626-a573-4694-b92e-442fdcc45de0"
+          "httpRequestId": "00357381-0010-47fe-a5ff-c6917bf0649b"
         },
         "item": {
-          "id": "f871b420-fe32-4bff-a7ff-6c569739b790",
+          "id": "15d94237-8814-41ed-91a2-609bffae4a99",
           "name": "Iniciamos con un cliente",
           "request": {
             "url": {
@@ -3020,7 +3174,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "55d7ba31-8bf0-4428-93fd-11cf3e8fa817",
+                "id": "3b061b25-50ea-4c3e-81d5-e6edfe58940f",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
@@ -3045,7 +3199,7 @@
                   "    pm.expect(response[0].email).to.eql(\"cliente@prueba.com\");",
                   "});"
                 ],
-                "_lastExecutionId": "2e1a463c-b50d-4773-8508-30d01df5fb41"
+                "_lastExecutionId": "d69eaa58-57ac-4e28-9232-5622215c2f3d"
               }
             }
           ]
@@ -3083,7 +3237,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "e9dd3871-6f94-4243-82ba-bd5197e1aa38",
+              "value": "1a4c57bb-6294-4a3e-8178-c89935b01bf8",
               "system": true
             },
             {
@@ -3105,7 +3259,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "1ae9e3ad-aaff-438c-8063-56b28e1ae1be",
+          "id": "f01d17d7-04a7-4b4b-8c89-cdef7dc164fc",
           "status": "OK",
           "code": 200,
           "header": [
@@ -3115,7 +3269,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             },
             {
               "key": "Content-Length",
@@ -3248,10 +3402,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 10,
+          "responseTime": 5,
           "responseSize": 120
         },
-        "id": "f871b420-fe32-4bff-a7ff-6c569739b790",
+        "id": "15d94237-8814-41ed-91a2-609bffae4a99",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK como respuesta positiva",
@@ -3269,15 +3423,15 @@
       },
       {
         "cursor": {
-          "ref": "92347adb-6b7f-4648-b1a2-8c2cc3fb4a24",
-          "length": 24,
+          "ref": "6a156a3b-627d-4ada-b9d0-16a02bd82e25",
+          "length": 27,
           "cycles": 1,
           "position": 7,
           "iteration": 0,
-          "httpRequestId": "86c4a837-97ab-4a51-a3f7-57b35f04c5fe"
+          "httpRequestId": "acec2c40-c980-4552-89fb-a4b77f754e29"
         },
         "item": {
-          "id": "f0b9f88c-8c34-4aa0-8be0-ee213467e85a",
+          "id": "1b0a7b9e-ecf6-48d6-9488-94f0dadf0fde",
           "name": "Crear cliente",
           "request": {
             "url": {
@@ -3310,7 +3464,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "056aa06b-60bc-46e5-ad62-0394c4213975",
+                "id": "778cb554-b664-4e72-a662-59541c576ba0",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 201 CREATED como respuesta positiva\", function () {",
@@ -3323,7 +3477,7 @@
                   "    pm.expect(response.customer_id).not.equal(null);",
                   "});"
                 ],
-                "_lastExecutionId": "9862d31d-ab61-455c-97d3-38f3010a4f1c"
+                "_lastExecutionId": "38737d1b-904a-4f56-8102-df4a09c53122"
               }
             }
           ]
@@ -3366,7 +3520,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "15250bf3-deb5-4243-81ca-03a4a3ebfca5",
+              "value": "7823fedb-6618-4129-bf31-0643d61ca33d",
               "system": true
             },
             {
@@ -3402,7 +3556,7 @@
           }
         },
         "response": {
-          "id": "38f0d98d-127c-4fda-b6ec-03515a67dba1",
+          "id": "0f9a106b-43ef-4e20-a942-92f9e626d63e",
           "status": "Created",
           "code": 201,
           "header": [
@@ -3412,7 +3566,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             },
             {
               "key": "Content-Length",
@@ -3438,19 +3592,19 @@
               34,
               58,
               34,
+              53,
               52,
-              97,
-              57,
-              57,
-              54,
+              99,
               101,
+              102,
+              102,
               97,
-              100,
+              53,
               45,
               102,
               57,
-              99,
-              100,
+              101,
+              97,
               45,
               49,
               49,
@@ -3458,9 +3612,9 @@
               100,
               45,
               57,
-              55,
-              54,
               48,
+              51,
+              101,
               45,
               48,
               50,
@@ -3470,7 +3624,7 @@
               48,
               97,
               56,
-              57,
+              101,
               48,
               48,
               51,
@@ -3479,10 +3633,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 9,
+          "responseTime": 5,
           "responseSize": 54
         },
-        "id": "f0b9f88c-8c34-4aa0-8be0-ee213467e85a",
+        "id": "1b0a7b9e-ecf6-48d6-9488-94f0dadf0fde",
         "assertions": [
           {
             "assertion": "Se retorna un 201 CREATED como respuesta positiva",
@@ -3496,15 +3650,15 @@
       },
       {
         "cursor": {
-          "ref": "56975a3a-356b-483b-b5a7-adf839d69309",
-          "length": 24,
+          "ref": "bbcd96be-52a3-4b0a-b0d1-1ea66797a0a2",
+          "length": 27,
           "cycles": 1,
           "position": 8,
           "iteration": 0,
-          "httpRequestId": "121f2e36-6b23-40cb-8b89-45a0d055f077"
+          "httpRequestId": "a8864470-717d-473b-8094-f3739d6eb25a"
         },
         "item": {
-          "id": "fe69d4cb-98e5-4566-b33e-cc1758e00edc",
+          "id": "49138225-4143-42c7-8819-97a42f7fc186",
           "name": "Obtener el cliente creado buscado por correo",
           "request": {
             "url": {
@@ -3533,7 +3687,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "171409d2-e190-4bd4-875c-20b3871591fd",
+                "id": "32f64964-f261-4670-92b8-a1511bb2aebd",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -3551,7 +3705,7 @@
                   "    pm.expect(response[0].email).to.eql(\"nuevocliente@gmail.com\");",
                   "});"
                 ],
-                "_lastExecutionId": "c6604130-3ed1-45d9-97cd-32143c3c9213"
+                "_lastExecutionId": "bca3008a-97c0-4b9c-92e5-68dd2cae678a"
               }
             }
           ]
@@ -3594,7 +3748,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "c9721522-6973-4ae2-946d-165d5ecf93c7",
+              "value": "7d42d539-5079-4bb9-aa88-2db2e0bcaa65",
               "system": true
             },
             {
@@ -3616,7 +3770,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "97db070a-e18f-4d79-935e-1a2ded7cde1d",
+          "id": "894d25eb-4508-48fc-a2ce-73a3ed96d112",
           "status": "OK",
           "code": 200,
           "header": [
@@ -3626,7 +3780,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             },
             {
               "key": "Content-Length",
@@ -3653,19 +3807,19 @@
               34,
               58,
               34,
+              53,
               52,
-              97,
-              57,
-              57,
-              54,
+              99,
               101,
+              102,
+              102,
               97,
-              100,
+              53,
               45,
               102,
               57,
-              99,
-              100,
+              101,
+              97,
               45,
               49,
               49,
@@ -3673,9 +3827,9 @@
               100,
               45,
               57,
-              55,
-              54,
               48,
+              51,
+              101,
               45,
               48,
               50,
@@ -3685,7 +3839,7 @@
               48,
               97,
               56,
-              57,
+              101,
               48,
               48,
               51,
@@ -3789,10 +3943,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 13,
+          "responseTime": 5,
           "responseSize": 150
         },
-        "id": "fe69d4cb-98e5-4566-b33e-cc1758e00edc",
+        "id": "49138225-4143-42c7-8819-97a42f7fc186",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK",
@@ -3806,15 +3960,15 @@
       },
       {
         "cursor": {
-          "ref": "1273a001-8bb7-41ae-b187-12669436144f",
-          "length": 24,
+          "ref": "61ec6642-e1df-432e-b1dc-18b04cc033b9",
+          "length": 27,
           "cycles": 1,
           "position": 9,
           "iteration": 0,
-          "httpRequestId": "b94c542e-29cd-4d8d-9c77-880579c241fc"
+          "httpRequestId": "d7535f4d-82c9-489f-97d0-b6a800931223"
         },
         "item": {
-          "id": "c082cebe-d79b-4eda-aa92-0aa72723740f",
+          "id": "f7b537c7-6631-4fb3-bffb-6b54c5325e22",
           "name": "Editamos el cliente del sistema",
           "request": {
             "url": {
@@ -3848,7 +4002,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "4d51b804-b9fb-4a1e-a111-9c26cfc6a7a5",
+                "id": "dd943927-47f9-4d92-a7b3-dda6489ffee0",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
@@ -3856,7 +4010,7 @@
                   "});",
                   ""
                 ],
-                "_lastExecutionId": "f5bc10b2-9cce-4050-b898-e74e966194af"
+                "_lastExecutionId": "66fbd984-4186-4cb7-a832-174a46334b89"
               }
             }
           ]
@@ -3900,7 +4054,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "09237abe-a2f0-4da3-9834-238b0e13008e",
+              "value": "5308c44b-c3f6-4cea-878a-ddb67cfef60e",
               "system": true
             },
             {
@@ -3936,13 +4090,13 @@
           }
         },
         "response": {
-          "id": "106f3611-1390-42d4-a578-15e0878e4ba4",
+          "id": "d550af48-e93c-437b-b319-c9f6b1cf32db",
           "status": "No Content",
           "code": 204,
           "header": [
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             }
           ],
           "stream": {
@@ -3950,10 +4104,10 @@
             "data": []
           },
           "cookie": [],
-          "responseTime": 11,
+          "responseTime": 6,
           "responseSize": 0
         },
-        "id": "c082cebe-d79b-4eda-aa92-0aa72723740f",
+        "id": "f7b537c7-6631-4fb3-bffb-6b54c5325e22",
         "assertions": [
           {
             "assertion": "Se retorna un 204 NO CONTENT como respuesta positiva",
@@ -3963,15 +4117,15 @@
       },
       {
         "cursor": {
-          "ref": "37fc0a90-9a02-4e5c-a7de-4cda3da80c41",
-          "length": 24,
+          "ref": "561d8267-c5fe-4f97-8573-aecf11e2ac19",
+          "length": 27,
           "cycles": 1,
           "position": 10,
           "iteration": 0,
-          "httpRequestId": "556ff7e9-01ed-4c38-a880-17146566deb3"
+          "httpRequestId": "e600a33a-76b8-4068-adff-5318fd0e0d8f"
         },
         "item": {
-          "id": "e41b551d-ea62-4ebf-a7c4-d528eb1116fe",
+          "id": "db9164fd-f0a4-4edc-948b-50ef7a549cfe",
           "name": "Obtenemos al cliente y tiene su nueva informacion",
           "request": {
             "url": {
@@ -4000,7 +4154,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "f22e4c68-6105-4f27-984f-aee56b872aa5",
+                "id": "37115116-ea68-4e93-a567-993804be31cb",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -4019,7 +4173,7 @@
                   "",
                   "});"
                 ],
-                "_lastExecutionId": "94b5e353-8f2b-48eb-9061-2d4b8a0f2016"
+                "_lastExecutionId": "c8b2057a-0250-4ce6-ae82-b64d6cdf0b00"
               }
             }
           ]
@@ -4062,7 +4216,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "658d259d-61ed-47e5-9b65-4129c43cee91",
+              "value": "15ec4d5f-b202-4da1-bc5d-c17b7053c3e1",
               "system": true
             },
             {
@@ -4084,7 +4238,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "620f4e8b-c26a-48b4-9b79-4d70463a6e81",
+          "id": "d717521a-2dc2-46e9-87b3-4974ad414605",
           "status": "OK",
           "code": 200,
           "header": [
@@ -4094,7 +4248,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             },
             {
               "key": "Content-Length",
@@ -4249,10 +4403,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 10,
+          "responseTime": 5,
           "responseSize": 142
         },
-        "id": "e41b551d-ea62-4ebf-a7c4-d528eb1116fe",
+        "id": "db9164fd-f0a4-4edc-948b-50ef7a549cfe",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK",
@@ -4266,15 +4420,15 @@
       },
       {
         "cursor": {
-          "ref": "f66e5446-6891-4f8a-95ef-d9a70ac096b9",
-          "length": 24,
+          "ref": "befb125a-086b-401a-8398-6561987973ef",
+          "length": 27,
           "cycles": 1,
           "position": 11,
           "iteration": 0,
-          "httpRequestId": "256e6df1-5211-4560-a40f-bd53364d8b5c"
+          "httpRequestId": "1ecf768e-010d-40be-8601-bc3c20aa61aa"
         },
         "item": {
-          "id": "997473ce-a8bd-4674-9a4e-133bc442238b",
+          "id": "0c54f9a5-3369-4c30-bbc0-1657d398a2e6",
           "name": "Contamos con dos clientes en el sistema",
           "request": {
             "url": {
@@ -4298,7 +4452,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "1b035540-e6ff-4511-824c-dab224269845",
+                "id": "25427ef0-3781-4977-be01-4228ace3f23d",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
@@ -4313,7 +4467,7 @@
                   "",
                   "});"
                 ],
-                "_lastExecutionId": "e23139c5-c7c1-45af-a30b-c70455e52afb"
+                "_lastExecutionId": "ea45cbe7-5ba9-4c9f-932c-e41855bc6705"
               }
             }
           ]
@@ -4351,7 +4505,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "2189000f-0ba4-4ba9-8aff-5df90fa0ef60",
+              "value": "f50dcc7a-4e50-4703-b23b-089c71fc7667",
               "system": true
             },
             {
@@ -4373,7 +4527,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "41fa2723-6bf2-448b-9b49-5d08e96bcf11",
+          "id": "d8a78df1-893f-43eb-ae85-c61cf47cc2d7",
           "status": "OK",
           "code": 200,
           "header": [
@@ -4383,7 +4537,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             },
             {
               "key": "Content-Length",
@@ -4551,19 +4705,19 @@
               34,
               58,
               34,
+              53,
               52,
-              97,
-              57,
-              57,
-              54,
+              99,
               101,
+              102,
+              102,
               97,
-              100,
+              53,
               45,
               102,
               57,
-              99,
-              100,
+              101,
+              97,
               45,
               49,
               49,
@@ -4571,9 +4725,9 @@
               100,
               45,
               57,
-              55,
-              54,
               48,
+              51,
+              101,
               45,
               48,
               50,
@@ -4583,7 +4737,7 @@
               48,
               97,
               56,
-              57,
+              101,
               48,
               48,
               51,
@@ -4687,10 +4841,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 10,
+          "responseTime": 4,
           "responseSize": 291
         },
-        "id": "997473ce-a8bd-4674-9a4e-133bc442238b",
+        "id": "0c54f9a5-3369-4c30-bbc0-1657d398a2e6",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK como respuesta positiva",
@@ -4704,15 +4858,15 @@
       },
       {
         "cursor": {
-          "ref": "17819fc9-c862-4bae-9518-0c323d67fef8",
-          "length": 24,
+          "ref": "d43df335-3c3f-43cb-9aa9-1cf0b35eda4d",
+          "length": 27,
           "cycles": 1,
           "position": 12,
           "iteration": 0,
-          "httpRequestId": "853aecfe-5abc-4456-afe3-d84c75a1dc58"
+          "httpRequestId": "aa0ac847-3858-436b-8275-409c9bfc02ba"
         },
         "item": {
-          "id": "6d42a723-e57b-4fe8-baaa-af115cee9fa7",
+          "id": "200757cd-dc19-486c-b706-3e05d5d4d1ff",
           "name": "Iniciamos con un producto",
           "request": {
             "url": {
@@ -4736,7 +4890,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "28e2c43c-2943-4d38-b50e-1942e4fc319a",
+                "id": "5fbef1db-5105-46a5-a2dc-b7e1ae290ae1",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
@@ -4764,7 +4918,7 @@
                   "    pm.expect(response[0].id_seller).to.eql(expectedId);",
                   "});"
                 ],
-                "_lastExecutionId": "53d47368-ea7a-42d0-80b0-742dc4be8a8a"
+                "_lastExecutionId": "527afa94-4490-407e-bae2-272052cf5e66"
               }
             }
           ]
@@ -4802,7 +4956,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "01661e6a-c39e-4263-9e6f-27cd6eb09b7c",
+              "value": "21ed8e9b-c756-410b-a42e-813e5dc84fa4",
               "system": true
             },
             {
@@ -4824,7 +4978,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "a2cb0694-f7fb-4ccd-8ae4-30b9ef64576c",
+          "id": "ef855aec-f5fc-4c34-a554-4413a9dafa76",
           "status": "OK",
           "code": 200,
           "header": [
@@ -4834,7 +4988,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:35 GMT"
             },
             {
               "key": "Content-Length",
@@ -5031,10 +5185,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 14,
+          "responseTime": 11,
           "responseSize": 184
         },
-        "id": "6d42a723-e57b-4fe8-baaa-af115cee9fa7",
+        "id": "200757cd-dc19-486c-b706-3e05d5d4d1ff",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK como respuesta positiva",
@@ -5052,15 +5206,15 @@
       },
       {
         "cursor": {
-          "ref": "9bbfb1c9-203a-4cf8-8cda-d3f329d17050",
-          "length": 24,
+          "ref": "4501f48c-f32d-4a93-ba17-d6cfb78894b1",
+          "length": 27,
           "cycles": 1,
           "position": 13,
           "iteration": 0,
-          "httpRequestId": "179713e3-e971-4242-8f08-5d0a06d1027b"
+          "httpRequestId": "e373f91c-df79-4446-a54f-cb7fcea6ff22"
         },
         "item": {
-          "id": "8c82060e-18af-4e3f-9e6a-a554b06e30ec",
+          "id": "93f5bc49-46ed-431b-9b75-ef37bf8706f8",
           "name": "Creamos un producto",
           "request": {
             "url": {
@@ -5093,7 +5247,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "7460266d-e164-4ebe-8062-156db093e6ec",
+                "id": "c9b0a323-57c3-4cbb-9d14-bd108b95ca2c",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 201 CREATED como respuesta positiva\", function () {",
@@ -5106,7 +5260,7 @@
                   "    pm.expect(response.product_id).not.eql(null);",
                   "});"
                 ],
-                "_lastExecutionId": "3c8306c3-5cfa-44d3-9eb8-05deb4b54492"
+                "_lastExecutionId": "ca41b2ee-e6d4-4f2b-8ba7-b14768334b8d"
               }
             }
           ]
@@ -5149,7 +5303,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "4ffa6472-bb65-4e9d-85ee-bdf7e535fe72",
+              "value": "e40adcdf-5146-4923-af8e-29008a3c9195",
               "system": true
             },
             {
@@ -5185,7 +5339,7 @@
           }
         },
         "response": {
-          "id": "e95ec018-11c6-44c4-aa52-e39854a50022",
+          "id": "5a28f577-a66a-482a-8c57-c96a97a70492",
           "status": "Created",
           "code": 201,
           "header": [
@@ -5195,7 +5349,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
             },
             {
               "key": "Content-Length",
@@ -5220,29 +5374,29 @@
               34,
               58,
               34,
+              53,
               52,
-              97,
-              98,
-              98,
-              50,
-              98,
-              97,
+              101,
+              53,
+              102,
+              54,
+              101,
               56,
               45,
               102,
               57,
-              99,
-              100,
+              101,
+              97,
               45,
               49,
               49,
               101,
               100,
               45,
-              98,
-              100,
-              55,
+              57,
+              51,
               53,
+              100,
               45,
               48,
               50,
@@ -5252,7 +5406,7 @@
               48,
               97,
               56,
-              57,
+              101,
               48,
               48,
               52,
@@ -5261,10 +5415,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 18,
+          "responseTime": 12,
           "responseSize": 53
         },
-        "id": "8c82060e-18af-4e3f-9e6a-a554b06e30ec",
+        "id": "93f5bc49-46ed-431b-9b75-ef37bf8706f8",
         "assertions": [
           {
             "assertion": "Se retorna un 201 CREATED como respuesta positiva",
@@ -5278,15 +5432,15 @@
       },
       {
         "cursor": {
-          "ref": "8632f19f-2fe3-4aee-baad-546e9260893d",
-          "length": 24,
+          "ref": "02f9bd0a-bded-401a-948f-2cd7f9ed4d73",
+          "length": 27,
           "cycles": 1,
           "position": 14,
           "iteration": 0,
-          "httpRequestId": "1d101dd3-04be-4ecd-8999-d83a2077c87e"
+          "httpRequestId": "1b7b56b1-bb11-4162-b5bb-137a1f7e8475"
         },
         "item": {
-          "id": "5ed08cb3-1b7a-4e8b-918a-81d101a25b4b",
+          "id": "f40e1ee4-6963-4238-a72c-5cc46b83c787",
           "name": "Obtenemos el producto por nombre y categoria",
           "request": {
             "url": {
@@ -5319,7 +5473,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "d8ea5d66-bf38-42d5-94f4-1be368ab08c0",
+                "id": "bb218e0c-d338-4be2-bf11-f281633c3eb7",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -5347,7 +5501,7 @@
                   "    pm.expect(response[0].id_seller).to.eql(expectedId);",
                   "});"
                 ],
-                "_lastExecutionId": "f97113c9-79fe-481e-bc47-ed7fd56ec3e7"
+                "_lastExecutionId": "74e46eb5-e1f4-447c-8881-1cccaf614525"
               }
             }
           ]
@@ -5394,7 +5548,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "c4875a35-1633-48ab-a820-b3b94d4fc48a",
+              "value": "75c74b31-ca67-41f7-b86f-0e39734a41c8",
               "system": true
             },
             {
@@ -5416,7 +5570,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "859e5e8c-2b8d-4477-aeaf-ee2b80b9796d",
+          "id": "721369f2-5ce8-414c-9f81-f79c0b7b4e33",
           "status": "OK",
           "code": 200,
           "header": [
@@ -5426,7 +5580,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
             },
             {
               "key": "Content-Length",
@@ -5444,29 +5598,29 @@
               34,
               58,
               34,
+              53,
               52,
-              97,
-              98,
-              98,
-              50,
-              98,
-              97,
+              101,
+              53,
+              102,
+              54,
+              101,
               56,
               45,
               102,
               57,
-              99,
-              100,
+              101,
+              97,
               45,
               49,
               49,
               101,
               100,
               45,
-              98,
-              100,
-              55,
+              57,
+              51,
               53,
+              100,
               45,
               48,
               50,
@@ -5476,7 +5630,7 @@
               48,
               97,
               56,
-              57,
+              101,
               48,
               48,
               52,
@@ -5626,10 +5780,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 8,
+          "responseTime": 5,
           "responseSize": 187
         },
-        "id": "5ed08cb3-1b7a-4e8b-918a-81d101a25b4b",
+        "id": "f40e1ee4-6963-4238-a72c-5cc46b83c787",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK",
@@ -5647,15 +5801,15 @@
       },
       {
         "cursor": {
-          "ref": "a983744b-0478-416b-a577-56922f6a9e3d",
-          "length": 24,
+          "ref": "5d3994ac-cd73-4163-8e99-dd26b8358844",
+          "length": 27,
           "cycles": 1,
           "position": 15,
           "iteration": 0,
-          "httpRequestId": "f09b93af-a703-4d37-9ad0-7fac51774ed7"
+          "httpRequestId": "bf77cdaf-9aa3-4926-ad4c-4397b7fc6255"
         },
         "item": {
-          "id": "7556ead4-087b-4fd3-af6e-65fcd5f09c16",
+          "id": "2f0fa292-1f54-418e-a05d-2a6b4db50f36",
           "name": "Filtramos el producto por rango de precio",
           "request": {
             "url": {
@@ -5689,7 +5843,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "f9fd78ef-2537-4625-927f-127b12f6c54c",
+                "id": "21db15b1-4d87-4113-af9b-d6785f34e89d",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -5718,7 +5872,7 @@
                   "    pm.expect(response[0].id_seller).to.eql(expectedId);",
                   "});"
                 ],
-                "_lastExecutionId": "7de45dc2-37b4-4797-8b53-7093965e3339"
+                "_lastExecutionId": "1319f5db-25fa-4c69-aa09-84e8325c1622"
               }
             }
           ]
@@ -5766,7 +5920,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "42a34464-dace-468e-b921-79533a0859ec",
+              "value": "c05c34bf-d46e-49bb-a002-2fa5928ec390",
               "system": true
             },
             {
@@ -5788,7 +5942,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "c4c79eba-e6e9-4f1d-8e27-c306cc9fa535",
+          "id": "649ece5e-59c8-4624-88cb-c3f974d0f1ae",
           "status": "OK",
           "code": 200,
           "header": [
@@ -5798,7 +5952,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
             },
             {
               "key": "Content-Length",
@@ -5816,29 +5970,29 @@
               34,
               58,
               34,
+              53,
               52,
-              97,
-              98,
-              98,
-              50,
-              98,
-              97,
+              101,
+              53,
+              102,
+              54,
+              101,
               56,
               45,
               102,
               57,
-              99,
-              100,
+              101,
+              97,
               45,
               49,
               49,
               101,
               100,
               45,
-              98,
-              100,
-              55,
+              57,
+              51,
               53,
+              100,
               45,
               48,
               50,
@@ -5848,7 +6002,7 @@
               48,
               97,
               56,
-              57,
+              101,
               48,
               48,
               52,
@@ -5998,10 +6152,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 10,
+          "responseTime": 5,
           "responseSize": 187
         },
-        "id": "7556ead4-087b-4fd3-af6e-65fcd5f09c16",
+        "id": "2f0fa292-1f54-418e-a05d-2a6b4db50f36",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK",
@@ -6019,15 +6173,15 @@
       },
       {
         "cursor": {
-          "ref": "d2814e56-ed0f-4aa9-bf41-ac6edb1d03ee",
-          "length": 24,
+          "ref": "c042e956-def4-418a-bdd5-7c712e596338",
+          "length": 27,
           "cycles": 1,
           "position": 16,
           "iteration": 0,
-          "httpRequestId": "6f312721-83ce-4704-adc1-690fb32ecf52"
+          "httpRequestId": "9b35292c-a17f-42ec-a269-6142dc398688"
         },
         "item": {
-          "id": "629b0709-0019-47dd-aaa8-46593822ea16",
+          "id": "963b4254-dd04-4cc6-b9b7-badd2369e03d",
           "name": "Editamos el producto del sistema",
           "request": {
             "url": {
@@ -6061,7 +6215,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "10acae22-9c06-4fab-bddf-88dd0ecb0c59",
+                "id": "c82730df-2ebb-4c67-8ec3-965d2d2f3986",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
@@ -6069,7 +6223,7 @@
                   "});",
                   ""
                 ],
-                "_lastExecutionId": "9d8746a8-8853-4200-8377-ba3a22df0ba6"
+                "_lastExecutionId": "e47ddf25-d162-42f9-8230-b3940016ddf2"
               }
             }
           ]
@@ -6113,7 +6267,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "6ece4706-bf1d-4fd2-98ba-f255ac87b7ea",
+              "value": "cc732b1d-0ab0-4961-b22d-bbc2d70b0fe7",
               "system": true
             },
             {
@@ -6149,13 +6303,13 @@
           }
         },
         "response": {
-          "id": "7a4c8893-1150-4eb7-91d6-1459e98a9b91",
+          "id": "e052ad30-710f-41a6-b3d0-a24c1197a5ad",
           "status": "No Content",
           "code": 204,
           "header": [
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
             }
           ],
           "stream": {
@@ -6163,10 +6317,10 @@
             "data": []
           },
           "cookie": [],
-          "responseTime": 10,
+          "responseTime": 9,
           "responseSize": 0
         },
-        "id": "629b0709-0019-47dd-aaa8-46593822ea16",
+        "id": "963b4254-dd04-4cc6-b9b7-badd2369e03d",
         "assertions": [
           {
             "assertion": "Se retorna un 204 NO CONTENT como respuesta positiva",
@@ -6176,15 +6330,15 @@
       },
       {
         "cursor": {
-          "ref": "9b9570a1-b6fe-4fb8-9d82-36539b7bd8d0",
-          "length": 24,
+          "ref": "86d501b3-c045-4e8c-8f60-62f3f365db7b",
+          "length": 27,
           "cycles": 1,
           "position": 17,
           "iteration": 0,
-          "httpRequestId": "f837822d-ec9f-4ec3-a009-e354807c616b"
+          "httpRequestId": "2bb0c0cc-32d7-4fbe-8b34-aab82e69bf60"
         },
         "item": {
-          "id": "3cc44c82-d897-4a9e-973e-cbe9f9ab733f",
+          "id": "fceb0fb9-f334-4a96-b2ef-9aa0f139f458",
           "name": "Obtenemos al producto y tiene su nueva informacion",
           "request": {
             "url": {
@@ -6217,7 +6371,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "9bfa12de-ca16-49fe-921c-da7d86433cb4",
+                "id": "104aaf27-b68b-443d-b8cc-06e11a051360",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -6240,7 +6394,7 @@
                   "",
                   "});"
                 ],
-                "_lastExecutionId": "4a95742b-e051-4215-9183-82402ab5c3c8"
+                "_lastExecutionId": "bb922dfa-0f8e-4400-b2fb-3b6a90ba971b"
               }
             }
           ]
@@ -6287,7 +6441,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "bad222a9-e3ab-400a-a933-cfc1d8922534",
+              "value": "32fa41c1-8bf4-41c5-8b0c-1070bf4e6b74",
               "system": true
             },
             {
@@ -6309,7 +6463,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "c521e3bf-a176-44ca-95ea-80a4f06aa987",
+          "id": "ebeb5c40-de46-4e1f-9f8e-52274b89f657",
           "status": "OK",
           "code": 200,
           "header": [
@@ -6319,7 +6473,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
             },
             {
               "key": "Content-Length",
@@ -6530,10 +6684,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 8,
+          "responseTime": 4,
           "responseSize": 198
         },
-        "id": "3cc44c82-d897-4a9e-973e-cbe9f9ab733f",
+        "id": "fceb0fb9-f334-4a96-b2ef-9aa0f139f458",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK",
@@ -6547,15 +6701,15 @@
       },
       {
         "cursor": {
-          "ref": "367e6430-b700-460d-b82e-b79da38672d5",
-          "length": 24,
+          "ref": "d160494a-e121-4abd-bfc4-02c2e6835151",
+          "length": 27,
           "cycles": 1,
           "position": 18,
           "iteration": 0,
-          "httpRequestId": "d7a601a9-9f8a-4bc3-acd5-29e46d1cf355"
+          "httpRequestId": "640d1ac7-01d9-4c77-a7e8-3fcd811e0c43"
         },
         "item": {
-          "id": "d2390a37-7779-4fa6-b212-e7c24ae54661",
+          "id": "a8f7e2dc-593d-4333-93c9-f42df49cb8bf",
           "name": "Contamos con dos productos en el sistema",
           "request": {
             "url": {
@@ -6579,7 +6733,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "807f6aed-f5a8-416e-9437-9333f491d4d5",
+                "id": "5fbf41ce-2213-4698-9c7a-f8bed886c850",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
@@ -6594,7 +6748,7 @@
                   "",
                   "});"
                 ],
-                "_lastExecutionId": "96d16caf-29ec-4d38-bc2a-ae492d2dbc0d"
+                "_lastExecutionId": "8b0d2dd4-5ce1-4e7e-a240-4ccd4ceea70b"
               }
             }
           ]
@@ -6632,7 +6786,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "d8fb72f6-2599-4c64-87d3-6a818385d261",
+              "value": "43e76375-6e10-4151-95ba-50aaf565d95d",
               "system": true
             },
             {
@@ -6654,7 +6808,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "d4db3bf7-f212-4ce3-a27b-93ffc40e36ac",
+          "id": "76a2ef94-79ba-4f92-9012-5e8e1a2d751f",
           "status": "OK",
           "code": 200,
           "header": [
@@ -6664,7 +6818,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
             },
             {
               "key": "Content-Length",
@@ -6879,29 +7033,29 @@
               34,
               58,
               34,
+              53,
               52,
-              97,
-              98,
-              98,
-              50,
-              98,
-              97,
+              101,
+              53,
+              102,
+              54,
+              101,
               56,
               45,
               102,
               57,
-              99,
-              100,
+              101,
+              97,
               45,
               49,
               49,
               101,
               100,
               45,
-              98,
-              100,
-              55,
+              57,
+              51,
               53,
+              100,
               45,
               48,
               50,
@@ -6911,7 +7065,7 @@
               48,
               97,
               56,
-              57,
+              101,
               48,
               48,
               52,
@@ -7061,10 +7215,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 7,
+          "responseTime": 4,
           "responseSize": 384
         },
-        "id": "d2390a37-7779-4fa6-b212-e7c24ae54661",
+        "id": "a8f7e2dc-593d-4333-93c9-f42df49cb8bf",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK como respuesta positiva",
@@ -7078,15 +7232,771 @@
       },
       {
         "cursor": {
-          "ref": "14a69efe-6f63-4324-b28f-d3285eee16a6",
-          "length": 24,
+          "ref": "81ef3a23-f4be-40d9-9e98-6ecadd6c0b0b",
+          "length": 27,
           "cycles": 1,
           "position": 19,
           "iteration": 0,
-          "httpRequestId": "0fafb8b9-45dc-4a96-ae20-0edf0c543dc8"
+          "httpRequestId": "242d47af-f60c-47f3-831f-349e419c237d"
         },
         "item": {
-          "id": "9b2bf701-3fba-41ac-8693-762c0b0ce951",
+          "id": "9bbe9463-8ec3-495c-840d-e4f885392d03",
+          "name": "Realizamos una compra",
+          "request": {
+            "url": {
+              "protocol": "{{PROTOCOL}}",
+              "port": "{{PORT}}",
+              "path": [
+                "api",
+                "v1",
+                "purchases",
+                "products"
+              ],
+              "host": [
+                "{{HOST}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer_id\": \"9d032089-9223-4c98-9196-f97c6f792473\",\n  \"product_id\": \"9d032089-9223-4c98-9196-f97c6f792473\",\n  \"units\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "4bdba50e-f8c0-4899-a099-a1a1db791479",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Se retorna un 201 CREATED como respuesta positiva\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Al realizar una compra obtenemos la informacion resultante de la misma\", function () {",
+                  "    var response = pm.response.json();",
+                  "    var expectedId = environment[\"GLOBAL_ID\"];",
+                  "",
+                  "    pm.expect(response.id).not.eql(null);",
+                  "    pm.expect(response.id_product).eql(expectedId);",
+                  "    pm.expect(response.id_user).eql(expectedId);",
+                  "    pm.expect(response.units).eql(5);",
+                  "    pm.expect(response.total).eql(3000*5);",
+                  "});"
+                ],
+                "_lastExecutionId": "cfc1b582-5360-4267-9fad-5231175df3bb"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "9000",
+            "path": [
+              "api",
+              "v1",
+              "purchases",
+              "products"
+            ],
+            "host": [
+              "api-gateway"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.29.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "889d65b4-7bbd-444e-9eb2-d4bf2b7013f4",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "api-gateway:9000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "129",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"customer_id\": \"9d032089-9223-4c98-9196-f97c6f792473\",\n  \"product_id\": \"9d032089-9223-4c98-9196-f97c6f792473\",\n  \"units\": 5\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "18a96602-208f-4798-ba08-c7ee71c1b0bd",
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "210"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              34,
+              53,
+              53,
+              48,
+              56,
+              56,
+              98,
+              48,
+              57,
+              45,
+              102,
+              57,
+              101,
+              97,
+              45,
+              49,
+              49,
+              101,
+              100,
+              45,
+              98,
+              54,
+              52,
+              99,
+              45,
+              48,
+              50,
+              52,
+              50,
+              99,
+              48,
+              97,
+              56,
+              101,
+              48,
+              48,
+              53,
+              34,
+              44,
+              34,
+              105,
+              100,
+              95,
+              112,
+              114,
+              111,
+              100,
+              117,
+              99,
+              116,
+              34,
+              58,
+              34,
+              57,
+              100,
+              48,
+              51,
+              50,
+              48,
+              56,
+              57,
+              45,
+              57,
+              50,
+              50,
+              51,
+              45,
+              52,
+              99,
+              57,
+              56,
+              45,
+              57,
+              49,
+              57,
+              54,
+              45,
+              102,
+              57,
+              55,
+              99,
+              54,
+              102,
+              55,
+              57,
+              50,
+              52,
+              55,
+              51,
+              34,
+              44,
+              34,
+              105,
+              100,
+              95,
+              117,
+              115,
+              101,
+              114,
+              34,
+              58,
+              34,
+              57,
+              100,
+              48,
+              51,
+              50,
+              48,
+              56,
+              57,
+              45,
+              57,
+              50,
+              50,
+              51,
+              45,
+              52,
+              99,
+              57,
+              56,
+              45,
+              57,
+              49,
+              57,
+              54,
+              45,
+              102,
+              57,
+              55,
+              99,
+              54,
+              102,
+              55,
+              57,
+              50,
+              52,
+              55,
+              51,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              101,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              51,
+              45,
+              48,
+              53,
+              45,
+              50,
+              52,
+              84,
+              48,
+              52,
+              58,
+              50,
+              48,
+              58,
+              51,
+              54,
+              46,
+              50,
+              54,
+              52,
+              48,
+              48,
+              54,
+              53,
+              54,
+              57,
+              90,
+              34,
+              44,
+              34,
+              117,
+              110,
+              105,
+              116,
+              115,
+              34,
+              58,
+              53,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              34,
+              58,
+              49,
+              53,
+              48,
+              48,
+              48,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 88,
+          "responseSize": 210
+        },
+        "id": "9bbe9463-8ec3-495c-840d-e4f885392d03",
+        "assertions": [
+          {
+            "assertion": "Se retorna un 201 CREATED como respuesta positiva",
+            "skipped": false
+          },
+          {
+            "assertion": "Al realizar una compra obtenemos la informacion resultante de la misma",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "bb81374d-24f0-46b5-afd3-159e3b48f5e4",
+          "length": 27,
+          "cycles": 1,
+          "position": 20,
+          "iteration": 0,
+          "httpRequestId": "b0ffb64d-fbd3-42ba-9fa0-a4aa1519522a"
+        },
+        "item": {
+          "id": "0c5cd90b-8136-41ce-b3b3-d62c5a18819f",
+          "name": "Obtenemos las compras de un producto",
+          "request": {
+            "url": {
+              "protocol": "{{PROTOCOL}}",
+              "port": "{{PORT}}",
+              "path": [
+                "api",
+                "v1",
+                "purchases",
+                "products",
+                "{{GLOBAL_ID}}"
+              ],
+              "host": [
+                "{{HOST}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c164aba3-497f-41da-a14e-a5278a42b50a",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Se retorna un 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Obtenemos las compras realizadas sobre un producto especifico, y es la compra que acabamos de realizar\", function () {",
+                  "    var response = pm.response.json();",
+                  "    var expectedId = environment[\"GLOBAL_ID\"];",
+                  "",
+                  "    pm.expect(response).to.be.an(\"array\");",
+                  "    pm.expect(response.length).to.eql(1);",
+                  "    pm.expect(response[0].id_product).eql(expectedId);",
+                  "    pm.expect(response[0].id_user).eql(expectedId);",
+                  "    pm.expect(response[0].units).eql(5);",
+                  "    pm.expect(response[0].total).eql(3000*5);",
+                  "});"
+                ],
+                "_lastExecutionId": "26fe0443-b420-4585-84c2-71c8f0a4bbbd"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "9000",
+            "path": [
+              "api",
+              "v1",
+              "purchases",
+              "products",
+              "9d032089-9223-4c98-9196-f97c6f792473"
+            ],
+            "host": [
+              "api-gateway"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.29.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "5e5afcd3-b0d1-4adf-8656-1d4c4082d47c",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "api-gateway:9000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "eb3c9c1e-40e1-41d9-b751-5ac1c1ee60d6",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "211"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              34,
+              53,
+              53,
+              48,
+              56,
+              56,
+              98,
+              48,
+              57,
+              45,
+              102,
+              57,
+              101,
+              97,
+              45,
+              49,
+              49,
+              101,
+              100,
+              45,
+              98,
+              54,
+              52,
+              99,
+              45,
+              48,
+              50,
+              52,
+              50,
+              99,
+              48,
+              97,
+              56,
+              101,
+              48,
+              48,
+              53,
+              34,
+              44,
+              34,
+              105,
+              100,
+              95,
+              112,
+              114,
+              111,
+              100,
+              117,
+              99,
+              116,
+              34,
+              58,
+              34,
+              57,
+              100,
+              48,
+              51,
+              50,
+              48,
+              56,
+              57,
+              45,
+              57,
+              50,
+              50,
+              51,
+              45,
+              52,
+              99,
+              57,
+              56,
+              45,
+              57,
+              49,
+              57,
+              54,
+              45,
+              102,
+              57,
+              55,
+              99,
+              54,
+              102,
+              55,
+              57,
+              50,
+              52,
+              55,
+              51,
+              34,
+              44,
+              34,
+              105,
+              100,
+              95,
+              117,
+              115,
+              101,
+              114,
+              34,
+              58,
+              34,
+              57,
+              100,
+              48,
+              51,
+              50,
+              48,
+              56,
+              57,
+              45,
+              57,
+              50,
+              50,
+              51,
+              45,
+              52,
+              99,
+              57,
+              56,
+              45,
+              57,
+              49,
+              57,
+              54,
+              45,
+              102,
+              57,
+              55,
+              99,
+              54,
+              102,
+              55,
+              57,
+              50,
+              52,
+              55,
+              51,
+              34,
+              44,
+              34,
+              100,
+              97,
+              116,
+              101,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              51,
+              45,
+              48,
+              53,
+              45,
+              50,
+              52,
+              84,
+              48,
+              52,
+              58,
+              50,
+              48,
+              58,
+              51,
+              54,
+              46,
+              50,
+              57,
+              53,
+              56,
+              55,
+              49,
+              54,
+              57,
+              90,
+              34,
+              44,
+              34,
+              117,
+              110,
+              105,
+              116,
+              115,
+              34,
+              58,
+              53,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              34,
+              58,
+              49,
+              53,
+              48,
+              48,
+              48,
+              125,
+              93
+            ]
+          },
+          "cookie": [],
+          "responseTime": 5,
+          "responseSize": 211
+        },
+        "id": "0c5cd90b-8136-41ce-b3b3-d62c5a18819f",
+        "assertions": [
+          {
+            "assertion": "Se retorna un 200 OK",
+            "skipped": false
+          },
+          {
+            "assertion": "Obtenemos las compras realizadas sobre un producto especifico, y es la compra que acabamos de realizar",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "dc1a6169-b3d0-4297-b7cc-737323a06b8a",
+          "length": 27,
+          "cycles": 1,
+          "position": 21,
+          "iteration": 0,
+          "httpRequestId": "eb4fff1a-4365-458c-98c2-14037daa63a7"
+        },
+        "item": {
+          "id": "6d15fbeb-2d9d-4d99-b0aa-c51910c9b713",
           "name": "Eliminamos el cliente del seed",
           "request": {
             "url": {
@@ -7111,7 +8021,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "0c702176-4a20-46c9-a6be-1ff2f17dc451",
+                "id": "7110b0ac-caa2-4efb-a85f-fe6a779138e2",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
@@ -7119,7 +8029,7 @@
                   "});",
                   ""
                 ],
-                "_lastExecutionId": "b48e7c85-4053-44ca-93f2-2cbd930a7ef1"
+                "_lastExecutionId": "d89474b4-c851-414f-a263-df669c26f450"
               }
             }
           ]
@@ -7158,7 +8068,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "706ca6ac-df64-4d2b-ad6c-1f4bb87cd29a",
+              "value": "881b298d-9fda-4c59-8e7b-8eb3fbf7f450",
               "system": true
             },
             {
@@ -7180,13 +8090,13 @@
           "method": "DELETE"
         },
         "response": {
-          "id": "1a2a5ee5-aca2-4fc2-9592-8094805a7980",
+          "id": "f5b35756-813e-4f36-820c-e61ffd884bfe",
           "status": "No Content",
           "code": 204,
           "header": [
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
             }
           ],
           "stream": {
@@ -7194,10 +8104,10 @@
             "data": []
           },
           "cookie": [],
-          "responseTime": 10,
+          "responseTime": 7,
           "responseSize": 0
         },
-        "id": "9b2bf701-3fba-41ac-8693-762c0b0ce951",
+        "id": "6d15fbeb-2d9d-4d99-b0aa-c51910c9b713",
         "assertions": [
           {
             "assertion": "Se retorna un 204 NO CONTENT como respuesta positiva",
@@ -7207,15 +8117,15 @@
       },
       {
         "cursor": {
-          "ref": "d217ffa0-3f77-432a-90c7-7cff727bd5ba",
-          "length": 24,
+          "ref": "e00f95c5-0f7e-481e-a054-d9ebb27d142f",
+          "length": 27,
           "cycles": 1,
-          "position": 20,
+          "position": 22,
           "iteration": 0,
-          "httpRequestId": "b6ee1008-108e-4d00-b9b2-13ea47eb00e2"
+          "httpRequestId": "e4c1aaaf-e24e-4c2a-86b0-cb188c6b76a4"
         },
         "item": {
-          "id": "3a6f55f1-6dc1-4dba-b77f-42cd9a9708d1",
+          "id": "d5ee1457-2825-4f3c-845c-2e8048a1d165",
           "name": "Eliminamos el vendedor del seed",
           "request": {
             "url": {
@@ -7240,7 +8150,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "aa4bf991-4d4f-4033-9025-5e6e03aa3d5e",
+                "id": "916b75af-f0a9-4aa2-bbba-0eb165159652",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
@@ -7248,7 +8158,7 @@
                   "});",
                   ""
                 ],
-                "_lastExecutionId": "3c4def1f-38a2-4e16-be36-df9847ff1b79"
+                "_lastExecutionId": "65f46620-c710-4422-a4ec-3a13ad732c41"
               }
             }
           ]
@@ -7287,7 +8197,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "4ca47540-87a2-4184-88e1-aa76437b3b01",
+              "value": "7bbe0b79-b003-455b-84f8-7718d649b6fe",
               "system": true
             },
             {
@@ -7309,13 +8219,13 @@
           "method": "DELETE"
         },
         "response": {
-          "id": "476e7532-71f2-4b5e-b4c2-6487c2dc84a6",
+          "id": "9fd5b5ae-3b28-436f-b1ca-f0bd14cdfdc2",
           "status": "No Content",
           "code": 204,
           "header": [
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
             }
           ],
           "stream": {
@@ -7323,10 +8233,10 @@
             "data": []
           },
           "cookie": [],
-          "responseTime": 34,
+          "responseTime": 12,
           "responseSize": 0
         },
-        "id": "3a6f55f1-6dc1-4dba-b77f-42cd9a9708d1",
+        "id": "d5ee1457-2825-4f3c-845c-2e8048a1d165",
         "assertions": [
           {
             "assertion": "Se retorna un 204 NO CONTENT como respuesta positiva",
@@ -7336,15 +8246,15 @@
       },
       {
         "cursor": {
-          "ref": "89ffcc7d-46c4-41a0-a0c3-e3a452da32be",
-          "length": 24,
+          "ref": "580e9791-c193-49a5-bc67-f12e711f3be1",
+          "length": 27,
           "cycles": 1,
-          "position": 21,
+          "position": 23,
           "iteration": 0,
-          "httpRequestId": "9516611f-dff7-4722-b124-73a19cfd88d1"
+          "httpRequestId": "4f2af91c-d7b9-4e13-885c-c510663f8719"
         },
         "item": {
-          "id": "e1b4e591-df54-4d91-83a6-1c7ffbd21112",
+          "id": "0d9530d0-fae7-4502-bb56-2efcade11da2",
           "name": "Intentamos obtener el cliente pero ya no existe",
           "request": {
             "url": {
@@ -7373,7 +8283,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "5942bc22-9028-4191-9619-f83918de6cd6",
+                "id": "45cc7436-89a8-4ac0-b66b-c4cdfe65ae5b",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -7386,7 +8296,7 @@
                   "    pm.expect(response).to.be.null",
                   "});"
                 ],
-                "_lastExecutionId": "efea078e-7ca1-4e89-9314-97b7d8992755"
+                "_lastExecutionId": "7f6ff4a9-1d90-44f0-a2dc-05608075c7ca"
               }
             }
           ]
@@ -7429,7 +8339,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "00958366-2ac0-43b5-8f73-4d35578a076c",
+              "value": "1f7989d6-88db-4cf7-9a3f-ff5b4c6a0fca",
               "system": true
             },
             {
@@ -7451,7 +8361,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "0b50b406-aa58-41a8-9f52-d8ac5bdf59b6",
+          "id": "d7541605-5e69-4c61-87ac-bd90e0c280b1",
           "status": "OK",
           "code": 200,
           "header": [
@@ -7461,7 +8371,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
             },
             {
               "key": "Content-Length",
@@ -7478,10 +8388,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 9,
+          "responseTime": 7,
           "responseSize": 4
         },
-        "id": "e1b4e591-df54-4d91-83a6-1c7ffbd21112",
+        "id": "0d9530d0-fae7-4502-bb56-2efcade11da2",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK",
@@ -7495,15 +8405,15 @@
       },
       {
         "cursor": {
-          "ref": "eb7b5b4d-e8c3-41bf-94d0-7305f24c058f",
-          "length": 24,
+          "ref": "1897996e-a3da-459c-91a4-bac1b12f6250",
+          "length": 27,
           "cycles": 1,
-          "position": 22,
+          "position": 24,
           "iteration": 0,
-          "httpRequestId": "c6c41c39-0f1b-48d6-9550-17c97f65dbee"
+          "httpRequestId": "ed115301-2131-428b-b0d8-c4343c5777f2"
         },
         "item": {
-          "id": "4324fd16-a01d-4f7d-ba57-b98427219b72",
+          "id": "f065c139-f284-4948-ad5b-1ab2f4837d95",
           "name": "Intentamos obtener al vendedor pero ya no existe",
           "request": {
             "url": {
@@ -7532,7 +8442,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "d673f0f0-fc43-45eb-a862-ed0a57610866",
+                "id": "dad80777-9070-4eb7-9734-5e8f22a41599",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -7545,7 +8455,7 @@
                   "    pm.expect(response).to.be.null",
                   "});"
                 ],
-                "_lastExecutionId": "e124f84d-db10-41f3-bf45-7f1615640038"
+                "_lastExecutionId": "f9bf4b55-7143-4557-b503-d4130d4cbd31"
               }
             }
           ]
@@ -7588,7 +8498,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "d1bdb13d-23fe-4cf8-a578-855e58be8c16",
+              "value": "2e56d08c-1e85-44a5-bc41-a23ff6f438a1",
               "system": true
             },
             {
@@ -7610,7 +8520,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "d0b5212e-d1f0-4398-a6ac-13976368b3ad",
+          "id": "af6fe65a-41d2-488e-b5a4-4d2b9c09a2e0",
           "status": "OK",
           "code": 200,
           "header": [
@@ -7620,7 +8530,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
             },
             {
               "key": "Content-Length",
@@ -7637,10 +8547,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 8,
+          "responseTime": 4,
           "responseSize": 4
         },
-        "id": "4324fd16-a01d-4f7d-ba57-b98427219b72",
+        "id": "f065c139-f284-4948-ad5b-1ab2f4837d95",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK",
@@ -7654,15 +8564,15 @@
       },
       {
         "cursor": {
-          "ref": "7467e98d-6722-4c36-8138-e4581f763517",
-          "length": 24,
+          "ref": "f44c0285-ebed-4ecd-b106-a26919a649bb",
+          "length": 27,
           "cycles": 1,
-          "position": 23,
+          "position": 25,
           "iteration": 0,
-          "httpRequestId": "50e88451-4ead-47a3-b09c-c6fc9f1c4ec2"
+          "httpRequestId": "4f27489f-96ec-41d2-99f0-48a86a312e57"
         },
         "item": {
-          "id": "68b39a4d-5209-4a80-9ac2-1cc645137f35",
+          "id": "2b0085e0-71d7-477f-94ae-8c3f988c2e4d",
           "name": "Intentamos obtener los productos pero ya no existen al haber eliminado al vendedor duenio de los mismos",
           "request": {
             "url": {
@@ -7686,7 +8596,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "8ca1d460-ecae-40cf-8eec-9cb99cba9153",
+                "id": "820950ab-f5a9-48c5-9259-68eaca21390d",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Se retorna un 200 OK\", function () {",
@@ -7699,7 +8609,7 @@
                   "    pm.expect(response).to.be.null",
                   "});"
                 ],
-                "_lastExecutionId": "f2c2953f-a86e-4f5b-8adf-1b0db86febbe"
+                "_lastExecutionId": "25b75f92-633b-4070-bc99-99498b83abe9"
               }
             }
           ]
@@ -7737,7 +8647,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "16f41f78-1884-405a-8780-d079ea635264",
+              "value": "f6c5ce70-c75a-4451-9d12-8a0fce5daa70",
               "system": true
             },
             {
@@ -7759,7 +8669,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "a888c359-ec3d-49f7-bae4-2f401cfa1953",
+          "id": "e9c437ab-e735-43f8-97a6-132f50d26c78",
           "status": "OK",
           "code": 200,
           "header": [
@@ -7769,7 +8679,7 @@
             },
             {
               "key": "Date",
-              "value": "Wed, 24 May 2023 00:52:43 GMT"
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
             },
             {
               "key": "Content-Length",
@@ -7789,7 +8699,7 @@
           "responseTime": 7,
           "responseSize": 4
         },
-        "id": "68b39a4d-5209-4a80-9ac2-1cc645137f35",
+        "id": "2b0085e0-71d7-477f-94ae-8c3f988c2e4d",
         "assertions": [
           {
             "assertion": "Se retorna un 200 OK",
@@ -7800,10 +8710,163 @@
             "skipped": false
           }
         ]
+      },
+      {
+        "cursor": {
+          "ref": "eee3cdb1-f3dd-4718-866c-653979014ed3",
+          "length": 27,
+          "cycles": 1,
+          "position": 26,
+          "iteration": 0,
+          "httpRequestId": "83037845-0c29-4495-8b36-70084639f5a3"
+        },
+        "item": {
+          "id": "fed7a393-d376-447c-9868-9a76e922e8bc",
+          "name": "Intentamos obtener las compras de un producto",
+          "request": {
+            "url": {
+              "protocol": "{{PROTOCOL}}",
+              "port": "{{PORT}}",
+              "path": [
+                "api",
+                "v1",
+                "purchases",
+                "products",
+                "{{GLOBAL_ID}}"
+              ],
+              "host": [
+                "{{HOST}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab98480c-e2d6-4ac8-8cee-4ac0e1eb7734",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Se retorna un 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Al intentar obtener las compras de un producto que fue eliminado no hay ya no hay informacion de la misma\", function () {",
+                  "    var response = pm.response.json();",
+                  "",
+                  "    pm.expect(response).to.be.null",
+                  "});"
+                ],
+                "_lastExecutionId": "656bbede-1002-4de1-845e-df338ea36ccc"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "9000",
+            "path": [
+              "api",
+              "v1",
+              "purchases",
+              "products",
+              "9d032089-9223-4c98-9196-f97c6f792473"
+            ],
+            "host": [
+              "api-gateway"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.29.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "c4051ccf-c655-437e-89aa-e5832f2ee8ec",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "api-gateway:9000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "dd412512-872e-4260-b419-3cf1ff7530dd",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 24 May 2023 04:20:36 GMT"
+            },
+            {
+              "key": "Content-Length",
+              "value": "4"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              110,
+              117,
+              108,
+              108
+            ]
+          },
+          "cookie": [],
+          "responseTime": 6,
+          "responseSize": 4
+        },
+        "id": "fed7a393-d376-447c-9868-9a76e922e8bc",
+        "assertions": [
+          {
+            "assertion": "Se retorna un 200 OK",
+            "skipped": false
+          },
+          {
+            "assertion": "Al intentar obtener las compras de un producto que fue eliminado no hay ya no hay informacion de la misma",
+            "skipped": false
+          }
+        ]
       }
     ],
     "transfers": {
-      "responseTotal": 2644
+      "responseTotal": 3069
     },
     "failures": [],
     "error": null

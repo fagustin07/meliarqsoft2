@@ -64,6 +64,20 @@ func (mr *MockIProductRepositoryMockRecorder) Delete(ID interface{}) *gomock.Cal
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockIProductRepository)(nil).Delete), ID)
 }
 
+// DeleteAll mocks base method.
+func (m *MockIProductRepository) DeleteAll() error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteAll")
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteAll indicates an expected call of DeleteAll.
+func (mr *MockIProductRepositoryMockRecorder) DeleteAll() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAll", reflect.TypeOf((*MockIProductRepository)(nil).DeleteAll))
+}
+
 // DeleteBySeller mocks base method.
 func (m *MockIProductRepository) DeleteBySeller(sellerID uuid.UUID) ([]uuid.UUID, error) {
 	m.ctrl.T.Helper()

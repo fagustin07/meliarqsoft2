@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"meliarqsoft2/internal/domain/model"
 	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
@@ -21,14 +22,14 @@ func NewGinMakePurchase(makePurchaseService model.IMakePurchaseService) *GinMake
 // @Accept json
 // @Produce json
 // @Tags Purchases
-// @Param 	Body body model.CreatePurchaseRequest true "Register"
+// @Param 	Purhcase body model.CreatePurchaseRequest true "Register"
 // @Success 201 {object} model.Purchase
 // @Failure 400
 // @Failure 404
 // @Failure 406
 // @Failure 500
 // @Failure 503
-// @Router /products/purchases [POST]
+// @Router /purchases/products [POST]
 func (handler GinMakePurchase) Execute(c *gin.Context) {
 	var purchaseReq model.CreatePurchaseRequest
 
@@ -37,6 +38,9 @@ func (handler GinMakePurchase) Execute(c *gin.Context) {
 		return
 	}
 
+	log.Println(purchaseReq.Units)
+	log.Println(purchaseReq.IDUser)
+	log.Println(purchaseReq.IDProduct)
 	resp, err := handler.makePurchaseService.Execute(purchaseReq)
 	if err != nil {
 		application.MeliGinHandlerError{}.Execute(err, c)

@@ -12,12 +12,14 @@
 
 # Correr la app.
 1. Copiar el contenido del archivo .env.example en un archivo .env
-2. Solicitar las credenciales necesarias para que los servicios puedan funcionar correctamente.
-3. Una vez configurado el archivo .env, simplemente debemos ejecutar `docker compose up`.
-4. En nuestro navegador ingresamos a http://localhost:9000/docs/index.html, donde veremos los protocolos de comunicacion de nuestro sistema realizado con Swagger.
+2. Solicitar las credenciales necesarias para que los servicios puedan funcionar correctamente con su base de datos.
+3. Solicitar los archivos de configuracion para el notifier y reemplazar los existentes (ampq.py y smtp.py) en `notifier/src/config`
+4. Una vez configurado el archivo .env, simplemente debemos ejecutar `docker compose up --build`.
+5. En nuestro navegador ingresamos a http://localhost:9000/docs/index.html, donde veremos los protocolos de comunicacion de nuestro sistema realizado con Swagger.
 
 ## Testing Unitario
-Para correr tests unitarios, en cada servicio se encuentran los pasos correspondientes. Los servicios que poseen tests son: products, users y purchases.
+- Se desarrollaron tests unitarios para los servicios de: users, products y purchases.
+- Para correr tests unitarios, en cada servicio mencionado se encuentran los pasos correspondientes.
 
 ## Testing de Integracion
 Para correr los tests de integracion debemos ejecutar:
@@ -30,6 +32,10 @@ Para correr los tests de integracion debemos ejecutar:
    - Ejecutar `docker compose --profile service -f docker-compose-test.yml down` para limpiar los contenedores de prueba.
    - Luego de que todos nuestros servicios se levanten, corremos en otra consola: `docker compose --profile tests -f docker-compose-test.yml up --force-recreate`
 
-Posible error y solucion: Hemos detectado que ciertas al hacer el `docker compose ... up ...` tanto del perfil de servicio o del test, suele fallar al utilizar las mismas imagenes. Para solucionarlo, ejecute el comando en cuestion agregándole el argumento `--force-recreate` al final del mismo.
+### Comentarios sobre test de integracion
+- Posible error y solucion: Hemos detectado que ciertas al hacer el `docker compose ... up ...` tanto del perfil de servicio o del test, suele fallar al utilizar los mismos nombres de contenedores. Para solucionarlo, ejecute el comando en cuestion agregándole el argumento `--force-recreate` al final del mismo.
+- Tener en cuenta que los entornos estan armados para correr estos tests una sola vez, por lo que importa el orden de la coleccion de postman y, a su vez, es importante volver a crear los contenedores para que se vuelvan a configurar en caso que se desee volver a correr los tests de integracion.
 
-Autores: Mauro Bailon, Federico Sandoval.
+
+
+*Autores: Mauro Bailon, Federico Sandoval.*

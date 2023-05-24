@@ -25,12 +25,10 @@ definitions:
     type: object
   model.CreatePurchaseRequest:
     properties:
-      id_product:
+      customer_id:
         type: string
-      id_user:
+      product_id:
         type: string
-      total:
-        type: number
       units:
         type: integer
     type: object
@@ -403,7 +401,7 @@ paths:
       summary: Filter products
       tags:
       - Products
-  /products/purchases:
+  /purchases/products:
     post:
       consumes:
       - application/json
@@ -411,7 +409,7 @@ paths:
       parameters:
       - description: Register
         in: body
-        name: Body
+        name: Purhcase
         required: true
         schema:
           $ref: '#/definitions/model.CreatePurchaseRequest'
@@ -421,9 +419,7 @@ paths:
         "201":
           description: Created
           schema:
-            items:
-              $ref: '#/definitions/model.Purchase'
-            type: array
+            $ref: '#/definitions/model.Purchase'
         "400":
           description: Bad Request
         "404":

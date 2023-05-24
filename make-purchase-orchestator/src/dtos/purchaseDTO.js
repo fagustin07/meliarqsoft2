@@ -8,7 +8,7 @@ class PurchaseDTO {
     }
 
     validate() {
-        if(!this.customer_id || !this.product_id || this.units == undefined) {
+        if(!this.customer_id || !this.product_id || this.units === undefined) {
             throw new errors.InvalidPurchase();
         }
 

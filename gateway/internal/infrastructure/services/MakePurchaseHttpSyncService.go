@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"meliarqsoft2/internal/domain/model"
 	model2 "meliarqsoft2/pkg/exceptions/model"
 	"net/http"
@@ -19,9 +18,11 @@ func (p MakePurchaseHttpSyncService) Execute(purchase model.CreatePurchaseReques
 	client := &http.Client{}
 
 	data, _ := json.Marshal(purchase)
-
 	request, err := http.NewRequest("POST", fmt.Sprintf("%s/create", p.BasePath), bytes.NewBuffer(data))
-	log.Println(p.BasePath)
+	request.Header = http.Header{
+		"Content-Type": {"application/json"},
+	}
+
 	if err != nil {
 		return model.Purchase{}, err
 	}

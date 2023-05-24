@@ -75,8 +75,7 @@ func (app MeliGinGateway) Run() error {
 	productRoute.DELETE("/:id", handler.NewGinDeleteProduct(app.productService).Execute)
 
 	purchaseRoute := basePath.Group("/purchases")
-	// TODO: COMPRA DISTRIBUIDA, modelar el orquestador
-	productRoute.POST("/products", handler.NewGinMakePurchase(app.makePurchaseService).Execute)
+	purchaseRoute.POST("/products", handler.NewGinMakePurchase(app.makePurchaseService).Execute)
 	purchaseRoute.GET("/products/:id", handler.NewGinFindPurchases(app.findPurchaseService).Execute)
 
 	return route.Run(fmt.Sprintf(":%d", app.port))

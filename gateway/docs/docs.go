@@ -330,58 +330,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/products/purchases": {
-            "post": {
-                "description": "Make User buy Product by ids.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Purchases"
-                ],
-                "summary": "Make a purchase.",
-                "parameters": [
-                    {
-                        "description": "Register",
-                        "name": "Body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.CreatePurchaseRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/model.Purchase"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    },
-                    "406": {
-                        "description": "Not Acceptable"
-                    },
-                    "500": {
-                        "description": "Internal Server Error"
-                    },
-                    "503": {
-                        "description": "Service Unavailable"
-                    }
-                }
-            }
-        },
         "/products/{id}": {
             "put": {
                 "description": "Update product from a seller",
@@ -461,6 +409,55 @@ const docTemplate = `{
                     },
                     "404": {
                         "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/purchases/products": {
+            "post": {
+                "description": "Make User buy Product by ids.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Purchases"
+                ],
+                "summary": "Make a purchase.",
+                "parameters": [
+                    {
+                        "description": "Register",
+                        "name": "Purhcase",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CreatePurchaseRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.Purchase"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "406": {
+                        "description": "Not Acceptable"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
                     }
                 }
             }
@@ -718,14 +715,11 @@ const docTemplate = `{
         "model.CreatePurchaseRequest": {
             "type": "object",
             "properties": {
-                "id_product": {
+                "customer_id": {
                     "type": "string"
                 },
-                "id_user": {
+                "product_id": {
                     "type": "string"
-                },
-                "total": {
-                    "type": "number"
                 },
                 "units": {
                     "type": "integer"
