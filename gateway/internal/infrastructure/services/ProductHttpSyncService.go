@@ -10,6 +10,7 @@ import (
 	"meliarqsoft2/internal/domain/model"
 	model2 "meliarqsoft2/pkg/exceptions/model"
 	"net/http"
+	"net/url"
 )
 
 type ProductHttpSyncService struct {
@@ -99,7 +100,7 @@ func (p ProductHttpSyncService) Create(createReq model.CreateProductRequest) (mo
 		}
 		return model.ProductID{}, unavailableErr
 	}
-	
+
 	if resp.StatusCode >= 500 {
 		msg, err := io.ReadAll(resp.Body)
 		if err != nil {
@@ -175,8 +176,11 @@ func (p ProductHttpSyncService) Update(ID uuid.UUID, prodReq model.UpdateProduct
 }
 
 func (p ProductHttpSyncService) Find(name string, category string) ([]model.Product, error) {
-	url := fmt.Sprintf("%s/products?name=%s&category=%s", p.BasePath, name, category)
-	resp, err := http.Get(url)
+	params := url.Values{"name": {name}, "category": {category}}
+
+	path := fmt.Sprintf("%s/products?%s", p.BasePath, params.Encode())
+
+	resp, err := http.Get(path)
 	if err != nil || resp.StatusCode >= 500 {
 		return nil, model2.ServiceUnavailable{}
 	}
@@ -213,8 +217,8 @@ func (p ProductHttpSyncService) Find(name string, category string) ([]model.Prod
 }
 
 func (p ProductHttpSyncService) Filter(minPrice float32, maxPrice float32) ([]model.Product, error) {
-	url := fmt.Sprintf("%s/products/prices?min_price=%f&max_price=%f", p.BasePath, minPrice, maxPrice)
-	resp, err := http.Get(url)
+	path := fmt.Sprintf("%s/products/prices?min_price=%f&max_price=%f", p.BasePath, minPrice, maxPrice)
+	resp, err := http.Get(path)
 	if err != nil || resp.StatusCode >= 500 {
 		return nil, model2.ServiceUnavailable{}
 	}

@@ -19,4 +19,5 @@ type IPurchaseRepository interface {
 	Create(purchase *Purchase) (uuid.UUID, error)
 	Find(productID uuid.UUID) ([]*Purchase, error)
 	DeleteByProductsIDs(productsIDs []uuid.UUID) error
+	DeleteAll() error
 }

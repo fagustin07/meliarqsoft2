@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Buscar vendedores",
+			"name": "Iniciamos con un vendedor",
 			"event": [
 				{
 					"listen": "test",
@@ -21,9 +21,16 @@
 							"",
 							"    pm.expect(response).to.be.an(\"array\");",
 							"    pm.expect(response.length).to.eql(1);",
-							"    pm.expect(response[0].seller_id).to.eql(\"a391cf49-de65-11ed-974b-0242ac1c0002\")",
-							"    pm.expect(response[0].businessName).to.eql(\"MAROLIO\")",
-							"    pm.expect(response[0].email).to.eql(\"ventas@marolio.com\")",
+							"",
+							"});",
+							"",
+							"pm.test(\"El vendedor en el sistema es el creado por el seed\", function () {",
+							"    var response = pm.response.json();",
+							"    var expectedId = environment[\"GLOBAL_ID\"];",
+							"",
+							"    pm.expect(response[0].seller_id).to.eql(expectedId);",
+							"    pm.expect(response[0].businessName).to.eql(\"VENTA PRUEBAS\");",
+							"    pm.expect(response[0].email).to.eql(\"vendedor@prueba.com\");",
 							"",
 							"});"
 						],
@@ -45,6 +52,1121 @@
 						"api",
 						"v1",
 						"sellers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear vendedor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 201 CREATED como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Al crear un vendedor obtenemos su id\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.seller_id).not.eql(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"business_name\": \"vendedor en integracion\",\n  \"email\": \"vendedor@integracion.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/sellers",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"sellers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener el vendedor creado buscado por nombre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"El vendedor que creamos existe en el sistema\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(1);",
+							"    pm.expect(response[0].seller_id).to.not.null;",
+							"    pm.expect(response[0].businessName).to.eql(\"vendedor en integracion\");",
+							"    pm.expect(response[0].email).to.eql(\"vendedor@integracion.com\");",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/sellers?business_name=vendedor en integracion",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"sellers"
+					],
+					"query": [
+						{
+							"key": "business_name",
+							"value": "vendedor en integracion"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editamos el vendedor del sistema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"business_name\": \"vendedor prueba nuevo\",\n  \"email\": \"vendedor@pruebanuevo.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/sellers/{{GLOBAL_ID}}",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"sellers",
+						"{{GLOBAL_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtenemos al vendedor y tiene su nuevo informacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Se actualiza la informacion del vendedor que editamos\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(1);",
+							"    pm.expect(response[0].seller_id).to.eql(environment[\"GLOBAL_ID\"]);",
+							"    pm.expect(response[0].businessName).to.eql(\"vendedor prueba nuevo\");",
+							"    pm.expect(response[0].email).to.eql(\"vendedor@pruebanuevo.com\");",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/sellers?business_name=vendedor prueba nuevo",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"sellers"
+					],
+					"query": [
+						{
+							"key": "business_name",
+							"value": "vendedor prueba nuevo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Contamos con dos vendedores en el sistema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Tenemos dos vendedores en el sistema\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(2);",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/sellers",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"sellers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Iniciamos con un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Comenzamos con un cliente en nuestro sistema\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(1);",
+							"",
+							"});",
+							"",
+							"pm.test(\"El cliente en el sistema es el creado por el seed\", function () {",
+							"    var response = pm.response.json();",
+							"    var expectedId = environment[\"GLOBAL_ID\"];",
+							"",
+							"    pm.expect(response[0].customer_id).to.eql(expectedId);",
+							"    pm.expect(response[0].name).to.eql(\"prueba\");",
+							"    pm.expect(response[0].surname).to.eql(\"prueba\");",
+							"    pm.expect(response[0].email).to.eql(\"cliente@prueba.com\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/customers",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 201 CREATED como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Al crear un cliente obtenemos su id\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response.customer_id).not.equal(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"nuevocliente@gmail.com\",\n  \"name\": \"Nombre Integracion\",\n  \"surname\": \"Apellido Integracion\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/customers",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener el cliente creado buscado por correo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"El cliente que creamos existe en el sistema\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(1);",
+							"    pm.expect(response[0].customer_id).to.not.null;",
+							"    pm.expect(response[0].name).to.eql(\"Nombre Integracion\");",
+							"    pm.expect(response[0].surname).to.eql(\"Apellido Integracion\");",
+							"    pm.expect(response[0].email).to.eql(\"nuevocliente@gmail.com\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/customers?email=nuevocliente@gmail.com",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "nuevocliente@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editamos el cliente del sistema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"clienteeditado@gmail.com\",\n  \"name\": \"Nombre Cambio\",\n  \"surname\": \"Apellido Cambio\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/customers/{{GLOBAL_ID}}",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"customers",
+						"{{GLOBAL_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtenemos al cliente y tiene su nueva informacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Se actualiza la informacion del cliente que editamos\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(1);",
+							"    pm.expect(response[0].customer_id).to.eql(environment[\"GLOBAL_ID\"]);",
+							"    pm.expect(response[0].name).to.eql(\"Nombre Cambio\");",
+							"    pm.expect(response[0].surname).to.eql(\"Apellido Cambio\");",
+							"    pm.expect(response[0].email).to.eql(\"clienteeditado@gmail.com\");",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/customers?email=clienteeditado@gmail.com",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "clienteeditado@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Contamos con dos clientes en el sistema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Tenemos dos clientes en el sistema\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(2);",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/customers",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Iniciamos con un producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Comenzamos con un producto en nuestro sistema\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(1);",
+							"",
+							"});",
+							"",
+							"pm.test(\"El producto en el sistema es el creado por el seed\", function () {",
+							"    var response = pm.response.json();",
+							"    var expectedId = environment[\"GLOBAL_ID\"];",
+							"",
+							"    pm.expect(response[0].id).to.eql(expectedId);",
+							"    pm.expect(response[0].name).to.eql(\"prueba\");",
+							"    pm.expect(response[0].description).to.eql(\"prueba\");",
+							"    pm.expect(response[0].category).to.eql(\"prueba\");",
+							"    pm.expect(response[0].price).to.eql(200);",
+							"    pm.expect(response[0].stock).to.eql(999999);",
+							"    pm.expect(response[0].id_seller).to.eql(expectedId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/products",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creamos un producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 201 CREATED como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Al crear un producto obtenemos su id\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response.product_id).not.eql(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"category\": \"producto\",\n  \"description\": \"producto\",\n  \"id_seller\": \"9d032089-9223-4c98-9196-f97c6f792473\",\n  \"name\": \"producto\",\n  \"price\": 100,\n  \"stock\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/products",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtenemos el producto por nombre y categoria",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    });",
+							"",
+							"pm.test(\"Solo obtenemos un producto al buscar por el nombre y categoria dada\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(1);",
+							"    });",
+							"",
+							"pm.test(\"El producto que creamos existe en el sistema al buscarlo por nombre y categoria\", function () {",
+							"    var response = pm.response.json();",
+							"    var expectedId = environment[\"GLOBAL_ID\"];",
+							"",
+							"    pm.expect(response[0].id).to.not.null;",
+							"    pm.expect(response[0].name).to.eql(\"producto\");",
+							"    pm.expect(response[0].description).to.eql(\"producto\");",
+							"    pm.expect(response[0].category).to.eql(\"producto\");",
+							"    pm.expect(response[0].price).to.eql(100);",
+							"    pm.expect(response[0].stock).to.eql(100);",
+							"    pm.expect(response[0].id_seller).to.eql(expectedId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/products?name=producto&category=producto",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "producto"
+						},
+						{
+							"key": "category",
+							"value": "producto"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filtramos el producto por rango de precio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Solo obtenemos un producto al filtrar por los\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(1);",
+							"    });",
+							"",
+							"pm.test(\"El producto que creamos existe en el sistema al filtrar por precio\", function () {",
+							"    var response = pm.response.json();",
+							"    var expectedId = environment[\"GLOBAL_ID\"];",
+							"",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(1);",
+							"    pm.expect(response[0].id).to.not.null;",
+							"    pm.expect(response[0].name).to.eql(\"producto\");",
+							"    pm.expect(response[0].description).to.eql(\"producto\");",
+							"    pm.expect(response[0].category).to.eql(\"producto\");",
+							"    pm.expect(response[0].price).to.eql(100);",
+							"    pm.expect(response[0].stock).to.eql(100);",
+							"    pm.expect(response[0].id_seller).to.eql(expectedId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/products/prices?min_price=50&max_price=150",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"prices"
+					],
+					"query": [
+						{
+							"key": "min_price",
+							"value": "50"
+						},
+						{
+							"key": "max_price",
+							"value": "150"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editamos el producto del sistema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"category\": \"integracion\",\n  \"description\": \"integracion\",\n  \"name\": \"integracion\",\n  \"price\": 3000,\n  \"stock\": 3000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/products/{{GLOBAL_ID}}",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{GLOBAL_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtenemos al producto y tiene su nueva informacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Obtenemos el producto que editamos con su nueva informacion\", function () {",
+							"    var response = pm.response.json();",
+							"    var expectedId = environment[\"GLOBAL_ID\"];",
+							"",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(1);",
+							"    pm.expect(response[0].id).to.eql(expectedId);",
+							"    pm.expect(response[0].name).to.eql(\"integracion\");",
+							"    pm.expect(response[0].description).to.eql(\"integracion\");",
+							"    pm.expect(response[0].category).to.eql(\"integracion\");",
+							"    pm.expect(response[0].price).to.eql(3000);",
+							"    pm.expect(response[0].stock).to.eql(3000);",
+							"    pm.expect(response[0].id_seller).to.eql(expectedId);",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/products?name=integracion&category=integracion",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "integracion"
+						},
+						{
+							"key": "category",
+							"value": "integracion"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Contamos con dos productos en el sistema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Tenemos dos productos en el sistema\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.an(\"array\");",
+							"    pm.expect(response.length).to.eql(2);",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/products",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminamos el cliente del seed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/customers/{{GLOBAL_ID}}",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"customers",
+						"{{GLOBAL_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminamos el vendedor del seed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 204 NO CONTENT como respuesta positiva\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/sellers/{{GLOBAL_ID}}",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"sellers",
+						"{{GLOBAL_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Intentamos obtener el cliente pero ya no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"El cliente que creamos ya no existe en el sistema\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.null",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/customers?email=clienteeditado@gmail.com",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "clienteeditado@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Intentamos obtener al vendedor pero ya no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"El vendedor que creamos ya no existe en el sistema\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.null",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/sellers?business_name=vendedor@pruebanuevo.com",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"sellers"
+					],
+					"query": [
+						{
+							"key": "business_name",
+							"value": "vendedor@pruebanuevo.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Intentamos obtener los productos pero ya no existen al haber eliminado al vendedor duenio de los mismos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Se retorna un 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Ya no tenemos productos en el sistema por eliminar al vendedor que los poseia\", function () {",
+							"    var response = pm.response.json();",
+							"",
+							"    pm.expect(response).to.be.null",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PROTOCOL}}://{{HOST}}:{{PORT}}/api/v1/products",
+					"protocol": "{{PROTOCOL}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"api",
+						"v1",
+						"products"
 					]
 				}
 			},

@@ -16,6 +16,7 @@ type ICustomerRepository interface {
 	Create(customer *Customer) (uuid.UUID, error)
 	Update(ID uuid.UUID, name string, surname string, email string) error
 	Delete(ID uuid.UUID) error
+	DeleteAll() error
 	Find(emailPattern string) ([]*Customer, error)
 	FindById(idCustomer uuid.UUID) (*Customer, error)
 }

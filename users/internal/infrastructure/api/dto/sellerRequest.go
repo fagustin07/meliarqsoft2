@@ -1,6 +1,9 @@
 package dto
 
-import "meliarqsoft2/internal/domain/model"
+import (
+	"github.com/google/uuid"
+	"meliarqsoft2/internal/domain/model"
+)
 
 type CreateSellerRequest struct {
 	BusinessName string `json:"business_name" bson:"business_name" binding:"required"`
@@ -14,6 +17,7 @@ func (dto CreateSellerRequest) MapToModel() (model.Seller, error) {
 	}
 
 	return model.Seller{
+		ID:           uuid.Nil,
 		BusinessName: dto.BusinessName,
 		Email:        address,
 	}, nil

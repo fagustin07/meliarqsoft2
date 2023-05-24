@@ -13,7 +13,6 @@ services:
       - products-service
       - purchases-service
       - mongo
-      - rabbitmq
     links:
       - products-service
       - users-service
@@ -28,7 +27,6 @@ services:
       - mongo
     links:
       - mongo
-      - rabbitmq
     profiles: ["service"]
   products-service:
     build:
@@ -51,19 +49,9 @@ services:
       - mongo
     links:
       - mongo
-      - rabbitmq
     profiles: ["service"]
   #  TODO purchase-orchestator:
   #  TODO notifier-service: podria no ponerse ya que encolamos los mensajes en un rabbit de dev
-  rabbitmq:
-    image: rabbitmq:management
-    container_name: rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
-    ports:
-      - "5672:5672"
-    profiles: ["service"]
   mongo:
     image: mongo
     ports:

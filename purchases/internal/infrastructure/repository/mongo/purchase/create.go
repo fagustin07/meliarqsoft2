@@ -8,12 +8,19 @@ import (
 )
 
 func (repository MongoRepository) Create(purchase *model.Purchase) (uuid.UUID, error) {
-	newId, err := uuid.NewUUID()
-	if err != nil {
-		return uuid.Nil, model2.CreateUUIDError{}
+	var newUUID uuid.UUID
+	var err error
+
+	if purchase.ID == uuid.Nil {
+		newUUID, err = uuid.NewUUID()
+		if err != nil {
+			return uuid.Nil, model2.CreateUUIDError{}
+		}
+	} else {
+		newUUID = purchase.ID
 	}
 
-	purchase.ID = newId
+	purchase.ID = newUUID
 
 	dbPurchase := MapPurchaseToMongoModel(purchase)
 	_, err = repository.collection.InsertOne(context.Background(), dbPurchase)
@@ -22,5 +29,5 @@ func (repository MongoRepository) Create(purchase *model.Purchase) (uuid.UUID, e
 		return uuid.Nil, err
 	}
 
-	return newId, nil
+	return newUUID, nil
 }

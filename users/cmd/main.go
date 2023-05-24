@@ -1,10 +1,13 @@
 package main
 
 import (
+	"github.com/google/uuid"
 	"github.com/joho/godotenv"
+	mongo2 "go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"meliarqsoft2/internal/domain/application/action"
 	"meliarqsoft2/internal/domain/application/query"
+	"meliarqsoft2/internal/domain/model"
 	"meliarqsoft2/internal/infrastructure/api"
 	"meliarqsoft2/internal/infrastructure/api/gin"
 	"meliarqsoft2/internal/infrastructure/repository/mongo"
@@ -76,9 +79,48 @@ func main() {
 		),
 	)
 
+	if os.Getenv("ENVIRONMENT") == "test" {
+		seed(sellerRepository, customerRepository)
+	}
+
 	err = newAPI.Run()
 
 	if err != nil {
 		log.Fatal("failed running app")
+	}
+}
+
+func seed(sellerRepository model.ISellerRepository, customerRepository model.ICustomerRepository) {
+	id, _ := uuid.Parse("9d032089-9223-4c98-9196-f97c6f792473")
+
+	email, _ := model.NewEmail("vendedor@prueba.com")
+	err := sellerRepository.DeleteAll()
+	if err != nil && err != mongo2.ErrNoDocuments {
+		panic("error: " + err.Error())
+	}
+
+	_, err = sellerRepository.Create(&model.Seller{
+		ID:           id,
+		BusinessName: "VENTA PRUEBAS",
+		Email:        email,
+	})
+	if err != nil {
+		panic("failed in user service setup: " + err.Error())
+	}
+
+	email, _ = model.NewEmail("cliente@prueba.com")
+	err = customerRepository.DeleteAll()
+	if err != nil && err != mongo2.ErrNoDocuments {
+		panic("error: " + err.Error())
+	}
+
+	_, err = customerRepository.Create(&model.Customer{
+		ID:      id,
+		Name:    "prueba",
+		Surname: "prueba",
+		Email:   email,
+	})
+	if err != nil {
+		panic("failed in user service setup: " + err.Error())
 	}
 }

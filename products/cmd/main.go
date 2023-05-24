@@ -1,10 +1,13 @@
 package main
 
 import (
+	"github.com/google/uuid"
 	"github.com/joho/godotenv"
+	mongo2 "go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"meliarqsoft2/internal/domain/application/action"
 	"meliarqsoft2/internal/domain/application/query"
+	"meliarqsoft2/internal/domain/model"
 	"meliarqsoft2/internal/infrastructure/api"
 	"meliarqsoft2/internal/infrastructure/api/gin"
 	"meliarqsoft2/internal/infrastructure/repository/mongo"
@@ -44,9 +47,37 @@ func main() {
 		api.NewEvents(createProductEvent, updateProductEvent, deleteProductEvent, findProductEvent, filterProductEvent, deleteProductsBySeller, findById),
 	)
 
+	if os.Getenv("ENVIRONMENT") == "test" {
+		seed(productRepository)
+	}
+
 	err = newAPI.Run()
 
 	if err != nil {
 		log.Fatal("failed running app")
+	}
+}
+
+func seed(repository model.IProductRepository) {
+	id, _ := uuid.Parse("9d032089-9223-4c98-9196-f97c6f792473")
+	price, _ := model.NewPrice(float32(200))
+	stock, _ := model.NewStock(999999)
+	err := repository.DeleteAll()
+	if err != nil && err != mongo2.ErrNoDocuments {
+		panic("failed in product service seed")
+	}
+
+	_, err = repository.Create(model.Product{
+		ID:          id,
+		Name:        "prueba",
+		Description: "prueba",
+		Category:    "prueba",
+		Price:       price,
+		Stock:       stock,
+		IDSeller:    id,
+	})
+
+	if err != nil {
+		panic("failed in product service seed")
 	}
 }

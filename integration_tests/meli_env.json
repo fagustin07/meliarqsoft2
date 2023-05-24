@@ -1,6 +1,6 @@
 {
 	"id": "4f3747b1-35eb-428b-a276-c6e920b3087d",
-	"name": "meli env",
+	"name": "TEST",
 	"values": [
 		{
 			"key": "PROTOCOL",
@@ -19,9 +19,15 @@
 			"value": "9000",
 			"type": "default",
 			"enabled": true
+		},
+		{
+			"key": "GLOBAL_ID",
+			"value": "9d032089-9223-4c98-9196-f97c6f792473",
+			"type": "default",
+			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2023-05-13T18:44:34.925Z",
-	"_postman_exported_using": "Postman/10.13.0"
+	"_postman_exported_at": "2023-05-24T00:07:34.612Z",
+	"_postman_exported_using": "Postman/10.14.2"
 }

@@ -4,15 +4,24 @@ import (
 	"context"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/mongo"
+	"log"
 	"meliarqsoft2/internal/domain/model"
 	model2 "meliarqsoft2/pkg/exceptions/model"
 )
 
 func (repo MongoRepository) Create(seller *model.Seller) (uuid.UUID, error) {
-	newUUID, err := uuid.NewUUID()
-	if err != nil {
-		return uuid.Nil, model2.CreateUUIDError{}
+	var newUUID uuid.UUID
+	var err error
+
+	if seller.ID == uuid.Nil {
+		newUUID, err = uuid.NewUUID()
+		if err != nil {
+			return uuid.Nil, model2.CreateUUIDError{}
+		}
+	} else {
+		newUUID = seller.ID
 	}
+
 	seller.ID = newUUID
 
 	dbSeller := MapSellerToMongoModel(seller)
@@ -24,6 +33,8 @@ func (repo MongoRepository) Create(seller *model.Seller) (uuid.UUID, error) {
 
 		return uuid.Nil, err
 	}
+
+	log.Println("created seller with id " + newUUID.String())
 
 	return newUUID, nil
 }

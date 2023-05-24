@@ -10,6 +10,7 @@ import (
 	"meliarqsoft2/internal/domain/model"
 	model2 "meliarqsoft2/pkg/exceptions/model"
 	"net/http"
+	"net/url"
 )
 
 type SellerHttpSyncService struct {
@@ -155,8 +156,8 @@ func (s SellerHttpSyncService) Update(id uuid.UUID, businessName string, email s
 }
 
 func (s SellerHttpSyncService) Find(businessName string) ([]model.Seller, error) {
-	url := fmt.Sprintf("%s/sellers?business_name=%s", s.BasePath, businessName)
-	resp, err := http.Get(url)
+	path := fmt.Sprintf("%s/sellers?business_name=%s", s.BasePath, url.QueryEscape(businessName))
+	resp, err := http.Get(path)
 	if err != nil || resp.StatusCode >= 500 {
 		return nil, model2.ServiceUnavailable{}
 	}
