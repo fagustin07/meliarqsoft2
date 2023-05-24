@@ -35,5 +35,22 @@ services:
     container_name: meli_purchases_service
     depends_on:
       - products-service
-#  TODO purchase-orchestator: AGREGAR
-#  TODO notifier-service: AGREGAR
+  purchases-orchestrator-service:
+    build:
+      context: .
+      dockerfile: make-purchase-orchestator/Dockerfile
+    container_name: meli_purchase_orchestrator_service
+    depends_on:
+      - users-service
+      - products-service
+      - purchases-service
+    links:
+      - products-service
+      - users-service
+      - purchases-service
+  notifier-service:
+    build:
+      context: .
+      dockerfile: notifier/Dockerfile
+    container_name: meli_notifier_service
+    
