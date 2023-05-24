@@ -806,10 +806,10 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
-                "idproduct": {
+                "id_product": {
                     "type": "string"
                 },
-                "iduser": {
+                "id_user": {
                     "type": "string"
                 },
                 "total": {

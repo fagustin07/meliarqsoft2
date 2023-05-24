@@ -84,9 +84,9 @@ definitions:
         type: string
       id:
         type: string
-      idproduct:
+      id_product:
         type: string
-      iduser:
+      id_user:
         type: string
       total:
         type: number
