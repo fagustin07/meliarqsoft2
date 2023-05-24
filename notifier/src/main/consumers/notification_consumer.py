@@ -1,4 +1,5 @@
-import codecs
+import pika
+from src.main.config.amqp import amqp_uri
 import json
 from src.main.consumers.basic_consumer import BasicClient
 from src.main.services.email_service import EmailService
@@ -10,6 +11,9 @@ from src.main.utils.content.register_html import register_html
 class NotificationConsumer(BasicClient):
 
     def __init__(self, email_service: EmailService):
+        self.params = pika.URLParameters(amqp_uri)
+        self.connection = pika.BlockingConnection(self.params)
+        self.channel = self.connection.channel()  # start a channel
         self.email_service = email_service
         self.queue = 'notifier'
         self.channel.queue_declare(queue=self.queue)
@@ -42,3 +46,11 @@ class NotificationConsumer(BasicClient):
                 self.email_service.send_email(to=to, body=body, title="Bienvenido a Meli")
         except Exception as e:
             print(e)
+
+    def consume(self):
+        self.channel.basic_consume(queue=self.queue, on_message_callback=self.callback, auto_ack=True)
+        self.channel.start_consuming()
+
+    def close(self):
+        self.channel.close()
+        self.connection.close()
