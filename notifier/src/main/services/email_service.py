@@ -1,9 +1,10 @@
+from services.basic_email_service import BasicEmailService
 from src.main.config.smtp import email, password
 from email.message import EmailMessage
 import smtplib
 
 
-class EmailService:
+class EmailService(BasicEmailService):
     def __init__(self):
         self.smtp = smtplib.SMTP("smtp-mail.outlook.com", port=587)
         self.smtp.starttls()
