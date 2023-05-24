@@ -17,11 +17,9 @@ type Events struct {
 	UnregisterCustomerEvent *action.UnregisterCustomerEvent
 	FindCustomerEvent       *query.FindCustomerEvent
 	FindCustomerByIdEvent   *query.FindCustomerByIdEvent
-
-	SendNotificationEvent *action.SendNotificationEvent
 }
 
-func NewEvents(registerSellerEvent *action.RegisterSellerEvent, updateSellerEvent *action.UpdateSellerEvent, unregisterSellerEvent *action.UnregisterSellerEvent, findSellerEvent *query.FindSellerEvent, findByIdSeller *query.FindSellerByIdEvent, registerCustomerEvent *action.RegisterCustomerEvent, updateCustomerEvent *action.UpdateCustomerEvent, unregisterCustomerEvent *action.UnregisterCustomerEvent, findCustomerEvent *query.FindCustomerEvent, findCustomerById *query.FindCustomerByIdEvent, sendNotificationEvent *action.SendNotificationEvent) *Events {
+func NewEvents(registerSellerEvent *action.RegisterSellerEvent, updateSellerEvent *action.UpdateSellerEvent, unregisterSellerEvent *action.UnregisterSellerEvent, findSellerEvent *query.FindSellerEvent, findByIdSeller *query.FindSellerByIdEvent, registerCustomerEvent *action.RegisterCustomerEvent, updateCustomerEvent *action.UpdateCustomerEvent, unregisterCustomerEvent *action.UnregisterCustomerEvent, findCustomerEvent *query.FindCustomerEvent, findCustomerById *query.FindCustomerByIdEvent) *Events {
 	return &Events{
 		RegisterSellerEvent:   registerSellerEvent,
 		UpdateSellerEvent:     updateSellerEvent,
@@ -34,8 +32,6 @@ func NewEvents(registerSellerEvent *action.RegisterSellerEvent, updateSellerEven
 		UnregisterCustomerEvent: unregisterCustomerEvent,
 		FindCustomerEvent:       findCustomerEvent,
 		FindCustomerByIdEvent:   findCustomerById,
-
-		SendNotificationEvent: sendNotificationEvent,
 	}
 
 }

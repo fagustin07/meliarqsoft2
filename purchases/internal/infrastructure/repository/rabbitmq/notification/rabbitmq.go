@@ -5,13 +5,13 @@ import (
 	"os"
 )
 
-type RabbitMQRepository struct {
+type RabbitMQService struct {
 	client  *amqp.Connection
 	channel *amqp.Channel
 	queue   amqp.Queue
 }
 
-func NewRabbitMQRepository(client *amqp.Connection) *RabbitMQRepository {
+func NewRabbitMQService(client *amqp.Connection) *RabbitMQService {
 
 	queueName := os.Getenv("AMQP_QUEUE_NAME")
 
@@ -34,7 +34,7 @@ func NewRabbitMQRepository(client *amqp.Connection) *RabbitMQRepository {
 		panic(errQ.Error())
 	}
 
-	repo := &RabbitMQRepository{
+	repo := &RabbitMQService{
 		client:  client,
 		channel: ch,
 		queue:   queue,

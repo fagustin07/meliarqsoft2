@@ -6,7 +6,7 @@ import (
 	"meliarqsoft2/internal/domain/model"
 )
 
-func (repo RabbitMQRepository) Send(notification *model.Notification) error {
+func (repo RabbitMQService) Send(notification *model.Notification) error {
 	body, errJ := json.Marshal(notification)
 	if errJ != nil {
 		return errJ

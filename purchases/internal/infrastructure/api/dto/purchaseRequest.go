@@ -18,15 +18,15 @@ type CreatePurchaseRequest struct {
 	Total       float32   `json:"total" bson:"total" binding:"required"`
 }
 
-func (dto CreatePurchaseRequest) MapToModel() (model.Purchase, model.Notification, model.Notification, error) {
+func (dto CreatePurchaseRequest) MapToModel() (*model.Purchase, *model.Notification, *model.Notification, error) {
 	newUnits, err := model.NewUnits(dto.Units)
 	if err != nil {
-		return model.Purchase{}, model.Notification{}, model.Notification{}, err
+		return nil, nil, nil, err
 	}
 
 	newTotal, err := model.NewTotal(dto.Total)
 	if err != nil {
-		return model.Purchase{}, model.Notification{}, model.Notification{}, err
+		return nil, nil, nil, err
 	}
 
 	purchase := model.Purchase{
@@ -40,11 +40,30 @@ func (dto CreatePurchaseRequest) MapToModel() (model.Purchase, model.Notificatio
 
 	sellerNotification, errSeller := model.NewNotification(dto.SellerName, dto.SellerEmail, dto.ProductName, "Sell")
 	if errSeller != nil {
-		return model.Purchase{}, model.Notification{}, model.Notification{}, errSeller
+		return nil, nil, nil, errSeller
 	}
 	buyerNotification, errBuyer := model.NewNotification(dto.BuyerName, dto.BuyerEmail, dto.ProductName, "Purchase")
 	if errBuyer != nil {
-		return model.Purchase{}, model.Notification{}, model.Notification{}, errBuyer
+		return nil, nil, nil, errBuyer
 	}
-	return purchase, *sellerNotification, *buyerNotification, nil
+	return &purchase, sellerNotification, buyerNotification, nil
+}
+
+func (dto CreatePurchaseRequest) MapToInternal() (*CreatePurchase, error) {
+	purchase, sellerNotification, buyerNotification, err := dto.MapToModel()
+	if err != nil {
+		return nil, err
+	}
+
+	return &CreatePurchase{
+		Purchase:           purchase,
+		SellerNotification: sellerNotification,
+		BuyerNotification:  buyerNotification,
+	}, nil
+}
+
+type CreatePurchase struct {
+	Purchase           *model.Purchase
+	SellerNotification *model.Notification
+	BuyerNotification  *model.Notification
 }

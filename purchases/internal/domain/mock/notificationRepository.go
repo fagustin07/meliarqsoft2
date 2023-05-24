@@ -6,7 +6,7 @@ import (
 	"reflect"
 )
 
-// MockINotificationRepository is a mock of INotificationRepository interface.
+// MockINotificationRepository is a mock of INotificationService interface.
 type MockINotificationRepository struct {
 	ctrl     *gomock.Controller
 	recorder *MockINotificationRepositoryMockRecorder

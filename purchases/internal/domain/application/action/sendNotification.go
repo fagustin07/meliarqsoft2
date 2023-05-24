@@ -5,15 +5,15 @@ import (
 )
 
 type SendNotificationEvent struct {
-	repository model.INotificationRepository
+	service model.INotificationService
 }
 
-func NewSendNotificationEvent(repository model.INotificationRepository) *SendNotificationEvent {
+func NewSendNotificationEvent(repository model.INotificationService) *SendNotificationEvent {
 	return &SendNotificationEvent{
-		repository: repository,
+		service: repository,
 	}
 }
 
 func (actionEvent SendNotificationEvent) Execute(notification *model.Notification) error {
-	return actionEvent.repository.Send(notification)
+	return actionEvent.service.Send(notification)
 }

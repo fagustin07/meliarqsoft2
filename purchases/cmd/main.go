@@ -30,18 +30,13 @@ func main() {
 
 	purchaseRepository := purchase.NewPurchaseMongoRepository(client)
 
-	makePurchaseEvent := action.NewMakePurchaseEvent(purchaseRepository)
-
 	// RabbitMQ
 	clientMQ := rabbitmq.NewFactory().InitRabbitMQ()
-	notificationRepository := notification.NewRabbitMQRepository(clientMQ)
+	notificationService := notification.NewRabbitMQService(clientMQ)
 
+	makePurchaseEvent := action.NewMakePurchaseEvent(purchaseRepository, notificationService)
 	undoPurchasesFromProductEvent := action.NewUndoPurchasesByProductEvent(purchaseRepository)
-
 	findFromProductsEvent := query.NewFindPurchasesFromProductEvent(purchaseRepository)
-
-	// Notification
-	sendNotificationEvent := action.NewSendNotificationEvent(notificationRepository)
 
 	purchaseAPI := gin.NewMeliAPI(
 		port,
@@ -49,7 +44,6 @@ func main() {
 			undoPurchasesFromProductEvent,
 			makePurchaseEvent,
 			findFromProductsEvent,
-			sendNotificationEvent,
 		),
 	)
 

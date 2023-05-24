@@ -1,26 +1,31 @@
 package action
 
 import (
-	"github.com/google/uuid"
 	"meliarqsoft2/internal/domain/model"
+	"meliarqsoft2/internal/infrastructure/api/dto"
 )
 
 type MakePurchaseEvent struct {
-	repository model.IPurchaseRepository
+	repository          model.IPurchaseRepository
+	notificationService model.INotificationService
 }
 
-func NewMakePurchaseEvent(repo model.IPurchaseRepository) *MakePurchaseEvent {
+func NewMakePurchaseEvent(repo model.IPurchaseRepository, service model.INotificationService) *MakePurchaseEvent {
 	return &MakePurchaseEvent{
-		repository: repo,
+		repository:          repo,
+		notificationService: service,
 	}
 }
 
-func (actionEvent MakePurchaseEvent) Execute(purchase *model.Purchase) (uuid.UUID, error) {
-	id, err := actionEvent.repository.Create(purchase)
+func (actionEvent MakePurchaseEvent) Execute(purchaseReq *dto.CreatePurchase) (*model.Purchase, error) {
+	_, err := actionEvent.repository.Create(purchaseReq.Purchase)
 
 	if err != nil {
-		return uuid.Nil, err
+		return nil, err
 	}
 
-	return id, nil
+	_ = actionEvent.notificationService.Send(purchaseReq.SellerNotification)
+	_ = actionEvent.notificationService.Send(purchaseReq.BuyerNotification)
+
+	return purchaseReq.Purchase, nil
 }

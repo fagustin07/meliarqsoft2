@@ -40,10 +40,10 @@ func main() {
 
 	clientMQ := rabbitmq.NewFactory().InitRabbitMQ()
 
-	notificationRepository := notification.NewRabbitMQRepository(clientMQ)
+	notificationService := notification.NewRabbitMQService(clientMQ)
 
 	// seller
-	registerSellerEvent := action.NewRegisterSellerEvent(sellerRepository)
+	registerSellerEvent := action.NewRegisterSellerEvent(sellerRepository, notificationService)
 	updateSellerEvent := action.NewUpdateSellerEvent(sellerRepository)
 	findSellerEvent := query.NewFindSellerEvent(sellerRepository)
 	findSellerByIdEvent := query.NewFindSellerByIdEvent(sellerRepository)
@@ -52,13 +52,10 @@ func main() {
 
 	// user
 	findUserById := query.NewFindCustomerByIdEvent(customerRepository)
-	registerCustomerEvent := action.NewRegisterCustomerEvent(customerRepository)
+	registerCustomerEvent := action.NewRegisterCustomerEvent(customerRepository, notificationService)
 	updateCustomerEvent := action.NewUpdateCustomerEvent(customerRepository)
 	findCustomerEvent := query.NewFindCustomerEvent(customerRepository)
 	unregisterCustomerEvent := action.NewUnregisterCustomerEvent(customerRepository)
-
-	// Notification
-	sendNotification := action.NewSendNotificationEvent(notificationRepository)
 
 	newAPI := gin.NewMeliAPI(
 		port,
@@ -74,8 +71,6 @@ func main() {
 			unregisterCustomerEvent,
 			findCustomerEvent,
 			findUserById,
-
-			sendNotification,
 		),
 	)
 

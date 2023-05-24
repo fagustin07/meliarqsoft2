@@ -3,6 +3,7 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"meliarqsoft2/internal/domain/application/action"
+	"meliarqsoft2/internal/domain/model"
 	dto2 "meliarqsoft2/internal/infrastructure/api/dto"
 	"meliarqsoft2/pkg/exceptions/application"
 	"net/http"
@@ -10,13 +11,11 @@ import (
 
 type GinRegisterCustomer struct {
 	RegisterCustomerEvent *action.RegisterCustomerEvent
-	SendNotificationEvent *action.SendNotificationEvent
 }
 
-func NewGinCustomerRegister(registerCustomerEvent *action.RegisterCustomerEvent, sendNotificationEvent *action.SendNotificationEvent) *GinRegisterCustomer {
+func NewGinCustomerRegister(registerCustomerEvent *action.RegisterCustomerEvent) *GinRegisterCustomer {
 	return &GinRegisterCustomer{
 		RegisterCustomerEvent: registerCustomerEvent,
-		SendNotificationEvent: sendNotificationEvent,
 	}
 }
 
@@ -26,7 +25,7 @@ func NewGinCustomerRegister(registerCustomerEvent *action.RegisterCustomerEvent,
 // @Accept json
 // @Produce json
 // @Tags Customers
-// @Param Body body dto.CreateCustomerRequest true "Register"
+// @Param Customer body dto.CreateCustomerRequest true "Register"
 // @Success 201 {object} dto.CustomerID
 // @Failure 400
 // @Failure 500
@@ -44,15 +43,16 @@ func (handler GinRegisterCustomer) Execute(c *gin.Context) {
 		return
 	}
 
-	id, err := handler.RegisterCustomerEvent.Execute(&toModel)
+	newNotification, err := model.NewNotification(toModel.Name, toModel.Email.Address)
 	if err != nil {
 		application.MeliGinHandlerError{}.Execute(err, c)
 		return
 	}
 
-	errNotification := handler.SendNotificationEvent.Execute(toModel.Name, toModel.Email.Address)
-	if errNotification != nil {
-		application.MeliGinHandlerError{}.Execute(errNotification, c)
+	id, err := handler.RegisterCustomerEvent.Execute(&toModel, newNotification)
+	if err != nil {
+		application.MeliGinHandlerError{}.Execute(err, c)
+		return
 	}
 
 	c.JSON(http.StatusCreated, dto2.CustomerID{ID: id})
