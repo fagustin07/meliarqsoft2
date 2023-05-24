@@ -42,6 +42,7 @@ type IProductRepository interface {
 	Create(product Product) (uuid.UUID, error)
 	Update(ID uuid.UUID, name string, description string, category string, price float32, stock int) (Product, error)
 	Delete(ID uuid.UUID) error
+	DeleteAll() error
 	DeleteBySeller(sellerID uuid.UUID) ([]uuid.UUID, error)
 	Restore(IDs []uuid.UUID) (int64, error)
 	Find(name string, category string) ([]Product, error)

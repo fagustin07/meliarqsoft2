@@ -15,6 +15,7 @@ type ISellerRepository interface {
 	Create(seller *Seller) (uuid.UUID, error)
 	Update(id uuid.UUID, businessName string, email string) error
 	Delete(ID uuid.UUID) error
+	DeleteAll() error
 	Restore(ID uuid.UUID) error
 	Find(businessName string) ([]*Seller, error)
 	FindById(idSeller uuid.UUID) (*Seller, error)

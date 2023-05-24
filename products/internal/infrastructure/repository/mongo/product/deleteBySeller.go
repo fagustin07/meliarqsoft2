@@ -5,7 +5,6 @@ import (
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"log"
 	"time"
 )
 
@@ -15,7 +14,6 @@ func (repo MongoRepository) DeleteBySeller(sellerID uuid.UUID) ([]uuid.UUID, err
 		return nil, err
 	}
 
-	log.Println(IDs)
 	if len(IDs) == 0 {
 		return nil, nil
 	}

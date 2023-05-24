@@ -9,9 +9,16 @@ import (
 )
 
 func (repo MongoRepository) Create(customer *model.Customer) (uuid.UUID, error) {
-	newUUID, err := uuid.NewUUID()
-	if err != nil {
-		return uuid.Nil, model2.CreateUUIDError{}
+	var newUUID uuid.UUID
+	var err error
+
+	if customer.ID == uuid.Nil {
+		newUUID, err = uuid.NewUUID()
+		if err != nil {
+			return uuid.Nil, model2.CreateUUIDError{}
+		}
+	} else {
+		newUUID = customer.ID
 	}
 
 	customer.ID = newUUID

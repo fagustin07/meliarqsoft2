@@ -21,9 +21,15 @@ Para correr tests unitarios, en cada servicio se encuentran los pasos correspond
 
 ## Testing de Integracion
 Para correr los tests de integracion debemos ejecutar:
-1. `docker compose --profile service -f docker-compose-test.yml up`
-2. Luego de que todos nuestros servicios se levanten, corremos: `docker compose --profile testing -f docker-compose-test.yml up`
-3. Con esto veremos un resumen del reporte de los tests.
-Posible error y solucion: Hemos detectado que ciertas veces `docker compose` suele fallar al utilizar las mismas imagenes. Para solucionarlo, ejecute el comando en cuestion agregándole el argumento `--force-recreate` al final del mismo.
+1. Si hemos corrido la app por si sola, primero ejecutamos `docker compose down`.
+2. Copiar y pegar la información del archivo `.env.test.example` en nuestro `.env` y configurar el `AMPQ_URI` dado junto a `ENVIRONMENT` con el valor `test` (se recomienda guardar su .env actual para luego volver a correr la app).
+3. A continuacion corremos `docker compose --profile service -f docker-compose-test.yml up --build`
+4. Luego de que todos nuestros servicios se levanten, corremos en otra consola: `docker compose --profile tests -f docker-compose-test.yml up --build`
+5. Con esto veremos un resumen del reporte de los tests.
+6. Cada vez que queramos correr nuevamente los tests de integracion debemos
+   - Ejecutar `docker compose --profile service -f docker-compose-test.yml down` para limpiar los contenedores de prueba.
+   - Luego de que todos nuestros servicios se levanten, corremos en otra consola: `docker compose --profile tests -f docker-compose-test.yml up --force-recreate`
+
+Posible error y solucion: Hemos detectado que ciertas al hacer el `docker compose ... up ...` tanto del perfil de servicio o del test, suele fallar al utilizar las mismas imagenes. Para solucionarlo, ejecute el comando en cuestion agregándole el argumento `--force-recreate` al final del mismo.
 
 Autores: Mauro Bailon, Federico Sandoval.

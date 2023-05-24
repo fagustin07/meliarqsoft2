@@ -5,6 +5,7 @@ import (
 	"log"
 	"meliarqsoft2/internal/domain/application/action"
 	"meliarqsoft2/internal/domain/application/query"
+	"meliarqsoft2/internal/domain/model"
 	"meliarqsoft2/internal/infrastructure/api"
 	"meliarqsoft2/internal/infrastructure/api/gin"
 	"meliarqsoft2/internal/infrastructure/repository/mongo"
@@ -52,9 +53,24 @@ func main() {
 		),
 	)
 
+	if os.Getenv("ENVIRONMENT") == "test" {
+		seed(purchaseRepository)
+	}
+
+	if err != nil {
+		panic(err.Error())
+	}
+
 	err = purchaseAPI.Run()
 
 	if err != nil {
 		log.Fatal("failed running app")
+	}
+}
+
+func seed(repository model.IPurchaseRepository) {
+	err := repository.DeleteAll()
+	if err != nil {
+		panic("error: " + err.Error())
 	}
 }

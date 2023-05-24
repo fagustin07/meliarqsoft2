@@ -10,6 +10,7 @@ import (
 	"meliarqsoft2/internal/domain/model"
 	model2 "meliarqsoft2/pkg/exceptions/model"
 	"net/http"
+	"net/url"
 )
 
 type CustomerHttpSyncService struct {
@@ -179,8 +180,9 @@ func (s CustomerHttpSyncService) Delete(ID uuid.UUID) error {
 }
 
 func (s CustomerHttpSyncService) Find(emailPattern string) ([]model.Customer, error) {
-	url := fmt.Sprintf("%s/customers?email=%s", s.BasePath, emailPattern)
-	resp, err := http.Get(url)
+	path := fmt.Sprintf("%s/customers?email=%s", s.BasePath, url.QueryEscape(emailPattern))
+
+	resp, err := http.Get(path)
 	if err != nil || resp.StatusCode >= 500 {
 		return nil, model2.ServiceUnavailable{}
 	}

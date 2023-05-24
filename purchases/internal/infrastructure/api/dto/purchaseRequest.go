@@ -30,7 +30,7 @@ func (dto CreatePurchaseRequest) MapToModel() (model.Purchase, model.Notificatio
 	}
 
 	purchase := model.Purchase{
-		ID:         uuid.UUID{},
+		ID:         uuid.Nil,
 		IDProduct:  dto.IDProduct,
 		IDCustomer: dto.IDUser,
 		Date:       time.Now(),
