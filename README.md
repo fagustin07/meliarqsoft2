@@ -1,8 +1,7 @@
 # Arquitectura Hexagonal basada en DDD.
 
-## Documentacion requerida
-   Los documentos solicitados se encuentran en la carpeta *[documentacion](https://github.com/fagustin07/meliarqsoft2/tree/main/documentacion)*.
-   
+## Documentacion de entrega
+   Los documentos solicitados se encuentran en la carpeta *[documentacion](https://github.com/fagustin07/meliarqsoft2/tree/main/documentacion)*, con el nombre de la entrega correspondiente en cada instancia.
 ## Requerimientos
 - [Docker](https://docs.docker.com/get-docker/). 🐳
 - [Docker Compose](https://docs.docker.com/get-docker/). 🐳
