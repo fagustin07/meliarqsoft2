@@ -21,3 +21,12 @@
 go.work
 
 .idea
+
+# Notifier
+notifier/.idea
+notifier/src/main/config/__pycache__
+notifier/src/main/consumers/__pycache__
+
+# Purchase Orchestator
+make-purchase-orchestator/node_modules
+make-purchase-orchestator/.env

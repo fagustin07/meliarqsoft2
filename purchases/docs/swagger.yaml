@@ -1,0 +1,132 @@
+definitions:
+  dto.CreatePurchaseRequest:
+    properties:
+      buyer_email:
+        type: string
+      buyer_name:
+        type: string
+      id_product:
+        type: string
+      id_user:
+        type: string
+      product_name:
+        type: string
+      seller_email:
+        type: string
+      seller_name:
+        type: string
+      total:
+        type: number
+      units:
+        type: integer
+    required:
+    - buyer_email
+    - buyer_name
+    - id_product
+    - id_user
+    - product_name
+    - seller_email
+    - seller_name
+    - total
+    - units
+    type: object
+  dto.PurchaseDTO:
+    properties:
+      date:
+        type: string
+      id:
+        type: string
+      id_product:
+        type: string
+      id_user:
+        type: string
+      total:
+        type: number
+      units:
+        type: integer
+    type: object
+  handler.ProductsIDs:
+    properties:
+      ids:
+        items:
+          type: string
+        type: array
+    type: object
+info:
+  contact: {}
+paths:
+  /purchases:
+    delete:
+      description: Delete all purchases from product
+      parameters:
+      - description: Register
+        in: body
+        name: IDs
+        required: true
+        schema:
+          $ref: '#/definitions/handler.ProductsIDs'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "409":
+          description: Conflict
+        "500":
+          description: Internal Server Error
+      summary: Delete all purchases from product
+      tags:
+      - Purchases
+    post:
+      consumes:
+      - application/json
+      description: Make User buy Product by ids.
+      parameters:
+      - description: Register
+        in: body
+        name: Purchase
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreatePurchaseRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/dto.PurchaseDTO'
+            type: array
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Make a purchase.
+      tags:
+      - Purchases
+  /purchases/products/{id}:
+    get:
+      description: Find purchases from product
+      parameters:
+      - description: ID from product
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Find purchases from product.
+      tags:
+      - Purchases
+swagger: "2.0"

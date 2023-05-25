@@ -1,11 +1,58 @@
 version: '3'
 
 services:
-  app:
+  api-gateway:
     build:
       context: .
-      dockerfile: Dockerfile
-    env_file:
-      .env
+      dockerfile: gateway/Dockerfile
     ports:
-        - "8080:8080"
+      - ${API_GATEWAY_APP_PORT}:${API_GATEWAY_APP_PORT}
+    container_name: meli_api_gateway
+    depends_on:
+      - users-service
+      - products-service
+      - purchases-service
+      - purchases-orchestrator-service
+    links:
+      - products-service
+      - users-service
+      - purchases-service
+      - purchases-orchestrator-service
+  users-service:
+    build:
+      context: .
+      dockerfile: users/Dockerfile
+    container_name: meli_users_service
+  products-service:
+    build:
+      context: .
+      dockerfile: products/Dockerfile
+    container_name: meli_products_service
+    depends_on:
+      - users-service
+  purchases-service:
+    build:
+      context: .
+      dockerfile: purchases/Dockerfile
+    container_name: meli_purchases_service
+    depends_on:
+      - products-service
+  purchases-orchestrator-service:
+    build:
+      context: .
+      dockerfile: make-purchase-orchestator/Dockerfile
+    container_name: meli_purchase_orchestrator_service
+    depends_on:
+      - users-service
+      - products-service
+      - purchases-service
+    links:
+      - products-service
+      - users-service
+      - purchases-service
+  notifier-service:
+    build:
+      context: .
+      dockerfile: notifier/Dockerfile
+    container_name: meli_notifier_service
+    
